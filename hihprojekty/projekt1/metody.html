@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Maciej Sobczak">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Metody układania kostek</title>
+  <link rel="icon" type="image/x-icon" href="./images/rubik.png">
+  <link href="./style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul class="menu">
+        <li> <a href="index.html">
+            <!-- <svg class="logoimage" version="1.1" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg"> -->
+
+            <svg class="logoimage" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M18.6 3H5.4A2.4 2.4 0 0 0 3 5.4v13.2A2.4 2.4 0 0 0 5.4 21h13.2a2.4 2.4 0 0 0 2.4-2.4V5.4A2.4 2.4 0 0 0 18.6 3Z"
+                fill="#ffffff" fill-opacity=".05" stroke="#ffffff" stroke-width="3" stroke-miterlimit="10" />
+              <path d="M3 12h18M12 21V3" stroke="#ffffff" stroke-width="3" stroke-miterlimit="10"
+                stroke-linecap="round" />
+            </svg>
+
+          </a>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#" tabindex="0">Metody</a>
+          <ul class="submenu">
+            <li><a href="metody.html">Wszystkie metody</a></li>
+            <li><a href="lbl.html">LBL</a></li>
+            <li><a href="fridrich.html">Fridrich</a></li>
+            <li><a href="roux.html">Roux</a></li>
+          </ul>
+        </li>
+        <li><a href="rodzajekostek.html">Rodzaje kostek</a></li>
+        <li><a href="leaderboards.html">Tabela rekordów</a></li>
+        <li><a href="ankieta.html">Ankieta</a></li>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+    <article>
+      <h1>Metody układania kostki Rubika 3x3</h1>
+
+      <section>
+        <p>Układanie kostki Rubika 3x3 to sztuka, która łączy logiczne myślenie, pamięć i zręczność. Choć każdy może
+          dojść
+          do rozwiązania własną drogą, przez lata wykształciło się kilka sprawdzonych metod układania, które różnią się
+          poziomem trudności, liczbą algorytmów i sposobem patrzenia na kostkę. Poniżej znajdziesz trzy
+          najpopularniejsze: LBL, CFOP oraz Roux.</p>
+      </section>
+
+      <section>
+        <h2>Krótka historia kostki Rubika</h2>
+        <p>Kostka Rubika została wynaleziona w 1974 roku przez Ernő Rubika, węgierskiego profesora architektury.
+          Początkowo nazwał ją „Magic Cube”, a jej celem było pokazanie studentom zasad trójwymiarowej geometrii.
+          Szybko jednak stała się światowym fenomenem — do dziś sprzedano ponad 350 milionów egzemplarzy!</p>
+        <p>Od końca lat 80. kostka Rubika stała się obiektem rywalizacji sportowej. Dziś istnieją oficjalne zawody
+          organizowane przez <a href="https://www.worldcubeassociation.org/" target="_blank">World Cube Association
+            (WCA)</a>,
+          gdzie zawodnicy ścigają się w układaniu różnych typów kostek — od klasycznej 3×3 po megaminxa czy pyraminxa.
+        </p>
+      </section>
+
+      <section>
+        <h2><a href="./lbl.html#">Metoda LBL (Layer by Layer) — warstwa po warstwie</a></h2>
+        <p>To najprostsza i najbardziej intuicyjna metoda, od której zaczyna większość początkujących. Nazwa Layer by
+          Layer (czyli „warstwa po warstwie”) dokładnie opisuje proces — układamy kostkę, tworząc kolejne poziomy.</p>
+
+        <p><strong>Etapy układania LBL:</strong></p>
+        <div class="right">
+          <ol>
+            <li>Ułożenie krzyża na pierwszej warstwie (zazwyczaj białej).</li>
+            <li>Dokończenie pierwszej warstwy poprzez ustawienie rogów.</li>
+            <li>Ułożenie drugiej warstwy — dopasowanie krawędzi.</li>
+            <li>Ułożenie krzyża na ostatniej warstwie.</li>
+            <li>Ustawienie ostatnich elementów (OLL i PLL w prostszej formie).</li>
+          </ol>
+          <img src="./images/lbl.png" alt="lbl solving method">
+        </div>
+
+        <p>Metoda LBL jest świetnym punktem startowym — nie wymaga wielu algorytmów, a jej logika pozwala zrozumieć
+          działanie mechanizmu kostki.</p>
+      </section>
+
+      <section>
+        <h2><a href="./fridrich.html#">Metoda CFOP — dla szybkich układaczy</a></h2>
+        <p>CFOP (ang. Cross, F2L, OLL, PLL) to najbardziej popularna metoda wśród speedcuberów — czyli osób, które
+          układają kostkę na czas. Powstała w latach 80. i została spopularyzowana przez Jessicę Fridrich (dlatego
+          często
+          nazywana jest też „metodą Fridrich”).</p>
+
+        <p><strong>Etapy metody CFOP:</strong></p>
+        <div class="right">
+          <ol>
+            <li><strong>Cross</strong> – ułożenie krzyża na dolnej warstwie.</li>
+            <li><strong>F2L (First Two Layers)</strong> – jednoczesne układanie dwóch pierwszych warstw poprzez
+              parowanie krawędzi i rogów.</li>
+            <li><strong>OLL (Orientation of the Last Layer)</strong> – ustawienie wszystkich elementów ostatniej warstwy
+              w
+              odpowiednim kierunku.</li>
+            <li><strong>PLL (Permutation of the Last Layer)</strong> – ustawienie elementów ostatniej warstwy na
+              właściwych
+              pozycjach.</li>
+          </ol>
+          <img src="./images/cfop.png" alt="cfop solving steps">
+        </div>
+
+        <p>To metoda wymagająca zapamiętania nawet ponad 70 algorytmów, ale pozwala osiągać czasy poniżej 10 sekund przy
+          odpowiednim treningu.</p>
+      </section>
+
+      <section>
+        <h2><a href="./roux.html#">Metoda Roux — kreatywne podejście do układania</a></h2>
+        <p>Metoda Roux, stworzona przez francuskiego speedcubera Gilles’a Roux, jest mniej popularna niż CFOP, ale
+          zyskuje
+          coraz więcej zwolenników ze względu na swoją efektywność i logiczne podejście. Nie opiera się na klasycznym
+          „warstwa po warstwie”, lecz na budowie bloków i minimalizacji ruchów.</p>
+
+        <p><strong>Etapy metody Roux:</strong></p>
+        <div class="right">
+          <ol>
+            <li>Zbudowanie dwóch 1×2×3 bloków po lewej i prawej stronie kostki.</li>
+            <li>Ułożenie środkowej warstwy (M-slice).</li>
+            <li>Ustawienie i orientacja ostatnich czterech rogów.</li>
+            <li>Ukończenie środkowych krawędzi i dopasowanie całości.</li>
+          </ol>
+          <img src="./images/roux.png" alt="roux solving method">
+        </div>
+
+        <p>Roux jest bardzo elastyczna — wymaga mniejszej liczby algorytmów niż CFOP i pozwala osiągać równie szybkie
+          czasy, szczególnie w rękach zaawansowanych speedcuberów.</p>
+      </section>
+
+      <section>
+        <h2>Techniki treningu i przydatne narzędzia</h2>
+        <ul>
+          <li>Ćwicz regularnie krótkie sesje (10–15 minut dziennie) zamiast długich, rzadkich treningów.</li>
+          <li>Używaj <strong>timerów online</strong>, takich jak <a href="https://cstimer.net/"
+              target="_blank">csTimer</a>
+            czy <a href="https://cubeast.com/" target="_blank">Cubeast</a>.</li>
+          <li>Nagrywaj swoje ułożenia, aby analizować błędy i nieefektywne ruchy.</li>
+          <li>Spróbuj metody <strong>lookahead</strong> – patrz z wyprzedzeniem na kolejne elementy zamiast zatrzymywać
+            się
+            między ruchami.</li>
+        </ul>
+      </section>
+
+      <!-- <section> -->
+      <!--   <h2>Ciekawostki o kostce Rubika</h2> -->
+      <!--   <ul> -->
+      <!--     <li>Światowy rekord w układaniu kostki 3×3 wynosi poniżej 3 sekund!</li> -->
+      <!--     <li>Każda kostka 3×3 ma <strong>43 tryliony możliwych kombinacji</strong>.</li> -->
+      <!--     <li>Istnieją roboty, które potrafią ułożyć kostkę w mniej niż sekundę.</li> -->
+      <!--     <li>Kostka Rubika jest używana w terapii poznawczej i nauce programowania algorytmicznego.</li> -->
+      <!--   </ul> -->
+      <!-- </section> -->
+
+      <section>
+        <h2>Którą metodę wybrać?</h2>
+        <ul>
+          <li><strong>Jesteś początkujący?</strong> Zacznij od LBL, aby zrozumieć podstawy.</li>
+          <li><strong>Chcesz układać szybciej?</strong> Przejdź do CFOP — to najczęściej wybierana metoda zawodników.
+          </li>
+          <li><strong>Lubisz eksperymentować i myśleć logicznie?</strong> Spróbuj Roux, docenisz jej sprytną strukturę.
+          </li>
+        </ul>
+        <p>Bez względu na metodę, kluczem do sukcesu są regularne treningi i zrozumienie mechaniki kostki.</p>
+      </section>
+
+    </article>
+  </main>
+  <footer>
+    <p class="stopka">Maciej Sobczak - 2025</p>
+  </footer>
+
+
+
+</body>
+
+
+</html>
