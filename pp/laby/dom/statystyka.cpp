@@ -3,6 +3,8 @@
 #include <iostream>
 #define SIZE 250
 
+#define SIZE2 100
+
 using namespace std;
 
 int main() {
