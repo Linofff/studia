@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="author" content="Maciej Sobczak">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roux</title>
+  <link rel="icon" type="image/x-icon" href="./images/rubik.png">
+  <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <nav>
+      <ul class="menu">
+        <li> <a href="index.html">
+
+            <svg class="logoimage" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M18.6 3H5.4A2.4 2.4 0 0 0 3 5.4v13.2A2.4 2.4 0 0 0 5.4 21h13.2a2.4 2.4 0 0 0 2.4-2.4V5.4A2.4 2.4 0 0 0 18.6 3Z"
+                fill="#ffffff" fill-opacity=".05" stroke="#ffffff" stroke-width="3" stroke-miterlimit="10" />
+              <path d="M3 12h18M12 21V3" stroke="#ffffff" stroke-width="3" stroke-miterlimit="10"
+                stroke-linecap="round" />
+            </svg>
+
+          </a>
+        </li>
+        <li class="dropdown" tabindex="0">
+          <a href="#" tabindex="0">Metody</a>
+          <ul class="submenu">
+            <li><a href="metody.html">Wszystkie metody</a></li>
+            <li><a href="lbl.html">LBL</a></li>
+            <li><a href="fridrich.html">Fridrich</a></li>
+            <li><a href="roux.html">Roux</a></li>
+          </ul>
+        </li>
+        <li><a href="rodzajekostek.html">Rodzaje kostek</a></li>
+        <li><a href="leaderboards.html">Tabela rekordów</a></li>
+        <li><a href="ankieta.html">Ankieta</a></li>
+        <li><button type="button" id="theme-btn">Light theme</button>
+      </ul>
+    </nav>
+
+  </header>
+
+  <main>
+    <article>
+      <section>
+
+        <h1>Metoda Roux – Logiczne i Intuicyjne Układanie Kostki Rubika 3x3</h1>
+        <p>Metoda Roux to alternatywny sposób układania kostki 3x3, stworzony przez Gilles’a Roux.<br>
+          W przeciwieństwie do klasycznych metod warstwowych, Roux skupia się na budowaniu bloków i minimalizowaniu
+          ruchów.<br>
+          To podejście bardziej logiczne i elastyczne – uwielbiane przez zaawansowanych cuberów ceniących kontrolę nad
+          kostką.</p>
+        <h2>Na czym polega metoda Roux?</h2>
+        <ol>
+          <li>
+            <h3>Pierwszy blok (1x2x3)</h3>
+            <p>Budujemy blok 1x2x3 na lewej stronie kostki – czyli połączenie rogu i dwóch krawędzi.<br>
+              Ten etap jest bardzo intuicyjny i często można go zrobić bez żadnych algorytmów.</p>
+          </li>
+          <li>
+            <h3>Drugi blok (1x2x3)</h3>
+            <p>Tworzymy drugi identyczny blok po prawej stronie kostki. <br>
+              Po tym etapie mamy już ułożone dwie trzecie dolnych warstw.</p>
+          </li>
+          <li>
+            <h3>Ułożenie górnych krawędzi (U-layer edges)</h3>
+            <p>Ustawiamy cztery górne krawędzie na swoich miejscach – często jednym lub dwoma algorytmami.<br>
+              To przygotowanie do końcowego etapu.</p>
+          </li>
+
+          <li>
+            <h3>Orientacja i permutacja rogów (CMLL) + M-slice</h3>
+            <p>Na końcu układamy żółte rogi (CMLL), a następnie dopasowujemy środkowe krawędzie za pomocą ruchów warstwy
+              środkowej (M). <br>
+              To właśnie ten etap nadaje metodzie Roux wyjątkowy styl – szybki, płynny i efektowny.</p>
+          </li>
+
+        </ol>
+        <div class="container">
+          <div class="magnify">
+            <div class="magnifier" style="background-image: url(./images/roux.png);">
+            </div>
+            <div class="magnified">
+              <img src="./images/roux.png" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+
+        <h2>Dla kogo jest Roux</h2>
+        <p>Roux to metoda dla osób, które:</p>
+        <ul>
+          <li>znają już podstawy LBL lub CFOP,</li>
+          <li>lubią analizować i rozumieć każdy ruch,</li>
+          <li>szukają inteligentnego, minimalnego podejścia do kostki Rubika.</li>
+
+        </ul>
+        <p>Nie wymaga zapamiętywania ogromnej liczby algorytmów – bardziej liczy się wyczucie i doświadczenie.</p>
+      </section>
+    </article>
+    <footer>
+      <p class="stopka">Maciej Sobczak - 2025</p>
+    </footer>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+
+  <script src="./js/mag.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-1VDDWMRSTH"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-1VDDWMRSTH');
+  </script>
+  <script>
+    try {
+      fetch(new Request("https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js", {method: 'HEAD', mode: 'no-cors'})).then(function (response) {
+        return true;
+      }).catch(function (e) {
+        var carbonScript = document.createElement("script");
+        carbonScript.src = "//cdn.carbonads.com/carbon.js?serve=CK7DKKQU&placement=wwwjqueryscriptnet";
+        carbonScript.id = "_carbonads_js";
+        document.getElementById("carbon-block").appendChild(carbonScript);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  </script>
+
+  <script src="./js/change.js"></script>
+</body>
+
+</html>
