@@ -46,8 +46,5 @@ int main() {
   Change(tab);
   PrintBoard(tab);
 
-  int a = 5;
-  printf("%d", a);
-
   return 0;
 }

@@ -13,7 +13,7 @@ int find(int tab[], int rozmiar, int szukana) {
 int main() {
   int tab[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   int rozmiar = (sizeof(tab) / sizeof(tab[0]));
-  int szukana = 7;
+  int szukana = 10;
 
   scanf("%d", &szukana);
 
