@@ -1,7 +1,0 @@
-Imie
-Nazwisko
-mail
-płeć
-jak oceniasz serwis
-które funkcje serwisu używasz najczęściej
-uwagi lub sugestie
