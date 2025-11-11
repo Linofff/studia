@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rubiksProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="cubes.xsd">
+<!DOCTYPE rubiksProject SYSTEM "cubes.dtd">
+<rubiksProject>
 
-  <creator source="https://en.wikipedia.org/wiki/Ern%C5%91_Rubik">
+  <inventor source="https://en.wikipedia.org/wiki/Ern%C5%91_Rubik">
     <name>Ernő Rubik</name>
     <yearofbirth>1944</yearofbirth>
     <nationality>Węgierskie</nationality>
@@ -13,15 +13,15 @@
         <year>2014</year>
       </award>
     </awards>
-  </creator>
+  </inventor>
 
   <methods>
 
     <!-- Method 1: LBL -->
-    <method name="LBL" lang="pl" year="1975">
+    <method name="LBL" lang="pl" year="1975" level="easy">
       <description> To najprostsza i najbardziej intuicyjna metoda, od której zaczyna większość
         początkujących. <term>lookahead</term> oraz <term>intuicja</term> odgrywają kluczową rolę. </description>
-      <difficulty>easy</difficulty>
+      <!-- <difficulty>easy</difficulty> -->
       <steps>
         <step number="1">Ułożenie krzyża na pierwszej warstwie (zazwyczaj białej)</step>
         <step number="2">Dokończenie pierwszej warstwy poprzez ustawienie rogów</step>
@@ -40,10 +40,10 @@
     </method>
 
     <!-- Method 2: CFOP -->
-    <method name="CFOP" creator="Jessica Fridrich" year="1981" lang="pl">
+    <method name="CFOP" creator="Jessica Fridrich" year="1981" lang="pl" level="medium">
       <description> Najpopularniejsza metoda wśród speedcuberów, znana również jako metoda
         Fridrich'a. </description>
-      <difficulty>medium high</difficulty>
+      <!-- <difficulty>medium high</difficulty> -->
       <steps>
         <step number="1" name="Cross">Ułożenie krzyża na dolnej warstwie</step>
         <step number="2" name="F2L">Jednoczesne układanie dwóch pierwszych warstw poprzez parowanie
@@ -61,11 +61,11 @@
     </method>
 
     <!-- Method 3: Roux -->
-    <method name="Roux" creator="Gilles Roux" year="2003" lang="pl">
+    <method name="Roux" creator="Gilles Roux" year="2003" lang="pl" level="medium">
       <description> Metoda Roux, stworzona przez francuskiego speedcubera Gilles’a Roux, jest mniej
         popularna niż CFOP, ale zyskuje coraz więcej zwolenników ze względu na swoją efektywność i
         logiczne podejście. </description>
-      <difficulty>easy medium</difficulty>
+      <!-- <difficulty>easy medium</difficulty> -->
       <steps>
         <step number="1">Zbudowanie dwóch 1×2×3 bloków po lewej i prawej stronie kostki</step>
         <step number="2">Ułożenie środkowej warstwy (M-slice)</step>
@@ -79,9 +79,9 @@
     </method>
 
     <!-- Method 4: ZZ -->
-    <method name="ZZ" creator="Zbigniew Zborowski" year="2006" lang="pl">
+    <method name="ZZ" creator="Zbigniew Zborowski" year="2006" lang="pl" level="hard">
       <description> Metoda ZZ pozwala ograniczyć użycie obrotów w osi U i poprawia ergonomię ułożeń. </description>
-      <difficulty>medium high</difficulty>
+      <!-- <difficulty>medium high</difficulty> -->
       <steps>
         <step number="1">Etap EOLine — orientacja krawędzi i utworzenie linii</step>
         <step number="2">Blokowanie lewej i prawej strony (F2L)</step>
@@ -107,7 +107,8 @@
     <tip>Nagrywaj swoje ułożenia, aby analizować błędy i nieefektywne ruchy.</tip>
     <tip>Spróbuj metody <term>lookahead</term> — patrz z wyprzedzeniem na kolejne elementy zamiast
       zatrzymywać się między ruchami.</tip>
-    <tip>Analizuj <term>algorytmy</term> i szukaj ich prostszych odpowiedników, aby zmniejszyć liczbę ruchów.</tip>
+    <tip>Analizuj <term>algorytmy</term> i szukaj ich prostszych odpowiedników, aby zmniejszyć
+      liczbę ruchów.</tip>
   </training>
 
   <recommendations>

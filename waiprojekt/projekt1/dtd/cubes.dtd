@@ -1,0 +1,75 @@
+<!ENTITY % linkTypes "(html | video | pdf | external)">
+<!ENTITY % langTypes "(pl | en | hu | fr)">
+
+
+<!ELEMENT rubiksProject (inventor, methods, training, recommendations, resources)>
+
+
+<!ELEMENT inventor (name, yearofbirth, nationality, profession, awards)>
+<!ATTLIST inventor 
+    source CDATA #REQUIRED
+    lang %langTypes; "pl">
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT yearofbirth (#PCDATA)>
+<!ELEMENT nationality (#PCDATA)>
+<!ELEMENT profession (#PCDATA)>
+
+<!ELEMENT awards (award+)>
+<!ELEMENT award (name, year)>
+<!ELEMENT year (#PCDATA)>
+
+
+<!ELEMENT methods (method+)>
+
+<!-- model sekwencji + wyboru -->
+<!ELEMENT method (description, steps, links, (gallery | image)?)>
+<!ATTLIST method
+    name CDATA #REQUIRED
+    creator CDATA #IMPLIED
+    year CDATA #REQUIRED
+    lang %langTypes; "pl"
+    level (easy | medium | hard) "medium">
+
+<!ELEMENT description (#PCDATA | term)*>
+<!ELEMENT term (#PCDATA)>
+
+
+<!ELEMENT steps (step+)>
+<!ELEMENT step (#PCDATA)>
+<!ATTLIST step
+    number CDATA #REQUIRED
+    name CDATA #IMPLIED>
+
+<!ELEMENT links (link+)>
+<!ELEMENT link (#PCDATA)>
+<!ATTLIST link 
+    type %linkTypes; #REQUIRED>
+
+
+<!ELEMENT gallery (image+)>
+<!ELEMENT image EMPTY>
+<!ATTLIST image
+    src CDATA #REQUIRED
+    content CDATA #REQUIRED
+    width CDATA "400"
+    height CDATA "300">
+
+
+<!ELEMENT training (tip+)>
+<!ATTLIST training 
+    lang %langTypes; "pl"
+    difficulty (beginner | intermediate | advanced) "beginner">
+
+<!ELEMENT tip (#PCDATA | link | term)*>
+
+
+<!ELEMENT recommendations (beginner, intermediate, advanced, note)>
+<!ELEMENT beginner (#PCDATA)>
+<!ELEMENT intermediate (#PCDATA)>
+<!ELEMENT advanced (#PCDATA)>
+<!ELEMENT note (#PCDATA)>
+
+
+<!ELEMENT resources (youtubeChannel+)>
+<!ELEMENT youtubeChannel (#PCDATA)>
