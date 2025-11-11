@@ -2,7 +2,7 @@
 <rubiksProject xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:noNamespaceSchemaLocation="cubes.xsd">
 
-  <creator source="https://en.wikipedia.org/wiki/Ern%C5%91_Rubik">
+  <inventor source="https://en.wikipedia.org/wiki/Ern%C5%91_Rubik">
     <name>Ernő Rubik</name>
     <yearofbirth>1944</yearofbirth>
     <nationality>Węgierskie</nationality>
@@ -13,7 +13,7 @@
         <year>2014</year>
       </award>
     </awards>
-  </creator>
+  </inventor>
 
   <methods>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
   <xs:simpleType name="YearType">
     <xs:restriction base="xs:gYear">
@@ -39,7 +38,6 @@
       <xs:length value="2" />
     </xs:restriction>
   </xs:simpleType>
-
   <xs:simpleType name="SingleOrMultipleDifficulty">
     <xs:union memberTypes="DifficultyType DifficultyListType" />
   </xs:simpleType>
@@ -97,8 +95,8 @@
   </xs:attributeGroup>
 
 
-  <!-- creator -->
-  <xs:complexType name="CreatorType">
+  <!-- inventor -->
+  <xs:complexType name="InventorType">
     <xs:sequence>
       <xs:element name="name" type="NonEmptyString" />
       <xs:element name="yearofbirth" type="YearType" />
@@ -209,7 +207,7 @@
   <xs:complexType
     name="RubiksRootType">
     <xs:sequence>
-      <xs:element name="creator" type="CreatorType" />
+      <xs:element name="inventor" type="InventorType" />
       <xs:element name="methods" type="MethodsType" />
       <xs:element name="training" type="TrainingType" minOccurs="0" />
       <xs:element name="recommendations" type="RecommendationsType" minOccurs="0" />
