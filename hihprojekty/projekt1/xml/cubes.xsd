@@ -173,7 +173,14 @@
         <xs:complexType mixed="true">
           <xs:sequence>
             <xs:element name="link" type="LinkType" minOccurs="0" maxOccurs="unbounded" />
-            <xs:element name="term" type="xs:string" minOccurs="0" />
+            <xs:element name="term" minOccurs="0">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:minLength value="1" />
+                  <xs:maxLength value="20" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:element>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
@@ -204,8 +211,7 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType
-    name="RubiksRootType">
+  <xs:complexType name="RubiksRootType">
     <xs:sequence>
       <xs:element name="inventor" type="InventorType" />
       <xs:element name="methods" type="MethodsType" />

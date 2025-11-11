@@ -107,7 +107,8 @@
     <tip>Nagrywaj swoje ułożenia, aby analizować błędy i nieefektywne ruchy.</tip>
     <tip>Spróbuj metody <term>lookahead</term> — patrz z wyprzedzeniem na kolejne elementy zamiast
       zatrzymywać się między ruchami.</tip>
-    <tip>Analizuj <term>algorytmy</term> i szukaj ich prostszych odpowiedników, aby zmniejszyć liczbę ruchów.</tip>
+    <tip>Analizuj <term>algorytmy</term> i szukaj ich prostszych odpowiedników, aby zmniejszyć
+      liczbę ruchów.</tip>
   </training>
 
   <recommendations>
