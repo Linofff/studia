@@ -1,7 +1,7 @@
 const options = {
   maximumAge: 100,
   enableHighAccuracy: false,
-  timeout: 5000,
+  timeout: 20000,
 };
 
 const store = { name: "Strefa kostek Lublin", lat: 51.205773, lon: 22.562113 };
@@ -34,7 +34,7 @@ const success = (pos) => {
   storeDiv.textContent = "";
 
   const paragraph = document.createElement("p");
-  paragraph.textContent = `Odległość od sklepu "${store.name}" w linii prostej to: ${distance.toFixed(2)} km.`;
+  paragraph.textContent = `Odległość od sklepu ${store.name} w linii prostej to: ${distance.toFixed(2)} km.`;
 
   storeDiv.appendChild(paragraph);
 };
