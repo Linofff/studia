@@ -35,11 +35,19 @@
       <xs:simpleType>
         <xs:list itemType="DifficultyType" />
       </xs:simpleType>
-      <xs:length value="2" />
+      <xs:minLength value="1" />
+      <xs:maxLength value="2" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="SingleOrMultipleDifficulty">
-    <xs:union memberTypes="DifficultyType DifficultyListType" />
+
+  <xs:simpleType name="NumberOrListDifficulty">
+    <xs:union memberTypes="RatingType DifficultyListType" />
+  </xs:simpleType>
+
+  <xs:simpleType name="RatingType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(10|[1-9])/10" />
+    </xs:restriction>
   </xs:simpleType>
 
   <xs:simpleType name="UrlType">
@@ -133,7 +141,7 @@
         </xs:complexType>
       </xs:element>
 
-      <xs:element name="difficulty" type="SingleOrMultipleDifficulty" minOccurs="0" />
+      <xs:element name="difficulty" type="NumberOrListDifficulty" minOccurs="0" />
 
       <xs:element name="steps" type="StepsType" />
 

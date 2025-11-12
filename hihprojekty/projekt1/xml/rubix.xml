@@ -81,7 +81,7 @@
     <!-- Method 4: ZZ -->
     <method name="ZZ" creator="Zbigniew Zborowski" year="2006" lang="pl">
       <description> Metoda ZZ pozwala ograniczyć użycie obrotów w osi U i poprawia ergonomię ułożeń. </description>
-      <difficulty>medium high</difficulty>
+      <difficulty>8/10</difficulty>
       <steps>
         <step number="1">Etap EOLine — orientacja krawędzi i utworzenie linii</step>
         <step number="2">Blokowanie lewej i prawej strony (F2L)</step>

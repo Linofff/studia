@@ -1,0 +1,61 @@
+<!ENTITY % visual "(image | gif)">
+<!ENTITY % difficultyType "(easy | easy+ | medium | medium+ | hard | hard+)">
+<!ENTITY % levelType "(beginner | intermediate | advanced | all)">
+<!ENTITY % linkType "(youtube_channel | youtube_video | simple_website)">
+<!ENTITY % resourceAttr1 "src CDATA #REQUIRED">
+<!ENTITY % resourceAttr2 "caption CDATA #IMPLIED">
+
+
+<!ELEMENT project (introduction, tutorials, recommendations)>
+<!ATTLIST project 
+	creator CDATA "anonymous" 
+	about CDATA #REQUIRED>
+
+<!ELEMENT introduction (definition*, goal)>
+<!ELEMENT definition (term, meaning)>
+<!ELEMENT goal (#PCDATA)>
+<!ELEMENT term (#PCDATA)>
+<!ELEMENT meaning (#PCDATA)>
+
+<!ELEMENT tutorials (tutorial+, external?)>
+<!ELEMENT tutorial (name, description+, steps, additional?)>
+<!ATTLIST tutorial 
+	difficulty %difficultyType; #IMPLIED>
+
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ATTLIST description 
+	type (introduction | presentation) #REQUIRED>
+
+<!ELEMENT steps (step+)>
+<!ELEMENT step (instructions, sidenote?)>
+<!ATTLIST step 
+	n CDATA #REQUIRED>
+
+<!ELEMENT instructions (#PCDATA | %visual;)*>
+
+<!ELEMENT image EMPTY>
+<!ATTLIST image 
+	%resourceAttr1;
+	%resourceAttr2;>
+
+<!ELEMENT gif EMPTY>
+<!ATTLIST gif 
+	%resourceAttr1;
+	%resourceAttr2;>
+
+<!ELEMENT external (source+)>
+<!ELEMENT source (name, link, description, rating)>
+<!ELEMENT link (#PCDATA)>
+<!ATTLIST link 
+	format %linkType; #REQUIRED>
+
+<!ELEMENT rating (#PCDATA)>
+
+<!ELEMENT additional ((%visual;)*, credit?)>
+<!ELEMENT credit (#PCDATA | link)*>
+
+<!ELEMENT recommendations (recommendation+)>
+<!ELEMENT recommendation (#PCDATA | link | %visual;)*>
+<!ATTLIST recommendation 
+	level %levelType; #IMPLIED>
