@@ -1,5 +1,5 @@
-<!ENTITY % visual "(image | gif)">
-<!ENTITY % difficultyType "(easy | easy+ | medium | medium+ | hard | hard+)">
+<!ENTITY % visualType "(image | gif)">
+<!ENTITY % difficultyType "(easy | easy_plus | medium | medium_plus | hard | hard_plus)">
 <!ENTITY % levelType "(beginner | intermediate | advanced | all)">
 <!ENTITY % linkType "(youtube_channel | youtube_video | simple_website)">
 <!ENTITY % resourceAttr1 "src CDATA #REQUIRED">
@@ -29,10 +29,12 @@
 
 <!ELEMENT steps (step+)>
 <!ELEMENT step (instructions, sidenote?)>
+<!ELEMENT sidenote (#PCDATA)>
 <!ATTLIST step 
 	n CDATA #REQUIRED>
 
-<!ELEMENT instructions (#PCDATA | %visual;)*>
+<!ELEMENT instructions (#PCDATA | visual)*>
+<!ELEMENT visual (%visualType;)+>
 
 <!ELEMENT image EMPTY>
 <!ATTLIST image 
@@ -52,10 +54,10 @@
 
 <!ELEMENT rating (#PCDATA)>
 
-<!ELEMENT additional ((%visual;)*, credit?)>
+<!ELEMENT additional ((%visualType;)*, credit?)>
 <!ELEMENT credit (#PCDATA | link)*>
 
 <!ELEMENT recommendations (recommendation+)>
-<!ELEMENT recommendation (#PCDATA | link | %visual;)*>
+<!ELEMENT recommendation (#PCDATA | link | image)*>
 <!ATTLIST recommendation 
 	level %levelType; #IMPLIED>

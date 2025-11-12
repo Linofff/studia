@@ -3,7 +3,8 @@
 <project creator="Szymon Pecka" about="card tricks">
   <introduction>
     <definition>
-      <term>Card Trick</term>
+      <term>dodaj term</term>
+      <!-- zapomniałem jaki tu był term -->
       <meaning>Any sleight of hand that can be done with cards (anything from magic tricks to
         cardistry)</meaning>
     </definition>
@@ -21,40 +22,27 @@
         on math.</description>
       <steps>
         <step n="1">
-          <instructions>
-            Prepare a pile of 21 standard playing cards
-          </instructions>
+          <instructions> Prepare a pile of 21 standard playing cards </instructions>
         </step>
         <step n="2">
-          <instructions>
-            Let the spectator choose one of 21 cards, tell them to carefully memorize it
-          </instructions>
+          <instructions> Let the spectator choose one of 21 cards, tell them to carefully memorize
+            it </instructions>
         </step>
         <step n="3">
-          <instructions>
-            Shuffle the cards and lay them out in 3 columns of 7 cards (row by row)
-          </instructions>
+          <instructions> Shuffle the cards and lay them out in 3 columns of 7 cards (row by row) </instructions>
         </step>
         <step n="4">
-          <instructions>
-            Ask the spectator to point to the column where his card is
-          </instructions>
+          <instructions> Ask the spectator to point to the column where his card is </instructions>
         </step>
         <step n="5">
-          <instructions>
-            Pick up the cards, put the pile with the spectator's card in the middle, between the
-            other 2 packets
-          </instructions>
+          <instructions> Pick up the cards, put the pile with the spectator's card in the middle,
+            between the other 2 packets </instructions>
         </step>
         <step n="6">
-          <instructions>
-            Repeat the last 3 steps 2 more times
-          </instructions>
+          <instructions> Repeat the last 3 steps 2 more times </instructions>
         </step>
         <step n="7">
-          <instructions>
-            The spectator's card will now be in the 11th position from the top
-          </instructions>
+          <instructions> The spectator's card will now be in the 11th position from the top </instructions>
         </step>
       </steps>
       <additional>
@@ -65,7 +53,7 @@
       </additional>
     </tutorial>
 
-    <tutorial difficulty="easy+">
+    <tutorial difficulty="easy_plus">
       <name>Reversed Card</name>
       <description type="presentation">The spectator picks a random card from a standard deck of
         cards, memorizes it, then puts it back. The magician snaps his fingers and spreads out the
@@ -119,10 +107,8 @@
           <sidenote>For a beginner this might be the hardest part</sidenote>
         </step>
         <step n="6">
-          <instructions>
-            Build some tension: snap your fingers, wave your hand, at this point as long as you
-            flipped the bottom card you can even give the deck back to the spectator.
-          </instructions>
+          <instructions> Build some tension: snap your fingers, wave your hand, at this point as
+            long as you flipped the bottom card you can even give the deck back to the spectator. </instructions>
         </step>
         <step n="7">
           <instructions> At long last spread the cards out and reveal that one card has been
@@ -143,29 +129,30 @@
       <source>
         <name>A million card tricks</name>
         <link format="youtube_channel">https://www.youtube.com/@AMillionCardTricks</link>
-        <description>A youtube channel dedicated to teaching magic tricks, a guide through all the
-          mastery levels, you'll find something interesting to learn no matter if you're a beginner,
-          intermediate or advanced magician</description>
+        <!-- dodałem atrybut -->
+        <description type="presentation">A youtube channel dedicated to teaching magic tricks, a
+          guide through all the mastery levels, you'll find something interesting to learn no matter
+          if you're a beginner, intermediate or advanced magician</description>
         <rating>9/10</rating>
       </source>
       <source>
         <name>lotusinhand</name>
         <link format="youtube_channel">https://www.youtube.com/@lotusinhand</link>
-        <description>A youtube channel dedicatd to teaching exclusively cardistry, well made
-          tutorials on a lot of moves, but not that many videos</description>
+        <!-- zmien sobie typ w raize potrzeby -->
+        <description type="introduction">A youtube channel dedicatd to teaching exclusively
+          cardistry, well made tutorials on a lot of moves, but not that many videos</description>
         <rating>8</rating>
       </source>
     </external>
   </tutorials>
   <recommendations>
-    <recommendation level="beginner">
-      Simply pick up any deck of cards and start practicing, that's the beauty of it, if you have a
-      deck of cards (even simple, paper ones) in your household you can see if it's something you
-      like even right now.
-    </recommendation>
-    <recommendation level="beginner intermediate"> Once you get a feel for things, and have invested
-      some time into it and concluded that it's something you enjoy, consider investing into a
-      Bicycle Deck, they are great no matter the level of mastery of card tricks. You can find them
+    <recommendation level="beginner"> Simply pick up any deck of cards and start practicing, that's
+      the beauty of it, if you have a deck of cards (even simple, paper ones) in your household you
+      can see if it's something you like even right now. </recommendation>
+    <!-- zmieniłem z beginner intermediate -->
+    <recommendation level="intermediate"> Once you get a feel for things, and have invested some
+      time into it and concluded that it's something you enjoy, consider investing into a Bicycle
+      Deck, they are great no matter the level of mastery of card tricks. You can find them
       virtually in any shop that sells things like these, but here is an example link <link
         format="simple_website">
       https://www.empik.com/bicycle-standard-back-red-karty-klasyczne-rewers-czerwony-u-s-playing-card-company,p1374794845,zabawki-p</link>
@@ -173,9 +160,8 @@
         src="/resources/images/bicycle-classic-red-reverse_upscale.jpg"
         caption="This is how a standard Bicycle Deck looks like" />
     </recommendation>
-    <recommendation level="all">
-      Never do the same trick twice for the same person. (Rules exist to be broken of course, but do
-      it only if you're really sure you can get away with it, it'll save you a lot of headaches).
-    </recommendation>
+    <recommendation level="all"> Never do the same trick twice for the same person. (Rules exist to
+      be broken of course, but do it only if you're really sure you can get away with it, it'll save
+      you a lot of headaches). </recommendation>
   </recommendations>
 </project>
