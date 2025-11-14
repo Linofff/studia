@@ -17,12 +17,16 @@ int main() {
   list_t *l = NULL;
 
   l = add(l, 'A');
-  l->next = add(l, 'B');
+  l->next = add(l->next, 'B');
 
   while (l != NULL) {
     cout << l->c;
     l = l->next;
   }
+
+  // int x = 1;
+  // uint a = 5;
+  // cout << x - a;
 
   return 0;
 }
