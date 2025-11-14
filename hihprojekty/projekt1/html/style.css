@@ -194,7 +194,7 @@ a:hover .logoimage {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 0;
+  gap: 0.4rem;
   padding: 0.2rem;
   margin: 0;
   transition:
@@ -263,6 +263,7 @@ a:hover .logoimage {
   .menu {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.1rem;
     text-align: center;
   }
 
