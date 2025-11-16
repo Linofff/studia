@@ -22,7 +22,6 @@
 
 <!ELEMENT methods (method+)>
 
-<!-- model sekwencji + wyboru -->
 <!ELEMENT method (description, steps, links, (gallery | image)?)>
 <!ATTLIST method
     name CDATA #REQUIRED
