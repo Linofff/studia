@@ -108,7 +108,7 @@
 	
 	<xsl:template match="author">
 		Copyright 2022,
-		<xsl:value-of select="name"/> <xsl:value-of select="surname"/>
+		<xsl:value-of select="name"/> <xsl:text> </xsl:text> <xsl:value-of select="surname"/>
 	</xsl:template>
 	
 	<xsl:template match="system">
@@ -116,7 +116,7 @@
 			
 			<h3><xsl:value-of select="name"/></h3>
 			
-			<p><xsl:value-of select="description"/></p>
+			<p><xsl:value-of select="description"/></p>	
 			
 			<ul>
 				<xsl:apply-templates select="link"/>

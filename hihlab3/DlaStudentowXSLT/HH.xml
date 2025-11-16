@@ -2,8 +2,8 @@
 <?xml-stylesheet type="text/xsl" href="HH.xslt"?>	<!--Powiązanie pliku XML z plikiem transformacji-->
 <hypertext>
 	<author>
-		<name>student's name</name>
-		<surname>student's surname </surname>
+		<name>Maciej</name>
+		<surname>Sobczak</surname>
 	</author>
 	<definition>
 		Hipertext is a nonlinear text material.
