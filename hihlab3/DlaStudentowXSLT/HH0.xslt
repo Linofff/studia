@@ -16,12 +16,19 @@
         </header>
 
         <section>
-          <xsl:apply-templates select="hypertext/people/person" />  <!-- wywołanie szablonu
-          pozwalającego na wyświetlenie informacji o imieniu oraz nazwisku osób -->
+          <xsl:apply-templates select="hypertext/people/person" />
         </section>
       </body>
     </html>
 
+  </xsl:template>
+  
+  <xsl:template match="person">
+    <p>
+      <xsl:value-of select="name"/>
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="surname"/>
+    </p>
   </xsl:template>
 
 
