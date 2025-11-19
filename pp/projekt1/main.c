@@ -5,7 +5,7 @@
 #include <time.h>
 #include <unistd.h> // Unix standard (usleep for timing)
 
-#define STARTER_TIME 10
+#define STARTER_TIME 30 // Increased time slightly for gameplay balance
 #define START_HEALTH 3
 
 #define QUIT 'q'    // Key to quit the game
@@ -15,14 +15,20 @@
 #define FRAME_TIME 100 // Milliseconds per frame (100ms = 0.1 sec)
 #define BIRD_SPEED 1   // Bird moves 1 cell per frame
 
-#define MAIN_COLOR 1  // Main window color
-#define STAT_COLOR 2  // Status bar color
-#define PLAY_COLOR 3  // Play area color
-#define BIRD_COLOR 10 // Bird color
+#define MAIN_COLOR 1   // Main window color
+#define STAT_COLOR 2   // Status bar color
+#define PLAY_COLOR 3   // Play area color
+#define BIRD_COLOR 4   // Bird color
+#define HUNTER_COLOR 5 // New Hunter color
 
 #define MAX_STARS 100
 #define STAR_SPAWN_CHANCE 80 // 10% chance to spawn a star each frame
 #define POINTS_PER_STAR 1    // Points awarded for collecting a star
+
+#define MAX_HUNTERS 10
+#define HUNTER_SPAWN_CHANCE 5 // 5% chance to spawn a hunter
+#define HUNTER_DAMAGE 1
+#define HUNTER_BOUNCES 3
 
 #define UP 'w'
 #define DOWN 's'
@@ -58,6 +64,14 @@ typedef struct {
   int alive; // 1=active, 0=free slot
 } STAR;
 
+typedef struct {
+  int x, y;
+  int dx, dy;
+  int alive;
+  int bounces;
+  int damage;
+} HUNTER;
+
 WINDOW *Start() {
   WINDOW *win;
 
@@ -72,6 +86,7 @@ WINDOW *Start() {
   init_pair(PLAY_COLOR, COLOR_CYAN, COLOR_BLACK);
   init_pair(STAT_COLOR, COLOR_YELLOW, COLOR_BLUE);
   init_pair(BIRD_COLOR, COLOR_RED, COLOR_BLACK);
+  init_pair(HUNTER_COLOR, COLOR_MAGENTA, COLOR_BLACK);
 
   noecho();
 
@@ -250,8 +265,7 @@ void ManualMoveBird(BIRD *b, int ch) {
   DrawBird(b);
 }
 
-// --- UPDATED FUNCTION: Accepts score ---
-void ShowStatus(WIN *W, int score, int timeLeft) {
+void ShowStatus(WIN *W, BIRD *bird, int timeLeft) {
   // Set status bar color
   wattron(W->window, COLOR_PAIR(W->color));
 
@@ -260,8 +274,8 @@ void ShowStatus(WIN *W, int score, int timeLeft) {
 
   // Use timeLeft instead of time
   mvwprintw(W->window, 1, 2,
-            "Time left: %d | Score: %d | [W, A, S, D]=Move | [Q]=Quit",
-            timeLeft, score);
+            "Time left: %d | Score: %d | Health: %d | [Q]=Quit", timeLeft,
+            bird->points, bird->health);
 
   // Update display
   wrefresh(W->window);
@@ -271,9 +285,8 @@ void SpawnStar(WIN *w, STAR stars[]) {
   for (int i = 0; i < MAX_STARS; i++) {
     if (!stars[i].alive) {
       stars[i].alive = 1;
-      // Random X position inside the play area
       stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
-      stars[i].y = BORDER; // Spawn just below the top border
+      stars[i].y = BORDER;
       break;
     }
   }
@@ -298,27 +311,104 @@ void UpdateStars(WIN *w, STAR stars[]) {
   wattroff(w->window, COLOR_PAIR(PLAY_COLOR));
 }
 
-// --- NEW FUNCTION: Collision Logic ---
-int CheckCollisions(BIRD *b, STAR stars[]) {
-  int points_gained = 0;
+// --- HUNTER FUNCTIONS ---
 
+void SpawnHunter(WIN *w, HUNTER hunters[]) {
+  for (int i = 0; i < MAX_HUNTERS; i++) {
+    if (!hunters[i].alive) {
+      hunters[i].alive = 1;
+      hunters[i].damage = HUNTER_DAMAGE;
+      hunters[i].bounces = HUNTER_BOUNCES;
+
+      if (rand() % 2 == 0) {
+        hunters[i].x = BORDER + 1;
+        hunters[i].dx = 1;
+      } else {
+        hunters[i].x = w->cols - BORDER - 1;
+        hunters[i].dx = -1;
+      }
+
+      hunters[i].y = (rand() % (w->rows - 2 * BORDER)) + BORDER;
+      break;
+    }
+  }
+}
+
+void UpdateHunters(WIN *w, HUNTER hunters[]) {
+  wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
+
+  for (int i = 0; i < MAX_HUNTERS; i++) {
+    if (!hunters[i].alive)
+      continue;
+
+    mvwprintw(w->window, hunters[i].y, hunters[i].x, " ");
+
+    hunters[i].x += hunters[i].dx;
+
+    if (hunters[i].x <= BORDER || hunters[i].x >= w->cols - BORDER - 1) {
+      hunters[i].alive = 0;
+      continue;
+    }
+
+    char symbol = (hunters[i].dx == 1) ? '>' : '<';
+    mvwprintw(w->window, hunters[i].y, hunters[i].x, "%c", symbol);
+  }
+  wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
+}
+
+void CheckCollisions(BIRD *b, STAR stars[], HUNTER hunters[]) {
+  // 1. Check Stars
   for (int i = 0; i < MAX_STARS; i++) {
     if (stars[i].alive) {
-      // Check if Bird X/Y matches Star X/Y
-      if (b->x == stars[i].x && b->y == stars[i].y) {
-        // Collision detected!
-        stars[i].alive = 0;               // Remove star
-        points_gained += POINTS_PER_STAR; // Add points
+      int hit = 0;
+
+      // Direct hit OR Vertical Swap
+      if ((b->x == stars[i].x && b->y == stars[i].y) ||
+          (b->dy == -1 && b->x == stars[i].x && b->y == stars[i].y - 1)) {
+        hit = 1;
+      }
+
+      if (hit) {
+        stars[i].alive = 0;
+        b->points += POINTS_PER_STAR;
+        mvwprintw(b->win->window, stars[i].y, stars[i].x, " ");
       }
     }
   }
-  return points_gained;
+
+  // 2. Check Hunters
+  for (int i = 0; i < MAX_HUNTERS; i++) {
+    if (hunters[i].alive) {
+      int hit = 0;
+      HUNTER *h = &hunters[i];
+
+      if (b->x == h->x && b->y == h->y) {
+        hit = 1;
+      }
+
+      else if (b->x == (h->x - h->dx) && b->y == (h->y - h->dy) &&
+               h->x == (b->x - b->dx) && h->y == (b->y - b->dy)) {
+        hit = 1;
+      }
+
+      if (hit) {
+        h->alive = 0;
+        b->health -= h->damage;
+
+        mvwprintw(b->win->window, h->y, h->x, " ");
+        flash();
+      }
+    }
+  }
 }
 
-void EndGame(WIN *W, int score) {
+void EndGame(WIN *W, int score, int survived) {
   CleanWin(W, 1);
-  // Display final score
-  mvwprintw(W->window, 1, 2, "Game Over! Final Score: %d", score);
+  if (survived) {
+    mvwprintw(W->window, 1, 2, "TIME UP! Final Score: %d", score);
+  } else {
+    mvwprintw(W->window, 1, 2, "DIED! Final Score: %d", score);
+  }
   wrefresh(W->window);
   sleep(3);
 }
@@ -326,6 +416,10 @@ void EndGame(WIN *W, int score) {
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird) {
   STAR stars[MAX_STARS];
   memset(stars, 0, sizeof(stars));
+
+  // Initialize Hunters array
+  HUNTER hunters[MAX_HUNTERS];
+  memset(hunters, 0, sizeof(hunters));
 
   int ch;
   int maxTime = STARTER_TIME;
@@ -356,21 +450,27 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird) {
     }
     UpdateStars(playwin, stars);
 
-    // 3. Check Collisions (Add points)
-    int points = CheckCollisions(bird, stars);
-    bird->points += points;
+    // 3. Spawn and Move Hunters (New Logic)
+    if ((rand() % 100) < HUNTER_SPAWN_CHANCE) {
+      SpawnHunter(playwin, hunters);
+    }
+    UpdateHunters(playwin, hunters);
 
-    // 4. Important: Redraw Bird
-    // Because UpdateStars draws '.', it might have drawn over the bird.
-    // Redrawing here ensures the bird is always on top.
+    // 4. Check Collisions (Stars and Hunters)
+    CheckCollisions(bird, stars, hunters);
+
+    // 5. Redraw Bird (Must be last to appear on top)
     DrawBird(bird);
 
-    // 5. Update status bar with SCORE
-    ShowStatus(statwin, bird->points, timeLeft);
+    // 6. Update status bar
+    ShowStatus(statwin, bird, timeLeft);
 
+    // 7. Check Game Over Conditions
+    if (bird->health <= 0) {
+      break; // Died
+    }
     if (timeLeft == 0) {
-      EndGame(statwin, bird->points);
-      break;
+      break; // Time up
     }
 
     wrefresh(playwin->window);
@@ -392,12 +492,13 @@ int main() {
   BIRD *bird = InitBird(playwin, COLS / 2, ROWS / 2, 1, 0);
 
   DrawBird(bird);
-  ShowStatus(statwin, 0, 0); // Initialize score 0
+  ShowStatus(statwin, bird, STARTER_TIME);
   wrefresh(playwin->window);
 
   MainLoop(playwin, statwin, bird);
 
-  EndGame(statwin, bird->points);
+  // Pass whether bird survived (health > 0) to EndGame
+  EndGame(statwin, bird->points, bird->health > 0);
 
   CleanWin(statwin, 1);
   wrefresh(statwin->window);
@@ -408,7 +509,7 @@ int main() {
   delwin(mainwin);
 
   endwin();
-  refresh();
+  // refresh(); // Not strictly necessary after endwin
 
   free(bird);
   free(playwin);
