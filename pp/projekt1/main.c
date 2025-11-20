@@ -1,3 +1,4 @@
+#include <math.h>    // Added for sqrt calculation
 #include <ncurses.h> // Text-based UI library
 #include <stdio.h>   // Standard input/output (printf, fprintf)
 #include <stdlib.h>  // Standard library (malloc, free, exit)
@@ -5,7 +6,7 @@
 #include <time.h>
 #include <unistd.h> // Unix standard (usleep for timing)
 
-#define STARTER_TIME 30 // Increased time slightly for gameplay balance
+#define STARTER_TIME 45
 #define START_HEALTH 3
 
 #define QUIT 'q'    // Key to quit the game
@@ -21,14 +22,15 @@
 #define BIRD_COLOR 4   // Bird color
 #define HUNTER_COLOR 5 // New Hunter color
 
-#define MAX_STARS 100
-#define STAR_SPAWN_CHANCE 80 // 10% chance to spawn a star each frame
+#define MAX_STARS 10
+#define STAR_SPAWN_CHANCE 20 // 10% chance to spawn a star each frame
 #define POINTS_PER_STAR 1    // Points awarded for collecting a star
 
-#define MAX_HUNTERS 10
-#define HUNTER_SPAWN_CHANCE 5 // 5% chance to spawn a hunter
+#define MAX_HUNTERS 3
+#define HUNTER_SPAWN_CHANCE 10
 #define HUNTER_DAMAGE 1
-#define HUNTER_BOUNCES 3
+#define HUNTER_SPEED 0.9f
+#define HUNTER_BOUNCES 5 // Number of bounces before disappearing
 
 #define UP 'w'
 #define DOWN 's'
@@ -65,11 +67,13 @@ typedef struct {
 } STAR;
 
 typedef struct {
-  int x, y;
-  int dx, dy;
+  float fx, fy;      // Floating point position for precise movement
+  float vx, vy;      // Velocity vector
+  int x, y;          // Integer position for rendering
+  int width, height; // Sprite dimensions
   int alive;
-  int bounces;
   int damage;
+  int bounces; // Remaining bounces
 } HUNTER;
 
 WINDOW *Start() {
@@ -313,22 +317,75 @@ void UpdateStars(WIN *w, STAR stars[]) {
 
 // --- HUNTER FUNCTIONS ---
 
-void SpawnHunter(WIN *w, HUNTER hunters[]) {
+void SpawnHunter(WIN *w, HUNTER hunters[], BIRD *bird) {
   for (int i = 0; i < MAX_HUNTERS; i++) {
     if (!hunters[i].alive) {
       hunters[i].alive = 1;
       hunters[i].damage = HUNTER_DAMAGE;
       hunters[i].bounces = HUNTER_BOUNCES;
 
-      if (rand() % 2 == 0) {
-        hunters[i].x = BORDER + 1;
-        hunters[i].dx = 1;
-      } else {
-        hunters[i].x = w->cols - BORDER - 1;
-        hunters[i].dx = -1;
+      // --- DETERMINE SHAPE ---
+      int shape = rand() % 5;
+      switch (shape) {
+      case 0:
+        hunters[i].width = 1;
+        hunters[i].height = 2;
+        break; // 1x2
+      case 1:
+        hunters[i].width = 2;
+        hunters[i].height = 1;
+        break; // 2x1
+      case 2:
+        hunters[i].width = 1;
+        hunters[i].height = 3;
+        break; // 1x3
+      case 3:
+        hunters[i].width = 3;
+        hunters[i].height = 1;
+        break; // 3x1
+      case 4:
+        hunters[i].width = 2;
+        hunters[i].height = 2;
+        break; // 2x2
       }
 
-      hunters[i].y = (rand() % (w->rows - 2 * BORDER)) + BORDER;
+      // Pick only LEFT (0) or RIGHT (1)
+      int side = rand() % 2;
+      int startX, startY;
+
+      int maxY = w->rows - BORDER - hunters[i].height; // Ensure height fits
+
+      if (side == 0) { // Left
+        startX = BORDER;
+        startY = (rand() % (maxY - BORDER)) + BORDER;
+      } else { // Right
+        startX =
+            w->cols - BORDER - hunters[i].width; // Ensure width fits inside
+        startY = (rand() % (maxY - BORDER)) + BORDER;
+      }
+
+      // Set initial floating point position
+      hunters[i].fx = (float)startX;
+      hunters[i].fy = (float)startY;
+      hunters[i].x = startX;
+      hunters[i].y = startY;
+
+      // Calculate vector to bird (aim for bird's center)
+      float dx = (float)bird->x - hunters[i].fx;
+      float dy = (float)bird->y - hunters[i].fy;
+
+      // Calculate Euclidean distance
+      float dist = sqrtf(dx * dx + dy * dy);
+
+      // Normalize and scale by speed
+      if (dist > 0) {
+        hunters[i].vx = (dx / dist) * HUNTER_SPEED;
+        hunters[i].vy = (dy / dist) * HUNTER_SPEED;
+      } else {
+        hunters[i].vx = 0;
+        hunters[i].vy = 0;
+      }
+
       break;
     }
   }
@@ -341,28 +398,85 @@ void UpdateHunters(WIN *w, HUNTER hunters[]) {
     if (!hunters[i].alive)
       continue;
 
-    mvwprintw(w->window, hunters[i].y, hunters[i].x, " ");
-
-    hunters[i].x += hunters[i].dx;
-
-    if (hunters[i].x <= BORDER || hunters[i].x >= w->cols - BORDER - 1) {
-      hunters[i].alive = 0;
-      continue;
+    // Erase sprite from current integer position (loop through dimensions)
+    for (int r = 0; r < hunters[i].height; r++) {
+      for (int c = 0; c < hunters[i].width; c++) {
+        mvwprintw(w->window, hunters[i].y + r, hunters[i].x + c, " ");
+      }
     }
 
-    char symbol = (hunters[i].dx == 1) ? '>' : '<';
-    mvwprintw(w->window, hunters[i].y, hunters[i].x, "%c", symbol);
+    // Update float position based on constant vector
+    hunters[i].fx += hunters[i].vx;
+    hunters[i].fy += hunters[i].vy;
+
+    // --- CHECK BOUNCES / COLLISIONS WITH WALLS (With Dimensions) ---
+
+    // Check Vertical Walls (Left/Right)
+    int hit_x = 0;
+    // Left wall check
+    if (hunters[i].fx <= BORDER) {
+      hunters[i].fx = BORDER + 0.1f;
+      hunters[i].vx = -hunters[i].vx;
+      hit_x = 1;
+    }
+    // Right wall check (check far edge: x + width)
+    else if (hunters[i].fx + hunters[i].width >= w->cols - BORDER) {
+      hunters[i].fx = w->cols - BORDER - hunters[i].width - 0.1f;
+      hunters[i].vx = -hunters[i].vx;
+      hit_x = 1;
+    }
+
+    // Check Horizontal Walls (Top/Bottom)
+    int hit_y = 0;
+    // Top wall check
+    if (hunters[i].fy <= BORDER) {
+      hunters[i].fy = BORDER + 0.1f;
+      hunters[i].vy = -hunters[i].vy;
+      hit_y = 1;
+    }
+    // Bottom wall check (check bottom edge: y + height)
+    else if (hunters[i].fy + hunters[i].height >= w->rows - BORDER) {
+      hunters[i].fy = w->rows - BORDER - hunters[i].height + 0.1f;
+      hunters[i].vy = -hunters[i].vy;
+      hit_y = 1;
+    }
+
+    // Handle bounce logic
+    if (hit_x || hit_y) {
+      hunters[i].bounces--;
+      if (hunters[i].bounces < 0) {
+        hunters[i].alive = 0;
+        continue; // Stop processing this hunter
+      }
+    }
+
+    // Update integer position for rendering
+    hunters[i].x = (int)hunters[i].fx;
+    hunters[i].y = (int)hunters[i].fy;
+
+    // Render the sprite (loop through dimensions)
+    // Display bounce count in every cell of the sprite
+    char displayChar =
+        (hunters[i].bounces > 9) ? '9' : (hunters[i].bounces + '0');
+
+    for (int r = 0; r < hunters[i].height; r++) {
+      for (int c = 0; c < hunters[i].width; c++) {
+        // Safety check to ensure we don't draw outside window (rare cases)
+        if (hunters[i].y + r < w->rows && hunters[i].x + c < w->cols) {
+          mvwprintw(w->window, hunters[i].y + r, hunters[i].x + c, "%c",
+                    displayChar);
+        }
+      }
+    }
   }
   wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
 }
 
 void CheckCollisions(BIRD *b, STAR stars[], HUNTER hunters[]) {
-  // 1. Check Stars
   for (int i = 0; i < MAX_STARS; i++) {
     if (stars[i].alive) {
       int hit = 0;
 
-      // Direct hit OR Vertical Swap
       if ((b->x == stars[i].x && b->y == stars[i].y) ||
           (b->dy == -1 && b->x == stars[i].x && b->y == stars[i].y - 1)) {
         hit = 1;
@@ -376,26 +490,28 @@ void CheckCollisions(BIRD *b, STAR stars[], HUNTER hunters[]) {
     }
   }
 
-  // 2. Check Hunters
   for (int i = 0; i < MAX_HUNTERS; i++) {
     if (hunters[i].alive) {
       int hit = 0;
-      HUNTER *h = &hunters[i];
 
-      if (b->x == h->x && b->y == h->y) {
-        hit = 1;
-      }
-
-      else if (b->x == (h->x - h->dx) && b->y == (h->y - h->dy) &&
-               h->x == (b->x - b->dx) && h->y == (b->y - b->dy)) {
+      // Rectangle Collision Detection
+      // Check if Bird (b->x, b->y) is inside the Hunter rectangle
+      if (b->x >= hunters[i].x && b->x < hunters[i].x + hunters[i].width &&
+          b->y >= hunters[i].y && b->y < hunters[i].y + hunters[i].height) {
         hit = 1;
       }
 
       if (hit) {
-        h->alive = 0;
-        b->health -= h->damage;
+        hunters[i].alive = 0;
+        b->health -= hunters[i].damage;
 
-        mvwprintw(b->win->window, h->y, h->x, " ");
+        // Erase the entire sprite
+        for (int r = 0; r < hunters[i].height; r++) {
+          for (int c = 0; c < hunters[i].width; c++) {
+            mvwprintw(b->win->window, hunters[i].y + r, hunters[i].x + c, " ");
+          }
+        }
+
         flash();
       }
     }
@@ -450,9 +566,9 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird) {
     }
     UpdateStars(playwin, stars);
 
-    // 3. Spawn and Move Hunters (New Logic)
+    // 3. Spawn and Move Hunters
     if ((rand() % 100) < HUNTER_SPAWN_CHANCE) {
-      SpawnHunter(playwin, hunters);
+      SpawnHunter(playwin, hunters, bird);
     }
     UpdateHunters(playwin, hunters);
 
