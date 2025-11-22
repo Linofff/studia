@@ -29,12 +29,14 @@
 
 // --- CONFIGURATION STRUCT ---
 typedef struct {
+  int star_max;
   int star_quota;
   int game_time;
   int star_spawn_chance;
-  int points_per_star;
+  float star_speed;
+  // int points_per_star;
 
-  int hunter_quota;
+  int hunter_max;
   int hunter_spawn_chance;
   int hunter_damage;
   float hunter_speed;
@@ -62,8 +64,9 @@ typedef struct {
 } BIRD;
 
 typedef struct {
-  int x, y;
+  float x, y;
   int alive;
+  float speed;
 } STAR;
 
 typedef struct {
@@ -82,11 +85,12 @@ void LoadConfig(CONFIG *c) {
   FILE *f = fopen("settings.txt", "r");
   char k[64];
   while (fscanf(f, "%s", k) > 0) {
+    !strcmp(k, "STAR_MAX") && fscanf(f, "%d", &c->star_max);
     !strcmp(k, "STAR_QUOTA") && fscanf(f, "%d", &c->star_quota);
     !strcmp(k, "GAME_TIME") && fscanf(f, "%d", &c->game_time);
     !strcmp(k, "STAR_SPAWN_CHANCE") && fscanf(f, "%d", &c->star_spawn_chance);
-    !strcmp(k, "POINTS_PER_STAR") && fscanf(f, "%d", &c->points_per_star);
-    !strcmp(k, "HUNTER_QUOTA") && fscanf(f, "%d", &c->hunter_quota);
+    !strcmp(k, "STAR_SPEED") && fscanf(f, "%f", &c->star_speed);
+    !strcmp(k, "HUNTER_MAX") && fscanf(f, "%d", &c->hunter_max);
     !strcmp(k, "HUNTER_SPAWN_CHANCE") &&
         fscanf(f, "%d", &c->hunter_spawn_chance);
     !strcmp(k, "HUNTER_DAMAGE") && fscanf(f, "%d", &c->hunter_damage);
@@ -258,12 +262,13 @@ void ShowStatus(WIN *W, BIRD *bird, int timeLeft) {
 
 // --- STARS LOGIC ---
 
-void SpawnStar(WIN *w, STAR *stars, int maxStars, int chance) {
-  if ((rand() % 100) >= chance)
+void SpawnStar(WIN *w, STAR *stars, CONFIG cfg) {
+  if ((rand() % 100) >= cfg.star_spawn_chance)
     return;
 
-  for (int i = 0; i < maxStars; i++) {
+  for (int i = 0; i < cfg.star_max; i++) {
     if (!stars[i].alive) {
+      stars[i].speed = cfg.star_speed;
       stars[i].alive = 1;
       stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
       stars[i].y = BORDER;
@@ -278,7 +283,7 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars) {
     if (!stars[i].alive)
       continue;
     mvwprintw(w->window, stars[i].y, stars[i].x, " "); // Erase
-    stars[i].y++;
+    stars[i].y += stars[i].speed;
     if (stars[i].y >= w->rows - BORDER) {
       stars[i].alive = 0;
       continue;
@@ -290,39 +295,58 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars) {
 
 // --- HUNTERS LOGIC (RESTORED ORIGINAL SPRITES) ---
 
+void RandomizeShape(HUNTER *hunter) {
+
+  int shape = rand() % 5;
+  switch (shape) {
+  case 0:
+    hunter->width = 1;
+    hunter->height = 2;
+    break;
+  case 1:
+    hunter->width = 2;
+    hunter->height = 1;
+    break;
+  case 2:
+    hunter->width = 1;
+    hunter->height = 3;
+    break;
+  case 3:
+    hunter->width = 3;
+    hunter->height = 1;
+    break;
+  case 4:
+    hunter->width = 2;
+    hunter->height = 2;
+    break;
+  }
+}
+
+void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
+  float dx = (float)bird->x - hunter->fx;
+  float dy = (float)bird->y - hunter->fy;
+  float dist = sqrtf(dx * dx + dy * dy);
+
+  if (dist > 0) {
+    hunter->vx = (dx / dist) * cfg.hunter_speed;
+    hunter->vy = (dy / dist) * cfg.hunter_speed;
+  } else {
+    hunter->vx = 0;
+    hunter->vy = 0;
+  }
+}
+
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
   if ((rand() % 100) >= cfg.hunter_spawn_chance)
     return;
 
-  for (int i = 0; i < cfg.hunter_quota; i++) {
+  for (int i = 0; i < cfg.hunter_max; i++) {
     if (!hunters[i].alive) {
       hunters[i].alive = 1;
       hunters[i].damage = cfg.hunter_damage;
       hunters[i].bounces = cfg.hunter_bounces;
 
-      int shape = rand() % 5;
-      switch (shape) {
-      case 0:
-        hunters[i].width = 1;
-        hunters[i].height = 2;
-        break;
-      case 1:
-        hunters[i].width = 2;
-        hunters[i].height = 1;
-        break;
-      case 2:
-        hunters[i].width = 1;
-        hunters[i].height = 3;
-        break;
-      case 3:
-        hunters[i].width = 3;
-        hunters[i].height = 1;
-        break;
-      case 4:
-        hunters[i].width = 2;
-        hunters[i].height = 2;
-        break;
-      }
+      RandomizeShape(&hunters[i]);
 
       // Pick only LEFT (0) or RIGHT (1)
       int side = rand() % 2;
@@ -345,20 +369,43 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
       hunters[i].y = startY;
 
       // Calculate vector to bird
-      float dx = (float)bird->x - hunters[i].fx;
-      float dy = (float)bird->y - hunters[i].fy;
-      float dist = sqrtf(dx * dx + dy * dy);
+      CalculateDirections(bird, &hunters[i], cfg);
 
-      if (dist > 0) {
-        hunters[i].vx = (dx / dist) * cfg.hunter_speed;
-        hunters[i].vy = (dy / dist) * cfg.hunter_speed;
-      } else {
-        hunters[i].vx = 0;
-        hunters[i].vy = 0;
-      }
       break;
     }
   }
+}
+
+int BorderCheck(WIN *w, HUNTER *hunter) {
+  int hit = 0;
+  if (hunter->fx <= BORDER) {
+    hunter->fx = BORDER + 0.1f;
+    hunter->vx = -hunter->vx;
+    return 1;
+  } else if (hunter->fx + hunter->width >= w->cols - BORDER) {
+    hunter->fx = w->cols - BORDER - hunter->width - 0.1f;
+    hunter->vx = -hunter->vx;
+    return 1;
+  }
+
+  if (hunter->fy <= BORDER) {
+    hunter->fy = BORDER + 0.1f;
+    hunter->vy = -hunter->vy;
+    return 1;
+  } else if (hunter->fy + hunter->height >= w->rows - BORDER) {
+    hunter->fy = w->rows - BORDER - hunter->height + 0.1f;
+    hunter->vy = -hunter->vy;
+    return 1;
+  }
+  return 0;
+}
+
+void ErasePrevHunter(WIN *w, HUNTER *hunter) {
+
+  if (hunter->alive)
+    for (int r = 0; r < hunter->height; r++)
+      for (int c = 0; c < hunter->width; c++)
+        mvwprintw(w->window, hunter->y + r, hunter->x + c, " ");
 }
 
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
@@ -367,36 +414,14 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
     if (!hunters[i].alive)
       continue;
 
-    // Erase
-    for (int r = 0; r < hunters[i].height; r++)
-      for (int c = 0; c < hunters[i].width; c++)
-        mvwprintw(w->window, hunters[i].y + r, hunters[i].x + c, " ");
+    ErasePrevHunter(w, &hunters[i]);
 
     // Move Float
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
 
     // Bounce Check
-    int hit = 0;
-    if (hunters[i].fx <= BORDER) {
-      hunters[i].fx = BORDER + 0.1f;
-      hunters[i].vx = -hunters[i].vx;
-      hit = 1;
-    } else if (hunters[i].fx + hunters[i].width >= w->cols - BORDER) {
-      hunters[i].fx = w->cols - BORDER - hunters[i].width - 0.1f;
-      hunters[i].vx = -hunters[i].vx;
-      hit = 1;
-    }
-
-    if (hunters[i].fy <= BORDER) {
-      hunters[i].fy = BORDER + 0.1f;
-      hunters[i].vy = -hunters[i].vy;
-      hit = 1;
-    } else if (hunters[i].fy + hunters[i].height >= w->rows - BORDER) {
-      hunters[i].fy = w->rows - BORDER - hunters[i].height + 0.1f;
-      hunters[i].vy = -hunters[i].vy;
-      hit = 1;
-    }
+    int hit = BorderCheck(w, &hunters[i]);
 
     if (hit) {
       hunters[i].bounces--;
@@ -421,31 +446,38 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
 }
 
 // --- COLLISIONS ---
-int IsHit(int bx, int by, HUNTER *h) {
-  return (bx >= h->x && bx < h->x + h->width && by >= h->y &&
-          by < h->y + h->height);
-}
 
 void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg) {
-  // Check Stars
-  for (int i = 0; i < cfg.star_quota; i++) {
+  for (int i = 0; i < cfg.star_max; i++) {
     if (stars[i].alive) {
+      int sx = (int)stars[i].x;
+      int sy = (int)stars[i].y;
+
       int hit = 0;
-      if ((b->x == stars[i].x && b->y == stars[i].y) ||
-          (b->dy == -1 && b->x == stars[i].x && b->y == stars[i].y - 1)) {
+
+      if (b->x == sx && b->y == sy) {
+        hit = 1;
+      } else if (b->dy == -1 && b->x == sx && sy == (b->y - 1)) {
         hit = 1;
       }
+
       if (hit) {
         stars[i].alive = 0;
-        b->points += cfg.points_per_star;
-        mvwprintw(b->win->window, stars[i].y, stars[i].x, " ");
+        b->points += 1;
+
+        mvwprintw(b->win->window, sy, sx, " ");
       }
     }
   }
 }
 
+int IsHit(int bx, int by, HUNTER *h) {
+  return (bx >= h->x && bx < h->x + h->width && by >= h->y &&
+          by < h->y + h->height);
+}
+
 void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg) {
-  for (int i = 0; i < cfg.hunter_quota; i++) {
+  for (int i = 0; i < cfg.hunter_max; i++) {
     if (hunters[i].alive) {
 
       int prev_bird_x = b->x - (b->dx * b->speed);
@@ -484,49 +516,55 @@ void EndGame(WIN *W, int score, int survived) {
 
 // --- MAIN LOOP ---
 
+void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
+                     CONFIG cfg) {
+  // Handle Stars
+  SpawnStar(playwin, stars, cfg);
+  UpdateStars(playwin, stars, cfg.star_max);
+  CheckCollisionsStar(bird, stars, cfg);
+
+  // Handle Hunters
+  SpawnHunter(playwin, hunters, bird, cfg);
+  UpdateHunters(playwin, hunters, cfg.hunter_max);
+  CheckCollisionsHunter(bird, hunters, cfg);
+}
+
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg) {
-  // DYNAMIC ALLOCATION
-  STAR *stars = (STAR *)malloc(sizeof(STAR) * cfg.star_quota);
-  memset(stars, 0, sizeof(STAR) * cfg.star_quota);
+  // calloc allocates and zeroes memory in one step
+  STAR *stars = (STAR *)calloc(cfg.star_max, sizeof(STAR));
+  HUNTER *hunters = (HUNTER *)calloc(cfg.hunter_max, sizeof(HUNTER));
 
-  HUNTER *hunters = (HUNTER *)malloc(sizeof(HUNTER) * cfg.hunter_quota);
-  memset(hunters, 0, sizeof(HUNTER) * cfg.hunter_quota);
-
-  int ch;
-  int maxTime = cfg.game_time;
   time_t startTime = time(NULL);
+  int ch, timeLeft;
 
   while (1) {
     ch = wgetch(statwin->window);
-    int elapsed = (int)(time(NULL) - startTime);
-    int timeLeft = maxTime - elapsed;
+    timeLeft = cfg.game_time - (int)(time(NULL) - startTime);
     if (timeLeft < 0)
       timeLeft = 0;
 
+    // Exit conditions
     if (ch == QUIT)
       break;
 
+    // Bird Movement
     if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT)
       ManualMoveBird(bird, ch);
     else
       MoveBird(bird);
 
-    SpawnStar(playwin, stars, cfg.star_quota, cfg.star_spawn_chance);
-    UpdateStars(playwin, stars, cfg.star_quota);
+    // Process Stars and Hunters
+    UpdateGameWorld(playwin, stars, hunters, bird, cfg);
 
-    SpawnHunter(playwin, hunters, bird, cfg);
-    UpdateHunters(playwin, hunters, cfg.hunter_quota);
-
-    CheckCollisionsStar(bird, stars, cfg);
-    CheckCollisionsHunter(bird, hunters, cfg);
-
+    // Rendering
     DrawBird(bird);
     ShowStatus(statwin, bird, timeLeft);
+    wrefresh(playwin->window);
 
+    // Game Over Check
     if (bird->health <= 0 || timeLeft == 0)
       break;
 
-    wrefresh(playwin->window);
     flushinp();
     usleep(FRAME_TIME * 1000);
   }
