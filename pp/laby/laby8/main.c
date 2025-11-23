@@ -49,7 +49,6 @@ void komenda_D(Pokoj *pokoje, int n) {
 
   przypisz_klucz(&pokoje[indeks], nowa_osoba);
 }
-
 void komenda_B(Pokoj *pokoje, int n) {
   int indeks_zrodlowy;
   int szukany_numer_pokoju;
@@ -78,8 +77,7 @@ void komenda_B(Pokoj *pokoje, int n) {
 
   przypisz_klucz(&pokoje[indeks_celu], dawca);
 }
-
-void komenda_P(Pokoj *pokoje, int n) {
+void komenda_P(const Pokoj *pokoje, int n) {
   for (int i = 0; i < n; i++) {
     printf("%d", pokoje[i].numer_pokoju);
     if (pokoje[i].wlasciciel_klucza != NULL) {
@@ -104,7 +102,7 @@ void wyczysc_pamiec(Pokoj *pokoje, int n) {
   free(pokoje);
 }
 
-int main() {
+int main(int argc, char *argv[]) {
   int n;
   if (scanf("%d", &n) != 1) {
     printf("error");
@@ -118,7 +116,7 @@ int main() {
 
   for (int i = 0; i < n; i++) {
     scanf("%d", &pokoje[i].numer_pokoju);
-    pokoje[i].wlasciciel_klucza = NULL;
+    pokoje->wlasciciel_klucza = NULL;
   }
 
   char komenda;
@@ -135,5 +133,6 @@ int main() {
   }
 
   wyczysc_pamiec(pokoje, n);
+
   return 0;
 }
