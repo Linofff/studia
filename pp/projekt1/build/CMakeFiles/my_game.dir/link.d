@@ -2,10 +2,13 @@ my_game: \
   /nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib/Scrt1.o \
   /nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib/crti.o \
   /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/crtbeginS.o \
-  CMakeFiles/my_game.dir/bird.c.o \
-  CMakeFiles/my_game.dir/collisions.c.o \
-  CMakeFiles/my_game.dir/stars.c.o \
-  CMakeFiles/my_game.dir/hunters.c.o \
+  CMakeFiles/my_game.dir/depedencies/configmenaging.c.o \
+  CMakeFiles/my_game.dir/depedencies/windowmenaging.c.o \
+  CMakeFiles/my_game.dir/depedencies/bird.c.o \
+  CMakeFiles/my_game.dir/depedencies/collisions.c.o \
+  CMakeFiles/my_game.dir/depedencies/stars.c.o \
+  CMakeFiles/my_game.dir/depedencies/hunters.c.o \
+  CMakeFiles/my_game.dir/depedencies/ranking.c.o \
   CMakeFiles/my_game.dir/main.c.o \
   /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libncurses.so \
   /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libform.so \
@@ -42,13 +45,19 @@ my_game: \
 
 /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/crtbeginS.o:
 
-CMakeFiles/my_game.dir/bird.c.o:
+CMakeFiles/my_game.dir/depedencies/configmenaging.c.o:
 
-CMakeFiles/my_game.dir/collisions.c.o:
+CMakeFiles/my_game.dir/depedencies/windowmenaging.c.o:
 
-CMakeFiles/my_game.dir/stars.c.o:
+CMakeFiles/my_game.dir/depedencies/bird.c.o:
 
-CMakeFiles/my_game.dir/hunters.c.o:
+CMakeFiles/my_game.dir/depedencies/collisions.c.o:
+
+CMakeFiles/my_game.dir/depedencies/stars.c.o:
+
+CMakeFiles/my_game.dir/depedencies/hunters.c.o:
+
+CMakeFiles/my_game.dir/depedencies/ranking.c.o:
 
 CMakeFiles/my_game.dir/main.c.o:
 

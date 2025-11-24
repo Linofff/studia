@@ -129,77 +129,173 @@ my_game/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/build
 .PHONY : my_game/fast
 
-bird.o: bird.c.o
-.PHONY : bird.o
+depedencies/bird.o: depedencies/bird.c.o
+.PHONY : depedencies/bird.o
 
 # target to build an object file
-bird.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/bird.c.o
-.PHONY : bird.c.o
+depedencies/bird.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/bird.c.o
+.PHONY : depedencies/bird.c.o
 
-bird.i: bird.c.i
-.PHONY : bird.i
+depedencies/bird.i: depedencies/bird.c.i
+.PHONY : depedencies/bird.i
 
 # target to preprocess a source file
-bird.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/bird.c.i
-.PHONY : bird.c.i
+depedencies/bird.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/bird.c.i
+.PHONY : depedencies/bird.c.i
 
-bird.s: bird.c.s
-.PHONY : bird.s
+depedencies/bird.s: depedencies/bird.c.s
+.PHONY : depedencies/bird.s
 
 # target to generate assembly for a file
-bird.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/bird.c.s
-.PHONY : bird.c.s
+depedencies/bird.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/bird.c.s
+.PHONY : depedencies/bird.c.s
 
-collisions.o: collisions.c.o
-.PHONY : collisions.o
+depedencies/collisions.o: depedencies/collisions.c.o
+.PHONY : depedencies/collisions.o
 
 # target to build an object file
-collisions.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/collisions.c.o
-.PHONY : collisions.c.o
+depedencies/collisions.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/collisions.c.o
+.PHONY : depedencies/collisions.c.o
 
-collisions.i: collisions.c.i
-.PHONY : collisions.i
+depedencies/collisions.i: depedencies/collisions.c.i
+.PHONY : depedencies/collisions.i
 
 # target to preprocess a source file
-collisions.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/collisions.c.i
-.PHONY : collisions.c.i
+depedencies/collisions.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/collisions.c.i
+.PHONY : depedencies/collisions.c.i
 
-collisions.s: collisions.c.s
-.PHONY : collisions.s
+depedencies/collisions.s: depedencies/collisions.c.s
+.PHONY : depedencies/collisions.s
 
 # target to generate assembly for a file
-collisions.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/collisions.c.s
-.PHONY : collisions.c.s
+depedencies/collisions.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/collisions.c.s
+.PHONY : depedencies/collisions.c.s
 
-hunters.o: hunters.c.o
-.PHONY : hunters.o
+depedencies/configmenaging.o: depedencies/configmenaging.c.o
+.PHONY : depedencies/configmenaging.o
 
 # target to build an object file
-hunters.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/hunters.c.o
-.PHONY : hunters.c.o
+depedencies/configmenaging.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/configmenaging.c.o
+.PHONY : depedencies/configmenaging.c.o
 
-hunters.i: hunters.c.i
-.PHONY : hunters.i
+depedencies/configmenaging.i: depedencies/configmenaging.c.i
+.PHONY : depedencies/configmenaging.i
 
 # target to preprocess a source file
-hunters.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/hunters.c.i
-.PHONY : hunters.c.i
+depedencies/configmenaging.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/configmenaging.c.i
+.PHONY : depedencies/configmenaging.c.i
 
-hunters.s: hunters.c.s
-.PHONY : hunters.s
+depedencies/configmenaging.s: depedencies/configmenaging.c.s
+.PHONY : depedencies/configmenaging.s
 
 # target to generate assembly for a file
-hunters.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/hunters.c.s
-.PHONY : hunters.c.s
+depedencies/configmenaging.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/configmenaging.c.s
+.PHONY : depedencies/configmenaging.c.s
+
+depedencies/hunters.o: depedencies/hunters.c.o
+.PHONY : depedencies/hunters.o
+
+# target to build an object file
+depedencies/hunters.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/hunters.c.o
+.PHONY : depedencies/hunters.c.o
+
+depedencies/hunters.i: depedencies/hunters.c.i
+.PHONY : depedencies/hunters.i
+
+# target to preprocess a source file
+depedencies/hunters.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/hunters.c.i
+.PHONY : depedencies/hunters.c.i
+
+depedencies/hunters.s: depedencies/hunters.c.s
+.PHONY : depedencies/hunters.s
+
+# target to generate assembly for a file
+depedencies/hunters.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/hunters.c.s
+.PHONY : depedencies/hunters.c.s
+
+depedencies/ranking.o: depedencies/ranking.c.o
+.PHONY : depedencies/ranking.o
+
+# target to build an object file
+depedencies/ranking.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/ranking.c.o
+.PHONY : depedencies/ranking.c.o
+
+depedencies/ranking.i: depedencies/ranking.c.i
+.PHONY : depedencies/ranking.i
+
+# target to preprocess a source file
+depedencies/ranking.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/ranking.c.i
+.PHONY : depedencies/ranking.c.i
+
+depedencies/ranking.s: depedencies/ranking.c.s
+.PHONY : depedencies/ranking.s
+
+# target to generate assembly for a file
+depedencies/ranking.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/ranking.c.s
+.PHONY : depedencies/ranking.c.s
+
+depedencies/stars.o: depedencies/stars.c.o
+.PHONY : depedencies/stars.o
+
+# target to build an object file
+depedencies/stars.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/stars.c.o
+.PHONY : depedencies/stars.c.o
+
+depedencies/stars.i: depedencies/stars.c.i
+.PHONY : depedencies/stars.i
+
+# target to preprocess a source file
+depedencies/stars.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/stars.c.i
+.PHONY : depedencies/stars.c.i
+
+depedencies/stars.s: depedencies/stars.c.s
+.PHONY : depedencies/stars.s
+
+# target to generate assembly for a file
+depedencies/stars.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/stars.c.s
+.PHONY : depedencies/stars.c.s
+
+depedencies/windowmenaging.o: depedencies/windowmenaging.c.o
+.PHONY : depedencies/windowmenaging.o
+
+# target to build an object file
+depedencies/windowmenaging.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/windowmenaging.c.o
+.PHONY : depedencies/windowmenaging.c.o
+
+depedencies/windowmenaging.i: depedencies/windowmenaging.c.i
+.PHONY : depedencies/windowmenaging.i
+
+# target to preprocess a source file
+depedencies/windowmenaging.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/windowmenaging.c.i
+.PHONY : depedencies/windowmenaging.c.i
+
+depedencies/windowmenaging.s: depedencies/windowmenaging.c.s
+.PHONY : depedencies/windowmenaging.s
+
+# target to generate assembly for a file
+depedencies/windowmenaging.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/depedencies/windowmenaging.c.s
+.PHONY : depedencies/windowmenaging.c.s
 
 main.o: main.c.o
 .PHONY : main.o
@@ -225,30 +321,6 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/main.c.s
 .PHONY : main.c.s
 
-stars.o: stars.c.o
-.PHONY : stars.o
-
-# target to build an object file
-stars.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/stars.c.o
-.PHONY : stars.c.o
-
-stars.i: stars.c.i
-.PHONY : stars.i
-
-# target to preprocess a source file
-stars.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/stars.c.i
-.PHONY : stars.c.i
-
-stars.s: stars.c.s
-.PHONY : stars.s
-
-# target to generate assembly for a file
-stars.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_game.dir/build.make CMakeFiles/my_game.dir/stars.c.s
-.PHONY : stars.c.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -258,21 +330,30 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... my_game"
-	@echo "... bird.o"
-	@echo "... bird.i"
-	@echo "... bird.s"
-	@echo "... collisions.o"
-	@echo "... collisions.i"
-	@echo "... collisions.s"
-	@echo "... hunters.o"
-	@echo "... hunters.i"
-	@echo "... hunters.s"
+	@echo "... depedencies/bird.o"
+	@echo "... depedencies/bird.i"
+	@echo "... depedencies/bird.s"
+	@echo "... depedencies/collisions.o"
+	@echo "... depedencies/collisions.i"
+	@echo "... depedencies/collisions.s"
+	@echo "... depedencies/configmenaging.o"
+	@echo "... depedencies/configmenaging.i"
+	@echo "... depedencies/configmenaging.s"
+	@echo "... depedencies/hunters.o"
+	@echo "... depedencies/hunters.i"
+	@echo "... depedencies/hunters.s"
+	@echo "... depedencies/ranking.o"
+	@echo "... depedencies/ranking.i"
+	@echo "... depedencies/ranking.s"
+	@echo "... depedencies/stars.o"
+	@echo "... depedencies/stars.i"
+	@echo "... depedencies/stars.s"
+	@echo "... depedencies/windowmenaging.o"
+	@echo "... depedencies/windowmenaging.i"
+	@echo "... depedencies/windowmenaging.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... stars.o"
-	@echo "... stars.i"
-	@echo "... stars.s"
 .PHONY : help
 
 

@@ -29,8 +29,8 @@
 #define BORDER 1
 #define ROWS 20
 #define COLS 80
-#define OFFY 2
-#define OFFX 5
+#define OFFY 0
+#define OFFX 1
 
 // --- CONFIGURATION STRUCT ---
 typedef struct {
