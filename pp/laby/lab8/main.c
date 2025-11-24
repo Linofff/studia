@@ -51,6 +51,7 @@ void komenda_D(Pokoj *pokoje, int n) {
 
   przypisz_klucz(&pokoje[indeks], nowa_osoba);
 }
+
 void komenda_B(Pokoj *pokoje, int n) {
   int indeks_zrodlowy;
   int szukany_numer_pokoju;
@@ -79,6 +80,7 @@ void komenda_B(Pokoj *pokoje, int n) {
 
   przypisz_klucz(&pokoje[indeks_celu], dawca);
 }
+
 void komenda_P(const Pokoj *pokoje, int n) {
   for (int i = 0; i < n; i++) {
     printf("%d", pokoje[i].numer_pokoju);
