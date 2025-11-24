@@ -83,6 +83,9 @@ typedef struct {
   int alive;
   int damage;
   int bounces;
+  int initial_bird_x, initial_bird_y;
+  int dashleft;
+  int sleep_timer;
 } HUNTER;
 
 #endif

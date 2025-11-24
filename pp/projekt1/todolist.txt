@@ -1,0 +1,7 @@
+stars goal
+config file
+  hunter templates
+  ...
+pause before dash
+albatros taxi
+ranking

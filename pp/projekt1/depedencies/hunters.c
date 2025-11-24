@@ -1,4 +1,6 @@
 #include "hunters.h"
+#include <unistd.h>
+
 void RandomizeShape(HUNTER *hunter) {
 
   int shape = rand() % 5;
@@ -48,9 +50,8 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
     if (!hunters[i].alive) {
       hunters[i].alive = 1;
       hunters[i].damage = cfg.hunter_damage;
-      // hunters[i].bounces = cfg.hunter_bounces + ((time(NULL) - startTime) /
-      // 20);
       hunters[i].bounces = cfg.hunter_bounces;
+      hunters[i].dashleft = 1;
 
       RandomizeShape(&hunters[i]);
 
@@ -74,10 +75,48 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
       hunters[i].x = startX;
       hunters[i].y = startY;
 
+      // remeber initial x and y of the bird
+      hunters[i].initial_bird_x = bird->x;
+      hunters[i].initial_bird_y = bird->y;
+
       // Calculate vector to bird
       CalculateDirections(bird, &hunters[i], cfg);
 
       break;
+    }
+  }
+}
+
+void IncreaseHunterSpeed(HUNTER *h, float multiplier) {
+  h->vx *= multiplier;
+  h->vy *= multiplier;
+}
+
+void HunterSleep(HUNTER *hunter) {
+  if (hunter->sleep_timer > 0) {
+    hunter->vx = 0;
+    hunter->vy = 0;
+    hunter->sleep_timer--;
+  }
+}
+
+void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
+  for (int i = 0; i < cfg.hunter_max; i++) {
+
+    HUNTER *h = &hunters[i];
+
+    int targetX = h->initial_bird_x;
+    int targetY = h->initial_bird_y;
+
+    int hitX = (targetX >= h->x) && (targetX <= (h->x + h->width));
+    int hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
+
+    if (hitX && hitY && h->dashleft > 0) {
+      hunters[i].sleep_timer = 10;
+      HunterSleep(h);
+      CalculateDirections(bird, h, cfg);
+      h->dashleft--;
+      continue;
     }
   }
 }
@@ -113,6 +152,7 @@ void ErasePrevHunter(WIN *w, HUNTER *hunter) {
       for (int c = 0; c < hunter->width; c++)
         mvwprintw(w->window, hunter->y + r, hunter->x + c, " ");
 }
+
 void DrawHunter(WIN *w, HUNTER *hunter) {
   char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
   for (int r = 0; r < hunter->height; r++)
@@ -121,7 +161,8 @@ void DrawHunter(WIN *w, HUNTER *hunter) {
         mvwprintw(w->window, hunter->y + r, hunter->x + c, "%c", disp);
 }
 
-void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
+void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
+                   const CONFIG cfg) {
   wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
   for (int i = 0; i < maxHunters; i++) {
     if (!hunters[i].alive)
@@ -132,6 +173,8 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
     // Move Float
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
+
+    HunterDash(w, &hunters[i], bird, cfg);
 
     // Bounce Check
     int hit = BorderCheck(w, &hunters[i]);

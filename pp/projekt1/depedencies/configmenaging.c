@@ -22,6 +22,6 @@ void LoadConfig(CONFIG *c) {
 
 void UpdateConfig(CONFIG *cfg, int startTime) {
   cfg->hunter_bounces =
-      cfg->initial_hunter_bounces + ((time(NULL) - startTime) / 10);
-  cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 10);
+      cfg->initial_hunter_bounces + ((time(NULL) - startTime) / 8);
+  cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 8);
 }

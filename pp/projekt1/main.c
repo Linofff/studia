@@ -18,7 +18,7 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
 
   // Handle Hunters
   SpawnHunter(playwin, hunters, bird, *cfg);
-  UpdateHunters(playwin, hunters, cfg->hunter_max);
+  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg);
   CheckCollisionsHunter(bird, hunters, *cfg);
   UpdateConfig(cfg, startTime);
 }
