@@ -7,6 +7,10 @@
 #include <unistd.h>
 
 // --- CONSTANTS (Non-Gameplay) ---
+
+#define RANKING_FILE "ranking.txt"
+#define TOP_N 5
+
 #define QUIT 'q'
 #define REVERSE ' '
 #define UP 'w'
@@ -28,6 +32,15 @@
 #define OFFX 5
 
 // --- CONFIGURATION STRUCT ---
+
+typedef struct {
+  char name[16];
+  int score;
+  int stars;
+  int health;
+  int time_used;
+} SCORE;
+
 typedef struct {
   int star_max;
   int star_quota;
@@ -36,10 +49,12 @@ typedef struct {
   float star_speed;
   // int points_per_star;
 
+  int initial_hunter_max;
   int hunter_max;
   int hunter_spawn_chance;
   int hunter_damage;
   float hunter_speed;
+  int initial_hunter_bounces;
   int hunter_bounces;
 
   int start_health;
@@ -90,12 +105,12 @@ void LoadConfig(CONFIG *c) {
     !strcmp(k, "GAME_TIME") && fscanf(f, "%d", &c->game_time);
     !strcmp(k, "STAR_SPAWN_CHANCE") && fscanf(f, "%d", &c->star_spawn_chance);
     !strcmp(k, "STAR_SPEED") && fscanf(f, "%f", &c->star_speed);
-    !strcmp(k, "HUNTER_MAX") && fscanf(f, "%d", &c->hunter_max);
+    !strcmp(k, "HUNTER_MAX") && fscanf(f, "%d", &c->initial_hunter_max);
     !strcmp(k, "HUNTER_SPAWN_CHANCE") &&
         fscanf(f, "%d", &c->hunter_spawn_chance);
     !strcmp(k, "HUNTER_DAMAGE") && fscanf(f, "%d", &c->hunter_damage);
     !strcmp(k, "HUNTER_SPEED") && fscanf(f, "%f", &c->hunter_speed);
-    !strcmp(k, "HUNTER_BOUNCES") && fscanf(f, "%d", &c->hunter_bounces);
+    !strcmp(k, "HUNTER_BOUNCES") && fscanf(f, "%d", &c->initial_hunter_bounces);
     !strcmp(k, "START_HEALTH") && fscanf(f, "%d", &c->start_health);
   }
   fclose(f);
@@ -344,6 +359,8 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
     if (!hunters[i].alive) {
       hunters[i].alive = 1;
       hunters[i].damage = cfg.hunter_damage;
+      // hunters[i].bounces = cfg.hunter_bounces + ((time(NULL) - startTime) /
+      // 20);
       hunters[i].bounces = cfg.hunter_bounces;
 
       RandomizeShape(&hunters[i]);
@@ -407,6 +424,13 @@ void ErasePrevHunter(WIN *w, HUNTER *hunter) {
       for (int c = 0; c < hunter->width; c++)
         mvwprintw(w->window, hunter->y + r, hunter->x + c, " ");
 }
+void DrawHunter(WIN *w, HUNTER *hunter) {
+  char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
+  for (int r = 0; r < hunter->height; r++)
+    for (int c = 0; c < hunter->width; c++)
+      if (hunter->y + r < w->rows && hunter->x + c < w->cols)
+        mvwprintw(w->window, hunter->y + r, hunter->x + c, "%c", disp);
+}
 
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
   wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
@@ -436,11 +460,7 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters) {
     hunters[i].y = (int)hunters[i].fy;
 
     // Draw
-    char disp = (hunters[i].bounces > 9) ? '9' : hunters[i].bounces + '0';
-    for (int r = 0; r < hunters[i].height; r++)
-      for (int c = 0; c < hunters[i].width; c++)
-        if (hunters[i].y + r < w->rows && hunters[i].x + c < w->cols)
-          mvwprintw(w->window, hunters[i].y + r, hunters[i].x + c, "%c", disp);
+    DrawHunter(w, &hunters[i]);
   }
   wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
 }
@@ -516,30 +536,39 @@ void EndGame(WIN *W, int score, int survived) {
 
 // --- MAIN LOOP ---
 
-void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
-                     CONFIG cfg) {
-  // Handle Stars
-  SpawnStar(playwin, stars, cfg);
-  UpdateStars(playwin, stars, cfg.star_max);
-  CheckCollisionsStar(bird, stars, cfg);
-
-  // Handle Hunters
-  SpawnHunter(playwin, hunters, bird, cfg);
-  UpdateHunters(playwin, hunters, cfg.hunter_max);
-  CheckCollisionsHunter(bird, hunters, cfg);
+void UpdateConfig(CONFIG *cfg, int startTime) {
+  cfg->hunter_bounces =
+      cfg->initial_hunter_bounces + ((time(NULL) - startTime) / 10);
+  cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 10);
 }
 
-void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg) {
-  // calloc allocates and zeroes memory in one step
-  STAR *stars = (STAR *)calloc(cfg.star_max, sizeof(STAR));
-  HUNTER *hunters = (HUNTER *)calloc(cfg.hunter_max, sizeof(HUNTER));
+void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
+                     CONFIG *cfg, int startTime) {
+  // Handle Stars
+  SpawnStar(playwin, stars, *cfg);
+  UpdateStars(playwin, stars, cfg->star_max);
+  CheckCollisionsStar(bird, stars, *cfg);
 
+  // Handle Hunters
+  SpawnHunter(playwin, hunters, bird, *cfg);
+  UpdateHunters(playwin, hunters, cfg->hunter_max);
+  CheckCollisionsHunter(bird, hunters, *cfg);
+  UpdateConfig(cfg, startTime);
+}
+
+void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
+  // calloc allocates and zeroes memory in one step
   time_t startTime = time(NULL);
   int ch, timeLeft;
 
+  UpdateConfig(cfg, startTime);
+
+  STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
+  HUNTER *hunters = (HUNTER *)calloc(cfg->hunter_max, sizeof(HUNTER));
+
   while (1) {
     ch = wgetch(statwin->window);
-    timeLeft = cfg.game_time - (int)(time(NULL) - startTime);
+    timeLeft = cfg->game_time - (int)(time(NULL) - startTime);
     if (timeLeft < 0)
       timeLeft = 0;
 
@@ -554,7 +583,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg) {
       MoveBird(bird);
 
     // Process Stars and Hunters
-    UpdateGameWorld(playwin, stars, hunters, bird, cfg);
+    UpdateGameWorld(playwin, stars, hunters, bird, cfg, startTime);
 
     // Rendering
     DrawBird(bird);
@@ -596,7 +625,7 @@ int main() {
   wrefresh(playwin->window);
 
   // 4. Run Game
-  MainLoop(playwin, statwin, bird, cfg);
+  MainLoop(playwin, statwin, bird, &cfg);
 
   EndGame(statwin, bird->points, bird->health > 0);
 
