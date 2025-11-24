@@ -74,8 +74,8 @@
 
       <xsl:for-each select="achievementList/achievement">
         <xsl:sort select="title" order="ascending" />
-				
-				<div class="achievement">
+
+        <div class="achievement">
           <h4>
             <xsl:number value="position()" />) <xsl:text> </xsl:text>
 						<xsl:value-of select="title" />

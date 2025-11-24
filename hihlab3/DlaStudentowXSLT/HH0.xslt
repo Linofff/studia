@@ -22,12 +22,12 @@
     </html>
 
   </xsl:template>
-  
+
   <xsl:template match="person">
     <p>
-      <xsl:value-of select="name"/>
+      <xsl:value-of select="name" />
       <xsl:text> </xsl:text>
-      <xsl:value-of select="surname"/>
+      <xsl:value-of select="surname" />
     </p>
   </xsl:template>
 

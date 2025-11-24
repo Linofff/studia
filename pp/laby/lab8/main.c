@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define name_max_length 10000
+
 typedef struct {
-  char imie[10001];
+  char imie[name_max_length + 1];
   int liczba_kluczy;
 } Osoba;
 
