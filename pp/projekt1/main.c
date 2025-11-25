@@ -67,6 +67,9 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
     if (ch == TAXI_OUT)
       OutOfAlbatrossTaxi(hunters, stars, bird, cfg);
 
+    if (bird->points >= cfg->star_quota)
+      break;
+
     // Process Stars and Hunters
     // Note: We cast startTime to (int) to match your function prototype
     UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime);
@@ -115,7 +118,7 @@ int main() {
   // 4. Run Game
   MainLoop(playwin, statwin, bird, &cfg);
 
-  EndGame(statwin, bird->points, bird->health > 0);
+  EndGame(statwin, bird->points, bird->health > 0, &cfg);
 
   delwin(playwin->window);
   delwin(statwin->window);

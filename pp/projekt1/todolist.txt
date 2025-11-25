@@ -1,6 +1,4 @@
-stars goal
 config file
   hunter templates
   ...
-albatros taxi
 ranking

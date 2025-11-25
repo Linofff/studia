@@ -22,7 +22,7 @@
 #define TAXI_IN 't'
 #define TAXI_OUT 'r'
 
-#define FRAME_TIME 100
+#define FRAME_TIME 25
 #define MAIN_COLOR 1
 #define STAT_COLOR 2
 #define PLAY_COLOR 3

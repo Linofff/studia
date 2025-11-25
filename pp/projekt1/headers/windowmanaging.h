@@ -8,6 +8,6 @@ void CleanWin(WIN *W, int bo);
 WIN *InitWin(WINDOW *parent, int rows, int cols, int y, int x, int color,
              int bo, int delay);
 void ShowStatus(WIN *W, BIRD *bird, int timeLeft);
-void EndGame(WIN *W, int score, int survived);
+void EndGame(WIN *W, int score, int survived, CONFIG *cfg);
 
 #endif
