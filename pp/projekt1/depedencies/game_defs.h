@@ -3,6 +3,7 @@
 
 #include <math.h>
 #include <ncurses.h>
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,6 +68,7 @@ typedef struct {
   int color;
   int points;
   int health;
+  bool is_in_albatros_taxi;
 } BIRD;
 
 typedef struct {
@@ -86,6 +88,7 @@ typedef struct {
   int initial_bird_x, initial_bird_y;
   int dashleft;
   int sleep_timer;
+  int boost_timer;
 } HUNTER;
 
 #endif

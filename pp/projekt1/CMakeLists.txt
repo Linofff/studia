@@ -10,7 +10,7 @@ find_package(Curses REQUIRED)
 
 # 4. Define your executable and its source files
 # We list every .c file we want to compile here
-add_executable(my_game 
+add_executable(game 
     ./depedencies/configmenaging.c
     ./depedencies/windowmenaging.c
     ./depedencies/bird.c
@@ -24,7 +24,7 @@ add_executable(my_game
 # 5. Link libraries
 # ${CURSES_LIBRARIES} is the variable CMake found in step 3
 # 'm' stands for the math library (-lm)
-target_link_libraries(my_game 
+target_link_libraries(game 
     ${CURSES_LIBRARIES} 
     m
 )

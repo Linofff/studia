@@ -12,7 +12,7 @@ void DrawHunter(WIN *w, HUNTER *hunter);
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
                    const CONFIG cfg);
 void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg);
-void HunterSleep(HUNTER *hunter);
+void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg);
 void IncreaseHunterSpeed(HUNTER *h, float multiplier);
 
 #endif

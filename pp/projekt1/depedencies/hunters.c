@@ -1,5 +1,4 @@
 #include "hunters.h"
-#include <unistd.h>
 
 void RandomizeShape(HUNTER *hunter) {
 
@@ -92,18 +91,43 @@ void IncreaseHunterSpeed(HUNTER *h, float multiplier) {
   h->vy *= multiplier;
 }
 
-void HunterSleep(HUNTER *hunter) {
+void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
   if (hunter->sleep_timer > 0) {
-    hunter->vx = 0;
-    hunter->vy = 0;
     hunter->sleep_timer--;
+
+    if (hunter->sleep_timer > 0) {
+      hunter->vx = 0;
+      hunter->vy = 0;
+    } else {
+      CalculateDirections(bird, hunter, cfg);
+
+      hunter->vx *= 3;
+      hunter->vy *= 3;
+
+      hunter->boost_timer = 12;
+    }
   }
 }
 
 void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
-  for (int i = 0; i < cfg.hunter_max; i++) {
+  const int WAITTIME = 10;
 
+  for (int i = 0; i < cfg.hunter_max; i++) {
     HUNTER *h = &hunters[i];
+
+    if (h->sleep_timer > 0) {
+      HunterSleep(h, bird, cfg);
+      continue;
+    }
+
+    if (h->boost_timer > 0) {
+      h->boost_timer--;
+
+      if (h->boost_timer <= 0) {
+        h->vx /= 3;
+        h->vy /= 3;
+      }
+    }
 
     int targetX = h->initial_bird_x;
     int targetY = h->initial_bird_y;
@@ -112,11 +136,17 @@ void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
     int hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
 
     if (hitX && hitY && h->dashleft > 0) {
-      hunters[i].sleep_timer = 10;
-      HunterSleep(h);
-      CalculateDirections(bird, h, cfg);
+      if (h->boost_timer > 0) {
+        h->vx /= 2;
+        h->vy /= 2;
+        h->boost_timer = 0;
+      }
+
+      h->sleep_timer = WAITTIME;
       h->dashleft--;
-      continue;
+
+      h->vx = 0;
+      h->vy = 0;
     }
   }
 }
