@@ -1,8 +1,8 @@
 CMakeFiles/game.dir/depedencies/stars.c.o: \
  /home/fonil/studia/pp/projekt1/depedencies/stars.c \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdc-predef.h \
- /home/fonil/studia/pp/projekt1/depedencies/stars.h \
- /home/fonil/studia/pp/projekt1/depedencies/game_defs.h \
+ /home/fonil/studia/pp/projekt1/depedencies/./../headers/stars.h \
+ /home/fonil/studia/pp/projekt1/depedencies/./../headers/game_defs.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/math.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/libc-header-start.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/features.h \

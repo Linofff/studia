@@ -1,7 +1,7 @@
 CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdc-predef.h \
- /home/fonil/studia/pp/projekt1/./depedencies/bird.h \
- /home/fonil/studia/pp/projekt1/./depedencies/game_defs.h \
+ /home/fonil/studia/pp/projekt1/./headers/bird.h \
+ /home/fonil/studia/pp/projekt1/./headers/game_defs.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/math.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/libc-header-start.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/features.h \
@@ -99,10 +99,9 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd-decl.h \
  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd_ext.h \
- /home/fonil/studia/pp/projekt1/./depedencies/collisions.h \
- /home/fonil/studia/pp/projekt1/./depedencies/configmenaging.h \
- /home/fonil/studia/pp/projekt1/./depedencies/game_defs.h \
- /home/fonil/studia/pp/projekt1/./depedencies/hunters.h \
- /home/fonil/studia/pp/projekt1/./depedencies/ranking.h \
- /home/fonil/studia/pp/projekt1/./depedencies/stars.h \
- /home/fonil/studia/pp/projekt1/./depedencies/windowmenaging.h
+ /home/fonil/studia/pp/projekt1/./headers/collisions.h \
+ /home/fonil/studia/pp/projekt1/./headers/configmanaging.h \
+ /home/fonil/studia/pp/projekt1/./headers/game_defs.h \
+ /home/fonil/studia/pp/projekt1/./headers/hunters.h \
+ /home/fonil/studia/pp/projekt1/./headers/stars.h \
+ /home/fonil/studia/pp/projekt1/./headers/windowmanaging.h

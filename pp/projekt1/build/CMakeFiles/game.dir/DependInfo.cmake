@@ -8,13 +8,14 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/fonil/studia/pp/projekt1/depedencies/albatross.c" "CMakeFiles/game.dir/depedencies/albatross.c.o" "gcc" "CMakeFiles/game.dir/depedencies/albatross.c.o.d"
   "/home/fonil/studia/pp/projekt1/depedencies/bird.c" "CMakeFiles/game.dir/depedencies/bird.c.o" "gcc" "CMakeFiles/game.dir/depedencies/bird.c.o.d"
   "/home/fonil/studia/pp/projekt1/depedencies/collisions.c" "CMakeFiles/game.dir/depedencies/collisions.c.o" "gcc" "CMakeFiles/game.dir/depedencies/collisions.c.o.d"
-  "/home/fonil/studia/pp/projekt1/depedencies/configmenaging.c" "CMakeFiles/game.dir/depedencies/configmenaging.c.o" "gcc" "CMakeFiles/game.dir/depedencies/configmenaging.c.o.d"
+  "/home/fonil/studia/pp/projekt1/depedencies/configmanaging.c" "CMakeFiles/game.dir/depedencies/configmanaging.c.o" "gcc" "CMakeFiles/game.dir/depedencies/configmanaging.c.o.d"
   "/home/fonil/studia/pp/projekt1/depedencies/hunters.c" "CMakeFiles/game.dir/depedencies/hunters.c.o" "gcc" "CMakeFiles/game.dir/depedencies/hunters.c.o.d"
   "/home/fonil/studia/pp/projekt1/depedencies/ranking.c" "CMakeFiles/game.dir/depedencies/ranking.c.o" "gcc" "CMakeFiles/game.dir/depedencies/ranking.c.o.d"
   "/home/fonil/studia/pp/projekt1/depedencies/stars.c" "CMakeFiles/game.dir/depedencies/stars.c.o" "gcc" "CMakeFiles/game.dir/depedencies/stars.c.o.d"
-  "/home/fonil/studia/pp/projekt1/depedencies/windowmenaging.c" "CMakeFiles/game.dir/depedencies/windowmenaging.c.o" "gcc" "CMakeFiles/game.dir/depedencies/windowmenaging.c.o.d"
+  "/home/fonil/studia/pp/projekt1/depedencies/windowmanaging.c" "CMakeFiles/game.dir/depedencies/windowmanaging.c.o" "gcc" "CMakeFiles/game.dir/depedencies/windowmanaging.c.o.d"
   "/home/fonil/studia/pp/projekt1/main.c" "CMakeFiles/game.dir/main.c.o" "gcc" "CMakeFiles/game.dir/main.c.o.d"
   "" "game" "gcc" "CMakeFiles/game.dir/link.d"
   )

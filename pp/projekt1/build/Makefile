@@ -129,6 +129,30 @@ game/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/build
 .PHONY : game/fast
 
+depedencies/albatross.o: depedencies/albatross.c.o
+.PHONY : depedencies/albatross.o
+
+# target to build an object file
+depedencies/albatross.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/albatross.c.o
+.PHONY : depedencies/albatross.c.o
+
+depedencies/albatross.i: depedencies/albatross.c.i
+.PHONY : depedencies/albatross.i
+
+# target to preprocess a source file
+depedencies/albatross.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/albatross.c.i
+.PHONY : depedencies/albatross.c.i
+
+depedencies/albatross.s: depedencies/albatross.c.s
+.PHONY : depedencies/albatross.s
+
+# target to generate assembly for a file
+depedencies/albatross.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/albatross.c.s
+.PHONY : depedencies/albatross.c.s
+
 depedencies/bird.o: depedencies/bird.c.o
 .PHONY : depedencies/bird.o
 
@@ -177,29 +201,29 @@ depedencies/collisions.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/collisions.c.s
 .PHONY : depedencies/collisions.c.s
 
-depedencies/configmenaging.o: depedencies/configmenaging.c.o
-.PHONY : depedencies/configmenaging.o
+depedencies/configmanaging.o: depedencies/configmanaging.c.o
+.PHONY : depedencies/configmanaging.o
 
 # target to build an object file
-depedencies/configmenaging.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmenaging.c.o
-.PHONY : depedencies/configmenaging.c.o
+depedencies/configmanaging.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmanaging.c.o
+.PHONY : depedencies/configmanaging.c.o
 
-depedencies/configmenaging.i: depedencies/configmenaging.c.i
-.PHONY : depedencies/configmenaging.i
+depedencies/configmanaging.i: depedencies/configmanaging.c.i
+.PHONY : depedencies/configmanaging.i
 
 # target to preprocess a source file
-depedencies/configmenaging.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmenaging.c.i
-.PHONY : depedencies/configmenaging.c.i
+depedencies/configmanaging.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmanaging.c.i
+.PHONY : depedencies/configmanaging.c.i
 
-depedencies/configmenaging.s: depedencies/configmenaging.c.s
-.PHONY : depedencies/configmenaging.s
+depedencies/configmanaging.s: depedencies/configmanaging.c.s
+.PHONY : depedencies/configmanaging.s
 
 # target to generate assembly for a file
-depedencies/configmenaging.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmenaging.c.s
-.PHONY : depedencies/configmenaging.c.s
+depedencies/configmanaging.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmanaging.c.s
+.PHONY : depedencies/configmanaging.c.s
 
 depedencies/hunters.o: depedencies/hunters.c.o
 .PHONY : depedencies/hunters.o
@@ -273,29 +297,29 @@ depedencies/stars.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/stars.c.s
 .PHONY : depedencies/stars.c.s
 
-depedencies/windowmenaging.o: depedencies/windowmenaging.c.o
-.PHONY : depedencies/windowmenaging.o
+depedencies/windowmanaging.o: depedencies/windowmanaging.c.o
+.PHONY : depedencies/windowmanaging.o
 
 # target to build an object file
-depedencies/windowmenaging.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmenaging.c.o
-.PHONY : depedencies/windowmenaging.c.o
+depedencies/windowmanaging.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmanaging.c.o
+.PHONY : depedencies/windowmanaging.c.o
 
-depedencies/windowmenaging.i: depedencies/windowmenaging.c.i
-.PHONY : depedencies/windowmenaging.i
+depedencies/windowmanaging.i: depedencies/windowmanaging.c.i
+.PHONY : depedencies/windowmanaging.i
 
 # target to preprocess a source file
-depedencies/windowmenaging.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmenaging.c.i
-.PHONY : depedencies/windowmenaging.c.i
+depedencies/windowmanaging.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmanaging.c.i
+.PHONY : depedencies/windowmanaging.c.i
 
-depedencies/windowmenaging.s: depedencies/windowmenaging.c.s
-.PHONY : depedencies/windowmenaging.s
+depedencies/windowmanaging.s: depedencies/windowmanaging.c.s
+.PHONY : depedencies/windowmanaging.s
 
 # target to generate assembly for a file
-depedencies/windowmenaging.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmenaging.c.s
-.PHONY : depedencies/windowmenaging.c.s
+depedencies/windowmanaging.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/windowmanaging.c.s
+.PHONY : depedencies/windowmanaging.c.s
 
 main.o: main.c.o
 .PHONY : main.o
@@ -330,15 +354,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... game"
+	@echo "... depedencies/albatross.o"
+	@echo "... depedencies/albatross.i"
+	@echo "... depedencies/albatross.s"
 	@echo "... depedencies/bird.o"
 	@echo "... depedencies/bird.i"
 	@echo "... depedencies/bird.s"
 	@echo "... depedencies/collisions.o"
 	@echo "... depedencies/collisions.i"
 	@echo "... depedencies/collisions.s"
-	@echo "... depedencies/configmenaging.o"
-	@echo "... depedencies/configmenaging.i"
-	@echo "... depedencies/configmenaging.s"
+	@echo "... depedencies/configmanaging.o"
+	@echo "... depedencies/configmanaging.i"
+	@echo "... depedencies/configmanaging.s"
 	@echo "... depedencies/hunters.o"
 	@echo "... depedencies/hunters.i"
 	@echo "... depedencies/hunters.s"
@@ -348,9 +375,9 @@ help:
 	@echo "... depedencies/stars.o"
 	@echo "... depedencies/stars.i"
 	@echo "... depedencies/stars.s"
-	@echo "... depedencies/windowmenaging.o"
-	@echo "... depedencies/windowmenaging.i"
-	@echo "... depedencies/windowmenaging.s"
+	@echo "... depedencies/windowmanaging.o"
+	@echo "... depedencies/windowmanaging.i"
+	@echo "... depedencies/windowmanaging.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

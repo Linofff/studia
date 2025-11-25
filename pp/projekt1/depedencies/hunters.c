@@ -1,4 +1,4 @@
-#include "hunters.h"
+#include "./../headers/hunters.h"
 
 void RandomizeShape(HUNTER *hunter) {
 

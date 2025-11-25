@@ -11,13 +11,14 @@ find_package(Curses REQUIRED)
 # 4. Define your executable and its source files
 # We list every .c file we want to compile here
 add_executable(game 
-    ./depedencies/configmenaging.c
-    ./depedencies/windowmenaging.c
+    ./depedencies/configmanaging.c
+    ./depedencies/windowmanaging.c
     ./depedencies/bird.c
     ./depedencies/collisions.c
     ./depedencies/stars.c
     ./depedencies/hunters.c
     ./depedencies/ranking.c
+    ./depedencies/albatross.c
     main.c 
 )
 

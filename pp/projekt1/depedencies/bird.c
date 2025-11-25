@@ -1,4 +1,4 @@
-#include "bird.h"
+#include "./../headers/bird.h"
 
 BIRD *InitBird(WIN *w, int x, int y, int startHealth) {
   BIRD *b = (BIRD *)malloc(sizeof(BIRD));

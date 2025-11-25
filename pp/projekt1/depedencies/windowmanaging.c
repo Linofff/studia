@@ -1,4 +1,4 @@
-#include "windowmenaging.h"
+#include "./../headers/windowmanaging.h"
 
 WINDOW *Start() {
   WINDOW *win;

@@ -72,33 +72,33 @@ include CMakeFiles/game.dir/flags.make
 CMakeFiles/game.dir/codegen:
 .PHONY : CMakeFiles/game.dir/codegen
 
-CMakeFiles/game.dir/depedencies/configmenaging.c.o: CMakeFiles/game.dir/flags.make
-CMakeFiles/game.dir/depedencies/configmenaging.c.o: /home/fonil/studia/pp/projekt1/depedencies/configmenaging.c
-CMakeFiles/game.dir/depedencies/configmenaging.c.o: CMakeFiles/game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/game.dir/depedencies/configmenaging.c.o"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/depedencies/configmenaging.c.o -MF CMakeFiles/game.dir/depedencies/configmenaging.c.o.d -o CMakeFiles/game.dir/depedencies/configmenaging.c.o -c /home/fonil/studia/pp/projekt1/depedencies/configmenaging.c
+CMakeFiles/game.dir/depedencies/configmanaging.c.o: CMakeFiles/game.dir/flags.make
+CMakeFiles/game.dir/depedencies/configmanaging.c.o: /home/fonil/studia/pp/projekt1/depedencies/configmanaging.c
+CMakeFiles/game.dir/depedencies/configmanaging.c.o: CMakeFiles/game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/game.dir/depedencies/configmanaging.c.o"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/depedencies/configmanaging.c.o -MF CMakeFiles/game.dir/depedencies/configmanaging.c.o.d -o CMakeFiles/game.dir/depedencies/configmanaging.c.o -c /home/fonil/studia/pp/projekt1/depedencies/configmanaging.c
 
-CMakeFiles/game.dir/depedencies/configmenaging.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/game.dir/depedencies/configmenaging.c.i"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/fonil/studia/pp/projekt1/depedencies/configmenaging.c > CMakeFiles/game.dir/depedencies/configmenaging.c.i
+CMakeFiles/game.dir/depedencies/configmanaging.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/game.dir/depedencies/configmanaging.c.i"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/fonil/studia/pp/projekt1/depedencies/configmanaging.c > CMakeFiles/game.dir/depedencies/configmanaging.c.i
 
-CMakeFiles/game.dir/depedencies/configmenaging.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/configmenaging.c.s"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/configmenaging.c -o CMakeFiles/game.dir/depedencies/configmenaging.c.s
+CMakeFiles/game.dir/depedencies/configmanaging.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/configmanaging.c.s"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/configmanaging.c -o CMakeFiles/game.dir/depedencies/configmanaging.c.s
 
-CMakeFiles/game.dir/depedencies/windowmenaging.c.o: CMakeFiles/game.dir/flags.make
-CMakeFiles/game.dir/depedencies/windowmenaging.c.o: /home/fonil/studia/pp/projekt1/depedencies/windowmenaging.c
-CMakeFiles/game.dir/depedencies/windowmenaging.c.o: CMakeFiles/game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/game.dir/depedencies/windowmenaging.c.o"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/depedencies/windowmenaging.c.o -MF CMakeFiles/game.dir/depedencies/windowmenaging.c.o.d -o CMakeFiles/game.dir/depedencies/windowmenaging.c.o -c /home/fonil/studia/pp/projekt1/depedencies/windowmenaging.c
+CMakeFiles/game.dir/depedencies/windowmanaging.c.o: CMakeFiles/game.dir/flags.make
+CMakeFiles/game.dir/depedencies/windowmanaging.c.o: /home/fonil/studia/pp/projekt1/depedencies/windowmanaging.c
+CMakeFiles/game.dir/depedencies/windowmanaging.c.o: CMakeFiles/game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/game.dir/depedencies/windowmanaging.c.o"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/depedencies/windowmanaging.c.o -MF CMakeFiles/game.dir/depedencies/windowmanaging.c.o.d -o CMakeFiles/game.dir/depedencies/windowmanaging.c.o -c /home/fonil/studia/pp/projekt1/depedencies/windowmanaging.c
 
-CMakeFiles/game.dir/depedencies/windowmenaging.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/game.dir/depedencies/windowmenaging.c.i"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/fonil/studia/pp/projekt1/depedencies/windowmenaging.c > CMakeFiles/game.dir/depedencies/windowmenaging.c.i
+CMakeFiles/game.dir/depedencies/windowmanaging.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/game.dir/depedencies/windowmanaging.c.i"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/fonil/studia/pp/projekt1/depedencies/windowmanaging.c > CMakeFiles/game.dir/depedencies/windowmanaging.c.i
 
-CMakeFiles/game.dir/depedencies/windowmenaging.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/windowmenaging.c.s"
-	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/windowmenaging.c -o CMakeFiles/game.dir/depedencies/windowmenaging.c.s
+CMakeFiles/game.dir/depedencies/windowmanaging.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/windowmanaging.c.s"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/windowmanaging.c -o CMakeFiles/game.dir/depedencies/windowmanaging.c.s
 
 CMakeFiles/game.dir/depedencies/bird.c.o: CMakeFiles/game.dir/flags.make
 CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depedencies/bird.c
@@ -170,10 +170,24 @@ CMakeFiles/game.dir/depedencies/ranking.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/ranking.c.s"
 	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/ranking.c -o CMakeFiles/game.dir/depedencies/ranking.c.s
 
+CMakeFiles/game.dir/depedencies/albatross.c.o: CMakeFiles/game.dir/flags.make
+CMakeFiles/game.dir/depedencies/albatross.c.o: /home/fonil/studia/pp/projekt1/depedencies/albatross.c
+CMakeFiles/game.dir/depedencies/albatross.c.o: CMakeFiles/game.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/game.dir/depedencies/albatross.c.o"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/depedencies/albatross.c.o -MF CMakeFiles/game.dir/depedencies/albatross.c.o.d -o CMakeFiles/game.dir/depedencies/albatross.c.o -c /home/fonil/studia/pp/projekt1/depedencies/albatross.c
+
+CMakeFiles/game.dir/depedencies/albatross.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/game.dir/depedencies/albatross.c.i"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/fonil/studia/pp/projekt1/depedencies/albatross.c > CMakeFiles/game.dir/depedencies/albatross.c.i
+
+CMakeFiles/game.dir/depedencies/albatross.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/game.dir/depedencies/albatross.c.s"
+	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/fonil/studia/pp/projekt1/depedencies/albatross.c -o CMakeFiles/game.dir/depedencies/albatross.c.s
+
 CMakeFiles/game.dir/main.c.o: CMakeFiles/game.dir/flags.make
 CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c
 CMakeFiles/game.dir/main.c.o: CMakeFiles/game.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building C object CMakeFiles/game.dir/main.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building C object CMakeFiles/game.dir/main.c.o"
 	/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/game.dir/main.c.o -MF CMakeFiles/game.dir/main.c.o.d -o CMakeFiles/game.dir/main.c.o -c /home/fonil/studia/pp/projekt1/main.c
 
 CMakeFiles/game.dir/main.c.i: cmake_force
@@ -186,32 +200,34 @@ CMakeFiles/game.dir/main.c.s: cmake_force
 
 # Object files for target game
 game_OBJECTS = \
-"CMakeFiles/game.dir/depedencies/configmenaging.c.o" \
-"CMakeFiles/game.dir/depedencies/windowmenaging.c.o" \
+"CMakeFiles/game.dir/depedencies/configmanaging.c.o" \
+"CMakeFiles/game.dir/depedencies/windowmanaging.c.o" \
 "CMakeFiles/game.dir/depedencies/bird.c.o" \
 "CMakeFiles/game.dir/depedencies/collisions.c.o" \
 "CMakeFiles/game.dir/depedencies/stars.c.o" \
 "CMakeFiles/game.dir/depedencies/hunters.c.o" \
 "CMakeFiles/game.dir/depedencies/ranking.c.o" \
+"CMakeFiles/game.dir/depedencies/albatross.c.o" \
 "CMakeFiles/game.dir/main.c.o"
 
 # External object files for target game
 game_EXTERNAL_OBJECTS =
 
-game: CMakeFiles/game.dir/depedencies/configmenaging.c.o
-game: CMakeFiles/game.dir/depedencies/windowmenaging.c.o
+game: CMakeFiles/game.dir/depedencies/configmanaging.c.o
+game: CMakeFiles/game.dir/depedencies/windowmanaging.c.o
 game: CMakeFiles/game.dir/depedencies/bird.c.o
 game: CMakeFiles/game.dir/depedencies/collisions.c.o
 game: CMakeFiles/game.dir/depedencies/stars.c.o
 game: CMakeFiles/game.dir/depedencies/hunters.c.o
 game: CMakeFiles/game.dir/depedencies/ranking.c.o
+game: CMakeFiles/game.dir/depedencies/albatross.c.o
 game: CMakeFiles/game.dir/main.c.o
 game: CMakeFiles/game.dir/build.make
 game: CMakeFiles/game.dir/compiler_depend.ts
 game: /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libncurses.so
 game: /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libform.so
 game: CMakeFiles/game.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking C executable game"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/fonil/studia/pp/projekt1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking C executable game"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/game.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

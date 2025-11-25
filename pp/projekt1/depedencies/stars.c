@@ -1,4 +1,4 @@
-#include "stars.h"
+#include "./../headers/stars.h"
 
 void SpawnStar(WIN *w, STAR *stars, CONFIG cfg) {
   if ((rand() % 100) >= cfg.star_spawn_chance)

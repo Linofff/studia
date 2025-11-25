@@ -1,4 +1,4 @@
-#include "collisions.h"
+#include "./../headers/collisions.h"
 
 void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg) {
   for (int i = 0; i < cfg.star_max; i++) {

@@ -1,4 +1,4 @@
-#include "configmenaging.h"
+#include "./../headers/configmanaging.h"
 
 void LoadConfig(CONFIG *c) {
   FILE *f = fopen("settings.txt", "r");

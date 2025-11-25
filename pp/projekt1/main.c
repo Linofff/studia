@@ -1,11 +1,12 @@
-#include "./depedencies/bird.h"
-#include "./depedencies/collisions.h"
-#include "./depedencies/configmenaging.h"
-#include "./depedencies/game_defs.h"
-#include "./depedencies/hunters.h"
-#include "./depedencies/ranking.h"
-#include "./depedencies/stars.h"
-#include "./depedencies/windowmenaging.h"
+#include "./headers/albatross.h"
+#include "./headers/bird.h"
+#include "./headers/collisions.h"
+#include "./headers/configmanaging.h"
+#include "./headers/game_defs.h"
+#include "./headers/hunters.h"
+#include "./headers/ranking.h"
+#include "./headers/stars.h"
+#include "./headers/windowmanaging.h"
 
 // --- FILE LOADING ---
 
