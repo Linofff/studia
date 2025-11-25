@@ -19,6 +19,8 @@
 #define DOWN 's'
 #define LEFT 'a'
 #define RIGHT 'd'
+#define TAXI_IN 't'
+#define TAXI_OUT 'r'
 
 #define FRAME_TIME 100
 #define MAIN_COLOR 1
@@ -38,6 +40,7 @@ typedef struct {
   int star_max;
   int star_quota;
   int game_time;
+  int game_time_elapsed;
   int star_spawn_chance;
   float star_speed;
 

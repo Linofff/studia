@@ -1,16 +1,18 @@
 #include "./../headers/stars.h"
 
-void SpawnStar(WIN *w, STAR *stars, CONFIG cfg) {
-  if ((rand() % 100) >= cfg.star_spawn_chance)
-    return;
+void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg) {
+  if (!bird->is_in_albatros_taxi) {
+    if ((rand() % 100) >= cfg.star_spawn_chance)
+      return;
 
-  for (int i = 0; i < cfg.star_max; i++) {
-    if (!stars[i].alive) {
-      stars[i].speed = cfg.star_speed;
-      stars[i].alive = 1;
-      stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
-      stars[i].y = BORDER;
-      break;
+    for (int i = 0; i < cfg.star_max; i++) {
+      if (!stars[i].alive) {
+        stars[i].speed = cfg.star_speed;
+        stars[i].alive = 1;
+        stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
+        stars[i].y = BORDER;
+        break;
+      }
     }
   }
 }
@@ -23,6 +25,7 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars) {
     mvwprintw(w->window, stars[i].y, stars[i].x, " "); // Erase
     stars[i].y += stars[i].speed;
     if (stars[i].y >= w->rows - BORDER) {
+      stars[i].y = BORDER;
       stars[i].alive = 0;
       continue;
     }

@@ -42,53 +42,50 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
 }
 
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
-  if ((rand() % 100) >= cfg.hunter_spawn_chance)
-    return;
+  if (!bird->is_in_albatros_taxi) {
+    if ((rand() % 100) >= cfg.hunter_spawn_chance)
+      return;
 
-  for (int i = 0; i < cfg.hunter_max; i++) {
-    if (!hunters[i].alive) {
-      hunters[i].alive = 1;
-      hunters[i].damage = cfg.hunter_damage;
-      hunters[i].bounces = cfg.hunter_bounces;
-      hunters[i].dashleft = 1;
+    for (int i = 0; i < cfg.hunter_max; i++) {
+      if (!hunters[i].alive) {
+        hunters[i].alive = 1;
+        hunters[i].damage = cfg.hunter_damage;
+        hunters[i].bounces = cfg.hunter_bounces;
+        hunters[i].dashleft = 1;
 
-      RandomizeShape(&hunters[i]);
+        RandomizeShape(&hunters[i]);
 
-      // Pick only LEFT (0) or RIGHT (1)
-      int side = rand() % 2;
-      int startX, startY;
-      int maxY = w->rows - BORDER - hunters[i].height; // Ensure height fits
+        // Pick only LEFT (0) or RIGHT (1)
+        int side = rand() % 2;
+        int startX, startY;
+        int maxY = w->rows - BORDER - hunters[i].height; // Ensure height fits
 
-      if (side == 0) { // Left
-        startX = BORDER;
-        startY = (rand() % (maxY - BORDER)) + BORDER;
-      } else { // Right
-        startX =
-            w->cols - BORDER - hunters[i].width; // Ensure width fits inside
-        startY = (rand() % (maxY - BORDER)) + BORDER;
+        if (side == 0) { // Left
+          startX = BORDER;
+          startY = (rand() % (maxY - BORDER)) + BORDER;
+        } else { // Right
+          startX =
+              w->cols - BORDER - hunters[i].width; // Ensure width fits inside
+          startY = (rand() % (maxY - BORDER)) + BORDER;
+        }
+
+        // Set positions
+        hunters[i].fx = (float)startX;
+        hunters[i].fy = (float)startY;
+        hunters[i].x = startX;
+        hunters[i].y = startY;
+
+        // remeber initial x and y of the bird
+        hunters[i].initial_bird_x = bird->x;
+        hunters[i].initial_bird_y = bird->y;
+
+        // Calculate vector to bird
+        CalculateDirections(bird, &hunters[i], cfg);
+
+        break;
       }
-
-      // Set positions
-      hunters[i].fx = (float)startX;
-      hunters[i].fy = (float)startY;
-      hunters[i].x = startX;
-      hunters[i].y = startY;
-
-      // remeber initial x and y of the bird
-      hunters[i].initial_bird_x = bird->x;
-      hunters[i].initial_bird_y = bird->y;
-
-      // Calculate vector to bird
-      CalculateDirections(bird, &hunters[i], cfg);
-
-      break;
     }
   }
-}
-
-void IncreaseHunterSpeed(HUNTER *h, float multiplier) {
-  h->vx *= multiplier;
-  h->vy *= multiplier;
 }
 
 void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
@@ -101,10 +98,10 @@ void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
     } else {
       CalculateDirections(bird, hunter, cfg);
 
-      hunter->vx *= 3;
-      hunter->vy *= 3;
+      hunter->vx *= 2;
+      hunter->vy *= 2;
 
-      hunter->boost_timer = 12;
+      hunter->boost_timer = 16;
     }
   }
 }
@@ -120,12 +117,12 @@ void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
       continue;
     }
 
-    if (h->boost_timer > 0) {
+    if (h->boost_timer > 0 && h->sleep_timer == 0) {
       h->boost_timer--;
 
       if (h->boost_timer <= 0) {
-        h->vx /= 3;
-        h->vy /= 3;
+        h->vx /= 2;
+        h->vy /= 2;
       }
     }
 

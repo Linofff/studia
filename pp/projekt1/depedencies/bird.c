@@ -26,52 +26,54 @@ void DrawBird(BIRD *b) {
 void ClearBird(BIRD *b) { mvwprintw(b->win->window, b->y, b->x, " "); }
 
 void MoveBird(BIRD *b) {
-  ClearBird(b);
+  if (!b->is_in_albatros_taxi) {
+    ClearBird(b);
 
-  int at_x_boundary = (b->x <= BORDER - 1) || (b->x >= b->win->cols - BORDER);
-  int at_y_boundary = (b->y <= BORDER - 1) || (b->y >= b->win->rows - BORDER);
+    int at_x_boundary = (b->x <= BORDER - 1) || (b->x >= b->win->cols - BORDER);
+    int at_y_boundary = (b->y <= BORDER - 1) || (b->y >= b->win->rows - BORDER);
 
-  if (at_x_boundary) {
-    if (b->x <= BORDER) {
-      b->dx = 1;
-    } else if (b->x >= b->win->cols - BORDER - 1) {
-      b->dx = -1;
-    }
-  } else {
-    int new_x = b->x + b->dx * b->speed;
-
-    if (new_x <= BORDER) {
-      b->x = BORDER;
-      b->dx = 1;
-    } else if (new_x >= b->win->cols - BORDER - 1) {
-      b->x = b->win->cols - BORDER - 1;
-      b->dx = -1;
+    if (at_x_boundary) {
+      if (b->x <= BORDER) {
+        b->dx = 1;
+      } else if (b->x >= b->win->cols - BORDER - 1) {
+        b->dx = -1;
+      }
     } else {
-      b->x = new_x;
-    }
-  }
+      int new_x = b->x + b->dx * b->speed;
 
-  if (at_y_boundary) {
-    if (b->y <= BORDER) {
-      b->dy = 1;
-    } else if (b->y >= b->win->rows - BORDER - 1) {
-      b->dy = -1;
+      if (new_x <= BORDER) {
+        b->x = BORDER;
+        b->dx = 1;
+      } else if (new_x >= b->win->cols - BORDER - 1) {
+        b->x = b->win->cols - BORDER - 1;
+        b->dx = -1;
+      } else {
+        b->x = new_x;
+      }
     }
-  } else {
-    int new_y = b->y + b->dy * b->speed;
 
-    if (new_y <= BORDER) {
-      b->y = BORDER;
-      b->dy = 1;
-    } else if (new_y >= b->win->rows - BORDER - 1) {
-      b->y = b->win->rows - BORDER - 1;
-      b->dy = -1;
+    if (at_y_boundary) {
+      if (b->y <= BORDER) {
+        b->dy = 1;
+      } else if (b->y >= b->win->rows - BORDER - 1) {
+        b->dy = -1;
+      }
     } else {
-      b->y = new_y;
-    }
-  }
+      int new_y = b->y + b->dy * b->speed;
 
-  DrawBird(b);
+      if (new_y <= BORDER) {
+        b->y = BORDER;
+        b->dy = 1;
+      } else if (new_y >= b->win->rows - BORDER - 1) {
+        b->y = b->win->rows - BORDER - 1;
+        b->dy = -1;
+      } else {
+        b->y = new_y;
+      }
+    }
+
+    DrawBird(b);
+  }
 }
 
 void ManualMoveBird(BIRD *b, int ch) {

@@ -25,3 +25,25 @@ void UpdateConfig(CONFIG *cfg, int startTime) {
       cfg->initial_hunter_bounces + ((time(NULL) - startTime) / 8);
   cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 8);
 }
+
+void UpdateTimeState(BIRD *bird, time_t *start_timestamp, int total_duration,
+                     int *elapsed_time, int *remaining_time) {
+
+  time_t current_time = time(NULL);
+
+  // PAUSE LOGIC:
+  // If the bird is in the taxi, we shift the start_timestamp forward
+  // so that (current_time - start_timestamp) remains constant.
+  if (bird->is_in_albatros_taxi) {
+    *start_timestamp = current_time - *elapsed_time;
+  }
+
+  // Calculate elapsed time based on the (potentially shifted) start time
+  *elapsed_time = (int)(current_time - *start_timestamp);
+  *remaining_time = total_duration - *elapsed_time;
+
+  // Prevent negative time
+  if (*remaining_time < 0) {
+    *remaining_time = 0;
+  }
+}

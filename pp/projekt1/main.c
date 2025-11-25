@@ -13,7 +13,7 @@
 void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      CONFIG *cfg, int startTime) {
   // Handle Stars
-  SpawnStar(playwin, stars, *cfg);
+  SpawnStar(bird, playwin, stars, *cfg);
   UpdateStars(playwin, stars, cfg->star_max);
   CheckCollisionsStar(bird, stars, *cfg);
 
@@ -24,21 +24,32 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
   UpdateConfig(cfg, startTime);
 }
 
-void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
-  // calloc allocates and zeroes memory in one step
-  time_t startTime = time(NULL);
-  int ch, timeLeft;
+// Calculates elapsed and remaining time based on the start time
 
-  UpdateConfig(cfg, startTime);
+void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
+  time_t startTime = time(NULL);
+  int ch;
+
+  // Initialize time variables
+  cfg->game_time_elapsed = 0;
+  int timeLeft = cfg->game_time;
+
+  // Initial config update
+  UpdateConfig(cfg, (int)startTime);
 
   STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
   HUNTER *hunters = (HUNTER *)calloc(cfg->hunter_max, sizeof(HUNTER));
 
   while (1) {
+
+    box(playwin->window, 0, 0);
+
     ch = wgetch(statwin->window);
-    timeLeft = cfg->game_time - (int)(time(NULL) - startTime);
-    if (timeLeft < 0)
-      timeLeft = 0;
+
+    // --- TIME CALCULATION ---
+    // We pass the ADDRESS (&) of startTime so UpdateTimeState can modify it
+    UpdateTimeState(bird, &startTime, cfg->game_time, &cfg->game_time_elapsed,
+                    &timeLeft);
 
     // Exit conditions
     if (ch == QUIT)
@@ -50,8 +61,15 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
     else
       MoveBird(bird);
 
+    if (ch == TAXI_IN)
+      AlbatrossTaxi(hunters, stars, bird, cfg);
+
+    if (ch == TAXI_OUT)
+      OutOfAlbatrossTaxi(hunters, stars, bird, cfg);
+
     // Process Stars and Hunters
-    UpdateGameWorld(playwin, stars, hunters, bird, cfg, startTime);
+    // Note: We cast startTime to (int) to match your function prototype
+    UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime);
 
     // Rendering
     DrawBird(bird);
