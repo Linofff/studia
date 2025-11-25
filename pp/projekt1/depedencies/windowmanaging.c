@@ -41,20 +41,22 @@ WIN *InitWin(WINDOW *parent, int rows, int cols, int y, int x, int color,
   return W;
 }
 
-void ShowStatus(WIN *W, BIRD *bird, int timeLeft) {
+void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   wbkgd(W->window, COLOR_PAIR(W->color));
   werase(W->window);
   box(W->window, 0, 0);
-  mvwprintw(W->window, 1, 2, "Time: %d | Score: %d | HP: %d | [Q] Quit",
-            timeLeft, bird->points, bird->health);
+  mvwprintw(
+      W->window, 1, 2,
+      "Time: %d | Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] Albatros",
+      cfg.game_time, bird->points, bird->health, cfg.star_quota);
   wrefresh(W->window);
 }
 
-void EndGame(WIN *W, int score, int survived, CONFIG *cfg) {
+void EndGame(WIN *W, int score, int survived, CONFIG cfg) {
   CleanWin(W, 1);
-  if (survived && score >= cfg->star_quota)
-    mvwprintw(W->window, 1, 2, "You Won in time of %d seconds",
-              cfg->game_time_elapsed);
+  if (survived && score >= cfg.star_quota)
+    mvwprintw(W->window, 1, 2, "You have won in time of %d seconds!",
+              cfg.game_time_elapsed);
   else if (survived)
     mvwprintw(W->window, 1, 2, "TIME UP! Final Score: %d", score);
   else

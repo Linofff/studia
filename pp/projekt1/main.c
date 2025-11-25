@@ -76,7 +76,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
 
     // Rendering
     DrawBird(bird);
-    ShowStatus(statwin, bird, timeLeft);
+    ShowStatus(statwin, bird, *cfg);
     wrefresh(playwin->window);
 
     // Game Over Check
@@ -110,7 +110,7 @@ int main() {
   BIRD *bird = InitBird(playwin, COLS / 2, ROWS / 2, cfg.start_health);
 
   DrawBird(bird);
-  ShowStatus(statwin, bird, cfg.game_time);
+  ShowStatus(statwin, bird, cfg);
   wrefresh(playwin->window);
 
   // UpdateConfig(&cfg, 2);
@@ -118,7 +118,7 @@ int main() {
   // 4. Run Game
   MainLoop(playwin, statwin, bird, &cfg);
 
-  EndGame(statwin, bird->points, bird->health > 0, &cfg);
+  EndGame(statwin, bird->points, bird->health > 0, cfg);
 
   delwin(playwin->window);
   delwin(statwin->window);
