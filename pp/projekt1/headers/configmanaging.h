@@ -5,7 +5,6 @@
 
 void LoadConfig(CONFIG *c);
 void UpdateConfig(CONFIG *cfg, int startTime);
-void UpdateTimeState(BIRD *bird, time_t *start_timestamp, int total_duration,
-                     int *elapsed_time, int *remaining_time);
+void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg);
 
 #endif

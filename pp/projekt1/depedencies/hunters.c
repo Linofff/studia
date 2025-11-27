@@ -42,7 +42,7 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
 }
 
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
-  if (!bird->is_in_albatros_taxi) {
+  if (!bird->is_in_albatross_taxi) {
     if ((rand() % 100) >= cfg.hunter_spawn_chance)
       return;
 
@@ -89,41 +89,42 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
 }
 
 void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
-  if (hunter->sleep_timer > 0) {
-    hunter->sleep_timer--;
+  if (cfg.game_time_elapsed >= hunter->sleep_timer) {
 
-    if (hunter->sleep_timer > 0) {
-      hunter->vx = 0;
-      hunter->vy = 0;
-    } else {
-      CalculateDirections(bird, hunter, cfg);
+    CalculateDirections(bird, hunter, cfg);
 
-      hunter->vx *= 2;
-      hunter->vy *= 2;
+    hunter->vx *= 2;
+    hunter->vy *= 2;
 
-      hunter->boost_timer = 16;
-    }
+    hunter->boost_timer = cfg.game_time_elapsed + 1;
+
+    hunter->sleep_timer = 0;
+
+  } else {
+    hunter->vx = 0;
+    hunter->vy = 0;
   }
 }
 
 void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
-  const int WAITTIME = 10;
 
   for (int i = 0; i < cfg.hunter_max; i++) {
     HUNTER *h = &hunters[i];
 
     if (h->sleep_timer > 0) {
-      HunterSleep(h, bird, cfg);
-      continue;
+      if (cfg.game_time_elapsed < h->sleep_timer) {
+        h->vx = 0;
+        h->vy = 0;
+        continue;
+      } else {
+        HunterSleep(h, bird, cfg);
+      }
     }
 
-    if (h->boost_timer > 0 && h->sleep_timer == 0) {
-      h->boost_timer--;
-
-      if (h->boost_timer <= 0) {
-        h->vx /= 2;
-        h->vy /= 2;
-      }
+    if (h->boost_timer > 0 && cfg.game_time_elapsed >= h->boost_timer) {
+      h->vx /= 2;
+      h->vy /= 2;
+      h->boost_timer = 0;
     }
 
     int targetX = h->initial_bird_x;
@@ -133,13 +134,15 @@ void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
     int hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
 
     if (hitX && hitY && h->dashleft > 0) {
+
       if (h->boost_timer > 0) {
         h->vx /= 2;
         h->vy /= 2;
         h->boost_timer = 0;
       }
 
-      h->sleep_timer = WAITTIME;
+      h->sleep_timer = cfg.game_time_elapsed + 1;
+
       h->dashleft--;
 
       h->vx = 0;
@@ -197,11 +200,11 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
 
     ErasePrevHunter(w, &hunters[i]);
 
+    HunterDash(w, &hunters[i], bird, cfg);
+
     // Move Float
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
-
-    HunterDash(w, &hunters[i], bird, cfg);
 
     // Bounce Check
     int hit = BorderCheck(w, &hunters[i]);

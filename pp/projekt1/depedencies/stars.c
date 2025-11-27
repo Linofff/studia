@@ -1,13 +1,13 @@
 #include "./../headers/stars.h"
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg) {
-  if (!bird->is_in_albatros_taxi) {
+  if (!bird->is_in_albatross_taxi) {
     if ((rand() % 100) >= cfg.star_spawn_chance)
       return;
 
     for (int i = 0; i < cfg.star_max; i++) {
       if (!stars[i].alive) {
-        stars[i].speed = cfg.star_speed;
+        stars[i].speed = (float)rand() / (float)RAND_MAX;
         stars[i].alive = 1;
         stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
         stars[i].y = BORDER;

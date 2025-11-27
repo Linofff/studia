@@ -103,6 +103,7 @@ CMakeFiles/game.dir/depedencies/albatross.c.o: /home/fonil/studia/pp/projekt1/de
   /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdint.h
 
 CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depedencies/bird.c \
+  /home/fonil/studia/pp/projekt1/headers/albatross.h \
   /home/fonil/studia/pp/projekt1/headers/bird.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \
@@ -204,6 +205,9 @@ CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depeden
   /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdint.h
 
 CMakeFiles/game.dir/depedencies/collisions.c.o: /home/fonil/studia/pp/projekt1/depedencies/collisions.c \
+  /home/fonil/studia/pp/projekt1/headers/albatross.h \
+  /home/fonil/studia/pp/projekt1/headers/bird.h \
+  /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/collisions.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \

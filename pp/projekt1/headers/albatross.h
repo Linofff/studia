@@ -1,5 +1,5 @@
-#ifndef ALBATROS_H
-#define ALBATROS_H
+#ifndef ALBATROSS_H
+#define ALBATROSS_H
 
 #include "game_defs.h"
 

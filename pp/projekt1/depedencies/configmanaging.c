@@ -6,7 +6,7 @@ void LoadConfig(CONFIG *c) {
   while (fscanf(f, "%s", k) > 0) {
     !strcmp(k, "STAR_MAX") && fscanf(f, "%d", &c->star_max);
     !strcmp(k, "STAR_QUOTA") && fscanf(f, "%d", &c->star_quota);
-    !strcmp(k, "GAME_TIME") && fscanf(f, "%d", &c->game_time);
+    !strcmp(k, "GAME_TIME") && fscanf(f, "%d", &c->game_time_start);
     !strcmp(k, "STAR_SPAWN_CHANCE") && fscanf(f, "%d", &c->star_spawn_chance);
     !strcmp(k, "STAR_SPEED") && fscanf(f, "%f", &c->star_speed);
     !strcmp(k, "HUNTER_MAX") && fscanf(f, "%d", &c->initial_hunter_max);
@@ -26,19 +26,20 @@ void UpdateConfig(CONFIG *cfg, int startTime) {
   cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 8);
 }
 
-void UpdateTimeState(BIRD *bird, time_t *start_timestamp, int total_duration,
-                     int *elapsed_time, int *remaining_time) {
+void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {
+  time_t current = time(NULL);
 
-  time_t current_time = time(NULL);
-
-  if (bird->is_in_albatros_taxi) {
-    *start_timestamp = current_time - *elapsed_time;
+  if (bird->is_in_albatross_taxi) {
+    *start_timestamp = current;
+    return;
   }
 
-  *elapsed_time = (int)(current_time - *start_timestamp);
-  *remaining_time = total_duration - *elapsed_time;
+  if (current > *start_timestamp) {
+    cfg->game_time_elapsed++;
+    cfg->game_time_left--;
+    if (bird->albatross_in_cooldown > 0)
+      bird->albatross_in_cooldown--;
 
-  if (*remaining_time < 0) {
-    *remaining_time = 0;
+    *start_timestamp = current;
   }
 }

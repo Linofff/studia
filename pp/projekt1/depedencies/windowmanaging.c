@@ -10,7 +10,9 @@ WINDOW *Start() {
   init_pair(MAIN_COLOR, COLOR_WHITE, COLOR_BLACK);
   init_pair(PLAY_COLOR, COLOR_CYAN, COLOR_BLACK);
   init_pair(STAT_COLOR, COLOR_YELLOW, COLOR_BLUE);
-  init_pair(BIRD_COLOR, COLOR_RED, COLOR_BLACK);
+  init_pair(BIRD_COLOR1, COLOR_GREEN, COLOR_BLACK);
+  init_pair(BIRD_COLOR2, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(BIRD_COLOR3, COLOR_RED, COLOR_BLACK);
   init_pair(HUNTER_COLOR, COLOR_MAGENTA, COLOR_BLACK);
   noecho();
   curs_set(0);
@@ -45,10 +47,11 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   wbkgd(W->window, COLOR_PAIR(W->color));
   werase(W->window);
   box(W->window, 0, 0);
-  mvwprintw(
-      W->window, 1, 2,
-      "Time: %d | Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] Albatros",
-      cfg.game_time, bird->points, bird->health, cfg.star_quota);
+  mvwprintw(W->window, 1, 2,
+            "Time: %d %d %d | Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] "
+            "Albatros",
+            cfg.game_time_left, bird->albatross_in_cooldown, cfg.game_speed,
+            bird->points, bird->health, cfg.star_quota);
   wrefresh(W->window);
 }
 

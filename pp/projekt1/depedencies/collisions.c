@@ -1,4 +1,5 @@
 #include "./../headers/collisions.h"
+#include "../headers/bird.h"
 
 void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg) {
   for (int i = 0; i < cfg.star_max; i++) {
@@ -55,4 +56,5 @@ void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg) {
       }
     }
   }
+  ChangeColor(b, cfg);
 }

@@ -22,12 +22,17 @@
 #define TAXI_IN 't'
 #define TAXI_OUT 'r'
 
-#define FRAME_TIME 25
+// #define FRAME_TIME 100
+#define SLOWER 'o'
+#define FASTER 'p'
+
 #define MAIN_COLOR 1
 #define STAT_COLOR 2
 #define PLAY_COLOR 3
-#define BIRD_COLOR 4
-#define HUNTER_COLOR 5
+#define BIRD_COLOR1 4
+#define BIRD_COLOR2 5
+#define BIRD_COLOR3 6
+#define HUNTER_COLOR 7
 
 #define BORDER 1
 #define ROWS 20
@@ -37,10 +42,12 @@
 
 // --- CONFIGURATION STRUCT ---
 typedef struct {
+  int game_time_start;
+  int game_time_left;
+  int game_time_elapsed;
+
   int star_max;
   int star_quota;
-  int game_time;
-  int game_time_elapsed;
   int star_spawn_chance;
   float star_speed;
 
@@ -53,6 +60,9 @@ typedef struct {
   int hunter_bounces;
 
   int start_health;
+
+  int frame_time;
+  int game_speed;
 } CONFIG;
 
 // --- GAME STRUCTS ---
@@ -65,13 +75,16 @@ typedef struct {
 typedef struct {
   WIN *win;
   int x, y;
-  int dx, dy;
+  float dx, dy;
   int speed;
   char symbol;
   int color;
   int points;
   int health;
-  bool is_in_albatros_taxi;
+  int albatross_taxi_left;
+  int albatross_in_cooldown;
+  int albatross_out_cooldown;
+  bool is_in_albatross_taxi;
 } BIRD;
 
 typedef struct {
