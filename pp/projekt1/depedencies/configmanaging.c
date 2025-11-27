@@ -1,23 +1,72 @@
 #include "./../headers/configmanaging.h"
 
 void LoadConfig(CONFIG *c) {
-  FILE *f = fopen("settings.txt", "r");
-  char k[64];
-  while (fscanf(f, "%s", k) > 0) {
-    !strcmp(k, "STAR_MAX") && fscanf(f, "%d", &c->star_max);
-    !strcmp(k, "STAR_QUOTA") && fscanf(f, "%d", &c->star_quota);
-    !strcmp(k, "GAME_TIME") && fscanf(f, "%d", &c->game_time_start);
-    !strcmp(k, "STAR_SPAWN_CHANCE") && fscanf(f, "%d", &c->star_spawn_chance);
-    !strcmp(k, "STAR_SPEED") && fscanf(f, "%f", &c->star_speed);
-    !strcmp(k, "HUNTER_MAX") && fscanf(f, "%d", &c->initial_hunter_max);
-    !strcmp(k, "HUNTER_SPAWN_CHANCE") &&
-        fscanf(f, "%d", &c->hunter_spawn_chance);
-    !strcmp(k, "HUNTER_DAMAGE") && fscanf(f, "%d", &c->hunter_damage);
-    !strcmp(k, "HUNTER_SPEED") && fscanf(f, "%f", &c->hunter_speed);
-    !strcmp(k, "HUNTER_BOUNCES") && fscanf(f, "%d", &c->initial_hunter_bounces);
-    !strcmp(k, "START_HEALTH") && fscanf(f, "%d", &c->start_health);
+  FILE *file = fopen("settings.txt", "r");
+  if (!file) {
+    printf("BLAD: Nie mozna otworzyc pliku");
+    return;
   }
-  fclose(f);
+
+  char line[256];
+  char current_section[50] = "";
+
+  while (fgets(line, sizeof(line), file)) {
+    for (int i = 0; line[i]; i++) {
+      if (line[i] == '=' || line[i] == '{') {
+        line[i] = ' ';
+      }
+    }
+
+    if (strchr(line, '}')) {
+      current_section[0] = '\0';
+      continue;
+    }
+
+    char key[50];
+    float value;
+
+    if (sscanf(line, "%s %f", key, &value) == 2) {
+
+      // Sekcja STARS
+      if (strcmp(current_section, "stars") == 0) {
+        if (strcmp(key, "max") == 0)
+          c->star_max = (int)value;
+        else if (strcmp(key, "spawn_chance") == 0)
+          c->star_spawn_chance = (int)value;
+        else if (strcmp(key, "speed") == 0)
+          c->star_speed = value;
+      }
+      // Sekcja BIRD
+      else if (strcmp(current_section, "bird") == 0) {
+        if (strcmp(key, "health") == 0)
+          c->start_health = (int)value;
+      }
+      // Sekcja HUNTER
+      else if (strcmp(current_section, "hunter") == 0) {
+        if (strcmp(key, "max_count") == 0)
+          c->initial_hunter_max = (int)value;
+        else if (strcmp(key, "spawn_chance") == 0)
+          c->hunter_spawn_chance = (int)value;
+        else if (strcmp(key, "damage") == 0)
+          c->hunter_damage = (int)value;
+        else if (strcmp(key, "bounces") == 0)
+          c->hunter_bounces = (int)value;
+        else if (strcmp(key, "speed") == 0)
+          c->hunter_speed = (float)value;
+      }
+      // Sekcja GAME
+      else if (strcmp(current_section, "game") == 0) {
+        if (strcmp(key, "star_quota") == 0)
+          c->star_quota = (int)value;
+        else if (strcmp(key, "game_time") == 0)
+          c->game_time_start = (int)value;
+      }
+    } else if (sscanf(line, "%s", key) == 1) {
+      strcpy(current_section, key);
+    }
+  }
+
+  fclose(file);
 }
 
 void UpdateConfig(CONFIG *cfg, int startTime) {

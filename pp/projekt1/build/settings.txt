@@ -1,13 +1,21 @@
-STAR_MAX 100
-STAR_QUOTA 10
-GAME_TIME 50
-STAR_SPAWN_CHANCE 25
-STAR_SPEED 0.5
+stars {
+  max = 100
+  spawn_chance = 25
+}
 
-HUNTER_MAX 2
-HUNTER_SPAWN_CHANCE 30
-HUNTER_DAMAGE 1
-HUNTER_SPEED 0.9
-HUNTER_BOUNCES 2
+bird {
+  health = 3
+}
 
-START_HEALTH 3
+hunter {
+  max_count = 2
+  spawn_chance = 30
+  damage =  1
+  speed = 0.9
+  bouces = 2
+}
+
+game {
+  star_quota 10
+  game_time 50
+}
