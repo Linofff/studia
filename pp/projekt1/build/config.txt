@@ -43,5 +43,5 @@ hunter {
 game {
  star_quota = 3
  game_time = 50
- seed = 1
+ seed = 2
 }

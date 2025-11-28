@@ -66,6 +66,7 @@ typedef struct {
   float hunter_speed;
   int initial_hunter_bounces;
   int hunter_bounces;
+
   HunterTemplate hunter_templates[MAX_TEMPLATES];
 
   int start_health;
@@ -86,7 +87,7 @@ typedef struct {
   WIN *win;
   int x, y;
   float dx, dy;
-  int speed;
+  float speed;
   char symbol;
   int color;
   int points;

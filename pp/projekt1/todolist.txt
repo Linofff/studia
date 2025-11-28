@@ -1,5 +1,3 @@
 opacity map
-config file
-  hunter templates
 ranking
 cinematic over screen 

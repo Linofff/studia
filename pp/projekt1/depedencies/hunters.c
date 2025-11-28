@@ -5,48 +5,26 @@ void ChoseShape(HUNTER *hunter, CONFIG cfg) {
   int variant = rand() % 5;
   switch (variant) {
   case 0:
-    hunter->width = 1;
-    hunter->height = 2;
+    hunter->width = cfg.hunter_templates[0].width;
+    hunter->height = cfg.hunter_templates[0].height;
     break;
   case 1:
-    hunter->width = 2;
-    hunter->height = 1;
+    hunter->width = cfg.hunter_templates[1].width;
+    hunter->height = cfg.hunter_templates[1].height;
     break;
   case 2:
-    hunter->width = 1;
-    hunter->height = 3;
+    hunter->width = cfg.hunter_templates[2].width;
+    hunter->height = cfg.hunter_templates[2].height;
     break;
   case 3:
-    hunter->width = 3;
-    hunter->height = 1;
+    hunter->width = cfg.hunter_templates[3].width;
+    hunter->height = cfg.hunter_templates[3].height;
     break;
   case 4:
-    hunter->width = 2;
-    hunter->height = 2;
+    hunter->width = cfg.hunter_templates[4].width;
+    hunter->height = cfg.hunter_templates[4].height;
     break;
   }
-
-  // case 0:
-  //     hunter->width = cfg.hunter_templates[0].width;
-  //     hunter->height = cfg.hunter_templates[0].height;
-  //     break;
-  //   case 1:
-  //     hunter->width = cfg.hunter_templates[1].width;
-  //     hunter->height = cfg.hunter_templates[1].height;
-  //     break;
-  //   case 2:
-  //     hunter->width = cfg.hunter_templates[2].width;
-  //     hunter->height = cfg.hunter_templates[2].height;
-  //     break;
-  //   case 3:
-  //     hunter->width = cfg.hunter_templates[3].width;
-  //     hunter->height = cfg.hunter_templates[3].height;
-  //     break;
-  //   case 4:
-  //     hunter->width = cfg.hunter_templates[4].width;
-  //     hunter->height = cfg.hunter_templates[4].height;
-  //     break;
-  // }
 }
 
 void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {

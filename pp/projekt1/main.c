@@ -40,8 +40,8 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
   int timeLeft = cfg->game_time_start;
   cfg->game_time_left = cfg->game_time_start;
 
-  STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
-  HUNTER *hunters = (HUNTER *)calloc(cfg->hunter_max, sizeof(HUNTER));
+  STAR *stars = (STAR *)malloc(cfg->star_max * sizeof(STAR));
+  HUNTER *hunters = (HUNTER *)malloc(cfg->hunter_max * sizeof(HUNTER));
 
   while (running) {
 
