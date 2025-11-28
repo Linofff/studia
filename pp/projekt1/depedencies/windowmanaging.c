@@ -1,4 +1,5 @@
 #include "./../headers/windowmanaging.h"
+#include "ncurses.h"
 
 WINDOW *Start() {
   WINDOW *win;
@@ -9,11 +10,12 @@ WINDOW *Start() {
   start_color();
   init_pair(MAIN_COLOR, COLOR_WHITE, COLOR_BLACK);
   init_pair(PLAY_COLOR, COLOR_CYAN, COLOR_BLACK);
-  init_pair(STAT_COLOR, COLOR_YELLOW, COLOR_BLUE);
+  init_pair(STAT_COLOR, COLOR_WHITE, COLOR_BLACK);
   init_pair(BIRD_COLOR1, COLOR_GREEN, COLOR_BLACK);
   init_pair(BIRD_COLOR2, COLOR_YELLOW, COLOR_BLACK);
   init_pair(BIRD_COLOR3, COLOR_RED, COLOR_BLACK);
   init_pair(HUNTER_COLOR, COLOR_MAGENTA, COLOR_BLACK);
+  init_pair(TAXI_COLOR, COLOR_RED, COLOR_BLACK);
   noecho();
   curs_set(0);
   return win;
@@ -48,9 +50,10 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   werase(W->window);
   box(W->window, 0, 0);
   mvwprintw(W->window, 1, 2,
-            "Time: %d %d %d | Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] "
-            "Albatros",
-            cfg.game_time_left, bird->albatross_in_cooldown, cfg.game_speed,
+            "Time left: %d | Albatross cooldown: %d | Game speed: %d",
+            cfg.game_time_left, bird->albatross_in_cooldown, cfg.game_speed);
+  mvwprintw(W->window, 2, 2,
+            "Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] Albatros",
             bird->points, bird->health, cfg.star_quota);
   wrefresh(W->window);
 }
@@ -58,12 +61,12 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
 void EndGame(WIN *W, int score, int survived, CONFIG cfg) {
   CleanWin(W, 1);
   if (survived && score >= cfg.star_quota)
-    mvwprintw(W->window, 1, 2, "You have won in time of %d seconds!",
+    mvwprintw(W->window, 1, 25, "You have won in  %d seconds!",
               cfg.game_time_elapsed);
   else if (survived)
-    mvwprintw(W->window, 1, 2, "TIME UP! Final Score: %d", score);
+    mvwprintw(W->window, 1, 27, "TIME UP! Final Score: %d", score);
   else
-    mvwprintw(W->window, 1, 2, "DIED! Final Score: %d", score);
+    mvwprintw(W->window, 1, 30, "DIED! Final Score: %d", score);
   wrefresh(W->window);
   sleep(3);
 }

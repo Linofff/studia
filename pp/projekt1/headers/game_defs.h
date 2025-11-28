@@ -33,12 +33,20 @@
 #define BIRD_COLOR2 5
 #define BIRD_COLOR3 6
 #define HUNTER_COLOR 7
+#define TAXI_COLOR 8
 
 #define BORDER 1
 #define ROWS 20
 #define COLS 80
 #define OFFY 0
 #define OFFX 1
+
+#define MAX_TEMPLATES 5
+
+typedef struct {
+  int width;
+  int height;
+} HunterTemplate;
 
 // --- CONFIGURATION STRUCT ---
 typedef struct {
@@ -58,11 +66,13 @@ typedef struct {
   float hunter_speed;
   int initial_hunter_bounces;
   int hunter_bounces;
+  HunterTemplate hunter_templates[MAX_TEMPLATES];
 
   int start_health;
 
   int frame_time;
   int game_speed;
+  int seed;
 } CONFIG;
 
 // --- GAME STRUCTS ---

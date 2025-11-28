@@ -1,9 +1,9 @@
 #include "./../headers/hunters.h"
 
-void RandomizeShape(HUNTER *hunter) {
+void ChoseShape(HUNTER *hunter, CONFIG cfg) {
 
-  int shape = rand() % 5;
-  switch (shape) {
+  int variant = rand() % 5;
+  switch (variant) {
   case 0:
     hunter->width = 1;
     hunter->height = 2;
@@ -25,6 +25,28 @@ void RandomizeShape(HUNTER *hunter) {
     hunter->height = 2;
     break;
   }
+
+  // case 0:
+  //     hunter->width = cfg.hunter_templates[0].width;
+  //     hunter->height = cfg.hunter_templates[0].height;
+  //     break;
+  //   case 1:
+  //     hunter->width = cfg.hunter_templates[1].width;
+  //     hunter->height = cfg.hunter_templates[1].height;
+  //     break;
+  //   case 2:
+  //     hunter->width = cfg.hunter_templates[2].width;
+  //     hunter->height = cfg.hunter_templates[2].height;
+  //     break;
+  //   case 3:
+  //     hunter->width = cfg.hunter_templates[3].width;
+  //     hunter->height = cfg.hunter_templates[3].height;
+  //     break;
+  //   case 4:
+  //     hunter->width = cfg.hunter_templates[4].width;
+  //     hunter->height = cfg.hunter_templates[4].height;
+  //     break;
+  // }
 }
 
 void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
@@ -53,7 +75,7 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
         hunters[i].bounces = cfg.hunter_bounces;
         hunters[i].dashleft = 1;
 
-        RandomizeShape(&hunters[i]);
+        ChoseShape(&hunters[i], cfg);
 
         // Pick only LEFT (0) or RIGHT (1)
         int side = rand() % 2;

@@ -1,0 +1,22 @@
+stars {
+ max = 10
+ spawn_chance = 25
+}
+
+bird {
+ health = 3
+}
+
+hunter {
+ max_count = 2
+ spawn_chance = 30
+ damage = 1
+ bounces = 2
+ speed = 0.9
+}
+
+game {
+ star_quota = 3
+ game_time = 50
+ seed = 1
+}

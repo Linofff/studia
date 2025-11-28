@@ -2,6 +2,7 @@
 
 void AlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg) {
   if (!bird->albatross_in_cooldown) {
+    bird->albatross_in_cooldown = 5;
     bird->albatross_out_cooldown = 1;
     for (int i = 0; i < cfg->hunter_max; i++) {
       hunters[i].alive = 0;
@@ -26,6 +27,5 @@ void AlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg) {
 void OutOfAlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg) {
   if (!bird->albatross_out_cooldown) {
     bird->is_in_albatross_taxi = 0;
-    bird->albatross_in_cooldown = 5;
   }
 }

@@ -1,6 +1,5 @@
 opacity map
 config file
-  seeds
   hunter templates
 ranking
 cinematic over screen 

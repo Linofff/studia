@@ -7,6 +7,7 @@
 #include "./headers/ranking.h"
 #include "./headers/stars.h"
 #include "./headers/windowmanaging.h"
+#include "ncurses.h"
 
 // --- FILE LOADING ---
 
@@ -76,6 +77,17 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
 
     DrawBird(bird);
 
+    // int temp = playwin->color;
+    if (bird->is_in_albatross_taxi) {
+      // playwin->color = TAXI_COLOR;
+      mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
+                "You are in the taxi");
+    } else {
+      mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
+                "                   ");
+      // playwin->color = temp;
+    }
+
     UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime);
 
     ShowStatus(statwin, bird, *cfg);
@@ -97,11 +109,13 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
 }
 
 int main() {
-  srand(time(NULL));
 
   // 1. Load Settings
   CONFIG cfg;
   LoadConfig(&cfg);
+
+  srand(cfg.seed);
+  // srand(time(NULL));
 
   cfg.game_speed = 0;
   cfg.frame_time = 100;
@@ -112,7 +126,7 @@ int main() {
   WIN *playwin =
       InitWin(mainwin, ROWS, COLS, OFFY, OFFX, PLAY_COLOR, BORDER, 0);
   WIN *statwin =
-      InitWin(mainwin, 3, COLS, ROWS + OFFY, OFFX, STAT_COLOR, BORDER, 0);
+      InitWin(mainwin, 4, COLS, ROWS + OFFY, OFFX, STAT_COLOR, BORDER, 0);
 
   // 3. Init Bird
   BIRD *bird = InitBird(playwin, COLS / 2, ROWS / 2, cfg.start_health);
