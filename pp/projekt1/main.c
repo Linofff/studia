@@ -1,47 +1,63 @@
 #include "./headers/albatross.h"
 #include "./headers/bird.h"
-#include "./headers/collisions.h"
+// #include "./headers/collisions.h"
 #include "./headers/configmanaging.h"
 #include "./headers/game_defs.h"
 #include "./headers/hunters.h"
-#include "./headers/ranking.h"
+// #include "./headers/ranking.h"
 #include "./headers/stars.h"
 #include "./headers/windowmanaging.h"
-#include "ncurses.h"
 
 // --- FILE LOADING ---
 
 void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
-                     CONFIG *cfg, int startTime) {
+                     CONFIG *cfg, int startTime,
+                     char occupancyMap[ROWS][COLS]) {
   UpdateConfig(cfg, startTime);
   // Handle Stars
-  CheckCollisionsStar(bird, stars, *cfg);
-  SpawnStar(bird, playwin, stars, *cfg);
-  UpdateStars(playwin, stars, cfg->star_max);
-  CheckCollisionsStar(bird, stars, *cfg);
+  SpawnStar(bird, playwin, stars, *cfg, occupancyMap);
+  UpdateStars(playwin, stars, cfg->star_max, occupancyMap);
+  // CheckCollisionsStar(bird, stars, *cfg, occupancyMap);
 
   // Handle Hunters
-  CheckCollisionsHunter(bird, hunters, *cfg);
-  SpawnHunter(playwin, hunters, bird, *cfg);
-  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg);
-  CheckCollisionsHunter(bird, hunters, *cfg);
+  SpawnHunter(playwin, hunters, bird, *cfg, occupancyMap);
+  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg, occupancyMap);
+  // CheckCollisionsHunter(bird, hunters, *cfg, occupancyMap);
 }
 
 // Calculates elapsed and remaining time based on the start time
 
-void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
+void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
+              char occupancyMap[ROWS][COLS]) {
   time_t startTime = time(NULL);
   int ch, running = 1;
 
   UpdateConfig(cfg, (int)startTime);
+
+  box(playwin->window, 0, 0);
+  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
+            "Press SPACEBAR to START");
+  wrefresh(playwin->window);
+
+  int startCh;
+  while ((startCh = wgetch(statwin->window)) != SPACEBAR) {
+    if (startCh == QUIT) {
+      running = 0;
+    }
+    usleep(50000);
+  }
+
+  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
+            "                       ");
+  wrefresh(playwin->window);
 
   // Initialize time variables
   cfg->game_time_elapsed = 0;
   int timeLeft = cfg->game_time_start;
   cfg->game_time_left = cfg->game_time_start;
 
-  STAR *stars = (STAR *)malloc(cfg->star_max * sizeof(STAR));
-  HUNTER *hunters = (HUNTER *)malloc(cfg->hunter_max * sizeof(HUNTER));
+  STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
+  HUNTER *hunters = (HUNTER *)calloc(cfg->hunter_max, sizeof(HUNTER));
 
   while (running) {
 
@@ -51,15 +67,28 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
 
     ch = wgetch(statwin->window);
 
+    if (ch == 'm' || ch == 'M') {
+      DebugDrawMap(playwin, occupancyMap);
+
+      // Pause here so you can look at it.
+      // Wait for user to press 'm' again to resume.
+      while (wgetch(statwin->window) != 'm')
+        ;
+
+      // Clear the messy map before resuming the game graphics
+      wclear(playwin->window);
+      box(playwin->window, 0, 0); // Redraw border
+    }
+
     // Exit conditions
     if (ch == QUIT)
       running = 0;
 
     // Bird Movement
     if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT)
-      ManualMoveBird(bird, ch);
+      ManualMoveBird(bird, ch, occupancyMap);
     else
-      MoveBird(bird);
+      MoveBird(bird, occupancyMap);
 
     if (ch == TAXI_IN)
       AlbatrossTaxi(hunters, stars, bird, cfg);
@@ -77,24 +106,22 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
 
     DrawBird(bird);
 
-    // int temp = playwin->color;
     if (bird->is_in_albatross_taxi) {
-      // playwin->color = TAXI_COLOR;
       mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
-                "You are in the taxi");
+                "You are in a taxi");
     } else {
       mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
                 "                   ");
-      // playwin->color = temp;
     }
 
-    UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime);
+    UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime,
+                    occupancyMap);
 
     ShowStatus(statwin, bird, *cfg);
     wrefresh(playwin->window);
 
     // Game Over Check
-    if (bird->health <= 0 || timeLeft == 0)
+    if (bird->health <= 0 || cfg->game_time_left <= 0)
       running = 0;
 
     if (bird->points >= cfg->star_quota)
@@ -108,6 +135,14 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg) {
   free(hunters);
 }
 
+void InitMap(char occupancyMap[ROWS][COLS]) {
+  for (int y = 0; y < ROWS; y++) {
+    for (int x = 0; x < COLS; x++) {
+      occupancyMap[y][x] = ' '; // Set everything to empty space
+    }
+  }
+}
+
 int main() {
 
   // 1. Load Settings
@@ -117,8 +152,12 @@ int main() {
   srand(cfg.seed);
   // srand(time(NULL));
 
+  char occupancyMap[ROWS][COLS];
+
+  InitMap(occupancyMap);
+
   cfg.game_speed = 0;
-  cfg.frame_time = 100;
+  cfg.frame_time = FRAME_TIME;
 
   // 2. Start Ncurses
   WINDOW *mainwin = Start();
@@ -129,14 +168,16 @@ int main() {
       InitWin(mainwin, 4, COLS, ROWS + OFFY, OFFX, STAT_COLOR, BORDER, 0);
 
   // 3. Init Bird
-  BIRD *bird = InitBird(playwin, COLS / 2, ROWS / 2, cfg.start_health);
+  BIRD *bird =
+      InitBird(playwin, COLS / 2, ROWS / 2, cfg.start_health, occupancyMap);
 
   DrawBird(bird);
   ShowStatus(statwin, bird, cfg);
   wrefresh(playwin->window);
 
   // 4. Run Game
-  MainLoop(playwin, statwin, bird, &cfg);
+
+  MainLoop(playwin, statwin, bird, &cfg, occupancyMap);
 
   EndGame(statwin, bird->points, bird->health > 0, cfg);
 

@@ -3,7 +3,9 @@
 
 #include "game_defs.h"
 
-void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg);
-void UpdateStars(WIN *w, STAR *stars, int maxStars);
+void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
+               char occupancyMap[ROWS][COLS]);
+void UpdateStars(WIN *w, STAR *stars, int maxStars,
+                 char occupancyMap[ROWS][COLS]);
 
 #endif

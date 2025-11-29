@@ -77,6 +77,7 @@ CMakeFiles/game.dir/depedencies/albatross.c.o: /home/fonil/studia/pp/projekt1/de
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -179,6 +180,7 @@ CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depeden
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -283,6 +285,7 @@ CMakeFiles/game.dir/depedencies/collisions.c.o: /home/fonil/studia/pp/projekt1/d
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -384,6 +387,7 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o: /home/fonil/studia/pp/projek
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -485,6 +489,7 @@ CMakeFiles/game.dir/depedencies/hunters.c.o: /home/fonil/studia/pp/projekt1/depe
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -586,6 +591,7 @@ CMakeFiles/game.dir/depedencies/ranking.c.o: /home/fonil/studia/pp/projekt1/depe
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -687,6 +693,7 @@ CMakeFiles/game.dir/depedencies/stars.c.o: /home/fonil/studia/pp/projekt1/depede
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -788,6 +795,7 @@ CMakeFiles/game.dir/depedencies/windowmanaging.c.o: /home/fonil/studia/pp/projek
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -816,11 +824,9 @@ CMakeFiles/game.dir/depedencies/windowmanaging.c.o: /home/fonil/studia/pp/projek
 CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
   /home/fonil/studia/pp/projekt1/headers/albatross.h \
   /home/fonil/studia/pp/projekt1/headers/bird.h \
-  /home/fonil/studia/pp/projekt1/headers/collisions.h \
   /home/fonil/studia/pp/projekt1/headers/configmanaging.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/hunters.h \
-  /home/fonil/studia/pp/projekt1/headers/ranking.h \
   /home/fonil/studia/pp/projekt1/headers/stars.h \
   /home/fonil/studia/pp/projekt1/headers/windowmanaging.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/alloca.h \
@@ -896,6 +902,7 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/waitstatus.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wchar.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/endian.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features-time64.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/features.h \
@@ -1063,6 +1070,10 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/types/struct_FILE.h:
 
+/nix/store/i3ibgfskl99qd8rslafbpaa1dmxdzh1z-glibc-2.40-66/lib/libmvec.so.1:
+
+/nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/fp-fast.h:
+
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/floatn.h:
 
 /home/fonil/studia/pp/projekt1/depedencies/albatross.c:
@@ -1110,6 +1121,8 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/time64.h:
 
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/pthreadtypes-arch.h:
+
+/nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/ctype.h:
 
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/atomic_wide_counter.h:
 
@@ -1226,7 +1239,3 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 /nix/store/i3ibgfskl99qd8rslafbpaa1dmxdzh1z-glibc-2.40-66/lib/ld-linux-x86-64.so.2:
 
 /nix/store/i3ibgfskl99qd8rslafbpaa1dmxdzh1z-glibc-2.40-66/lib/libm.so:
-
-/nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/fp-fast.h:
-
-/nix/store/i3ibgfskl99qd8rslafbpaa1dmxdzh1z-glibc-2.40-66/lib/libmvec.so.1:

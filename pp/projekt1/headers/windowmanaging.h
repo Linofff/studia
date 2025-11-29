@@ -9,5 +9,6 @@ WIN *InitWin(WINDOW *parent, int rows, int cols, int y, int x, int color,
              int bo, int delay);
 void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg);
 void EndGame(WIN *W, int score, int survived, CONFIG cfg);
+void DebugDrawMap(WIN *w, char occupancyMap[ROWS][COLS]);
 
 #endif

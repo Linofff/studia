@@ -1,6 +1,7 @@
 #ifndef GAME_DEFS_H
 #define GAME_DEFS_H
 
+#include <ctype.h>
 #include <math.h>
 #include <ncurses.h>
 #include <stdbool.h>
@@ -21,8 +22,9 @@
 #define RIGHT 'd'
 #define TAXI_IN 't'
 #define TAXI_OUT 'r'
+#define SPACEBAR ' '
 
-// #define FRAME_TIME 100
+#define FRAME_TIME 100
 #define SLOWER 'o'
 #define FASTER 'p'
 
@@ -99,7 +101,8 @@ typedef struct {
 } BIRD;
 
 typedef struct {
-  float x, y;
+  float fy;
+  int x, y;
   int alive;
   float speed;
 } STAR;

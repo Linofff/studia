@@ -3,8 +3,10 @@
 
 #include "game_defs.h"
 
-void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg);
-int IsHit(int bx, int by, HUNTER *h);
-void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg);
+void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg,
+                         char occupancyMap[COLS][ROWS]);
+int IsHit(int bx, int by, HUNTER *h, char occupancyMap[COLS][ROWS]);
+void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg,
+                           char occupancyMap[COLS][ROWS]);
 
 #endif

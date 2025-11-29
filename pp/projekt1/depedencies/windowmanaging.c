@@ -1,5 +1,4 @@
 #include "./../headers/windowmanaging.h"
-#include "ncurses.h"
 
 WINDOW *Start() {
   WINDOW *win;
@@ -19,6 +18,33 @@ WINDOW *Start() {
   noecho();
   curs_set(0);
   return win;
+}
+
+void DebugDrawMap(WIN *w, char occupancyMap[ROWS][COLS]) {
+  for (int y = 0; y < ROWS; y++) {
+    for (int x = 0; x < COLS; x++) {
+
+      char cell = occupancyMap[y][x];
+
+      // Check 1: Is it empty?
+      if (cell == ' ' || cell == 0) {
+        wattron(w->window, A_DIM);
+        mvwaddch(w->window, y, x, '.');
+        wattroff(w->window, A_DIM);
+      }
+      // Check 2: Is it a valid printable character? (Prevents garbage output)
+      else if (isprint(cell)) {
+        wattron(w->window, A_BOLD);
+        mvwaddch(w->window, y, x, cell);
+        wattroff(w->window, A_BOLD);
+      }
+      // If it's garbage, print a question mark
+      else {
+        mvwaddch(w->window, y, x, '?');
+      }
+    }
+  }
+  wrefresh(w->window);
 }
 
 void CleanWin(WIN *W, int bo) {

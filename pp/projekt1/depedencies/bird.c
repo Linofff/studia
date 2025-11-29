@@ -1,6 +1,7 @@
 #include "./../headers/bird.h"
 
-BIRD *InitBird(WIN *w, int x, int y, int startHealth) {
+BIRD *InitBird(WIN *w, int x, int y, int startHealth,
+               char occupancyMap[ROWS][COLS]) {
   BIRD *b = (BIRD *)malloc(sizeof(BIRD));
   b->win = w;
   b->x = x;
@@ -13,6 +14,8 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth) {
   b->points = 0;
   b->health = startHealth;
   b->albatross_taxi_left = 3;
+
+  occupancyMap[b->y][b->x] = 'b';
   return b;
 }
 
@@ -73,8 +76,10 @@ void MoveToCenter(BIRD *bird) {
 
 void ClearBird(BIRD *b) { mvwprintw(b->win->window, b->y, b->x, " "); }
 
-void MoveBird(BIRD *b) {
+void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS]) {
   ClearBird(b);
+
+  occupancyMap[b->y][b->x] = ' ';
 
   if (b->is_in_albatross_taxi) {
     MoveToCenter(b);
@@ -126,12 +131,16 @@ void MoveBird(BIRD *b) {
     }
   }
 
+  occupancyMap[b->y][b->x] = 'b';
   DrawBird(b);
 }
 
-void ManualMoveBird(BIRD *b, int ch) {
+void ManualMoveBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS]) {
   if (!b->is_in_albatross_taxi) {
     ClearBird(b);
+
+    occupancyMap[b->y][b->x] = ' ';
+
     if (ch == UP) {
       b->dy = -1;
       b->dx = 0;
@@ -162,6 +171,7 @@ void ManualMoveBird(BIRD *b, int ch) {
     if (b->y > b->win->rows - BORDER - 1)
       b->y = b->win->rows - BORDER - 1;
 
+    occupancyMap[b->y][b->x] = 'b';
     ChangeShape(b);
     DrawBird(b);
   }

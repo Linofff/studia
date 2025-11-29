@@ -6,10 +6,11 @@
 
 void ChangeColor(BIRD *bird, CONFIG cfg);
 void MoveToCenter(BIRD *bird);
-BIRD *InitBird(WIN *w, int x, int y, int startHealth);
+BIRD *InitBird(WIN *w, int x, int y, int startHealth,
+               char occupancyMap[ROWS][COLS]);
 void DrawBird(BIRD *b);
 void ClearBird(BIRD *b);
-void MoveBird(BIRD *b);
-void ManualMoveBird(BIRD *b, int ch);
+void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS]);
+void ManualMoveBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS]);
 
 #endif

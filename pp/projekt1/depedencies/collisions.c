@@ -1,7 +1,8 @@
 #include "./../headers/collisions.h"
 #include "../headers/bird.h"
 
-void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg) {
+void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg,
+                         char occupancyMap[COLS][ROWS]) {
   for (int i = 0; i < cfg.star_max; i++) {
     if (stars[i].alive) {
       int sx = (int)stars[i].x;
@@ -25,22 +26,23 @@ void CheckCollisionsStar(BIRD *b, STAR *stars, CONFIG cfg) {
   }
 }
 
-int IsHit(int bx, int by, HUNTER *h) {
+int IsHit(int bx, int by, HUNTER *h, char occupancyMap[COLS][ROWS]) {
   return (bx >= h->x && bx < h->x + h->width && by >= h->y &&
           by < h->y + h->height);
 }
 
-void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg) {
+void CheckCollisionsHunter(BIRD *b, HUNTER *hunters, CONFIG cfg,
+                           char occupancyMap[COLS][ROWS]) {
   for (int i = 0; i < cfg.hunter_max; i++) {
     if (hunters[i].alive) {
 
       int prev_bird_x = b->x - (b->dx * b->speed);
       int prev_bird_y = b->y - (b->dy * b->speed);
 
-      int hit = IsHit(b->x, b->y, &hunters[i]);
+      int hit = IsHit(b->x, b->y, &hunters[i], occupancyMap);
 
       if (!hit) {
-        hit = IsHit(prev_bird_x, prev_bird_y, &hunters[i]);
+        hit = IsHit(prev_bird_x, prev_bird_y, &hunters[i], occupancyMap);
       }
 
       if (hit) {
