@@ -107,6 +107,8 @@ CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depeden
   /home/fonil/studia/pp/projekt1/headers/albatross.h \
   /home/fonil/studia/pp/projekt1/headers/bird.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
+  /home/fonil/studia/pp/projekt1/headers/hunters.h \
+  /home/fonil/studia/pp/projekt1/headers/stars.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/alloca.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/atomic_wide_counter.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/bits/byteswap.h \
@@ -207,9 +209,6 @@ CMakeFiles/game.dir/depedencies/bird.c.o: /home/fonil/studia/pp/projekt1/depeden
   /nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdint.h
 
 CMakeFiles/game.dir/depedencies/collisions.c.o: /home/fonil/studia/pp/projekt1/depedencies/collisions.c \
-  /home/fonil/studia/pp/projekt1/headers/albatross.h \
-  /home/fonil/studia/pp/projekt1/headers/bird.h \
-  /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/collisions.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/alloca.h \
@@ -824,6 +823,7 @@ CMakeFiles/game.dir/depedencies/windowmanaging.c.o: /home/fonil/studia/pp/projek
 CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
   /home/fonil/studia/pp/projekt1/headers/albatross.h \
   /home/fonil/studia/pp/projekt1/headers/bird.h \
+  /home/fonil/studia/pp/projekt1/headers/collisions.h \
   /home/fonil/studia/pp/projekt1/headers/configmanaging.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/hunters.h \
@@ -1216,13 +1216,13 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 
 /home/fonil/studia/pp/projekt1/headers/bird.h:
 
+/home/fonil/studia/pp/projekt1/headers/stars.h:
+
 /home/fonil/studia/pp/projekt1/headers/configmanaging.h:
 
 /nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include/strings.h:
 
 /home/fonil/studia/pp/projekt1/depedencies/hunters.c:
-
-/home/fonil/studia/pp/projekt1/headers/stars.h:
 
 /home/fonil/studia/pp/projekt1/headers/windowmanaging.h:
 

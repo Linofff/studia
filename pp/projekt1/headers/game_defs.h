@@ -97,6 +97,7 @@ typedef struct {
   int albatross_taxi_left;
   int albatross_in_cooldown;
   int albatross_out_cooldown;
+  bool was_in_taxi;
   bool is_in_albatross_taxi;
 } BIRD;
 

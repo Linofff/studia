@@ -4,7 +4,7 @@ stars {
 }
 
 bird {
- health = 3
+ health = 10
 }
 
 hunter {
@@ -35,8 +35,8 @@ hunter {
  }
 
  template 5 {
-    width = 2
-    height = 2
+    width = 1
+    height = 3
  }
 }
 

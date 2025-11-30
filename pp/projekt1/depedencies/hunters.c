@@ -177,8 +177,7 @@ int BorderCheck(WIN *w, HUNTER *hunter) {
   return 0;
 }
 
-void ErasePrevHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
-
+void EraseHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
   if (hunter->alive)
     for (int r = 0; r < hunter->height; r++)
       for (int c = 0; c < hunter->width; c++) {
@@ -204,7 +203,7 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     if (!hunters[i].alive)
       continue;
 
-    ErasePrevHunter(w, &hunters[i], occupancyMap);
+    EraseHunter(w, &hunters[i], occupancyMap);
 
     HunterDash(w, &hunters[i], bird, cfg);
 

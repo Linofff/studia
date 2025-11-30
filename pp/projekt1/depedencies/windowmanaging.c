@@ -87,7 +87,7 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
 void EndGame(WIN *W, int score, int survived, CONFIG cfg) {
   CleanWin(W, 1);
   if (survived && score >= cfg.star_quota)
-    mvwprintw(W->window, 1, 25, "You have won in  %d seconds!",
+    mvwprintw(W->window, 1, 25, "You have won in %d seconds!",
               cfg.game_time_elapsed);
   else if (survived)
     mvwprintw(W->window, 1, 27, "TIME UP! Final Score: %d", score);

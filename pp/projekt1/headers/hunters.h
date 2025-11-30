@@ -8,7 +8,7 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg);
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
                  char occupancyMap[ROWS][COLS]);
 int BorderCheck(WIN *w, HUNTER *hunter);
-void ErasePrevHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]);
+void EraseHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]);
 void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]);
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
                    const CONFIG cfg, char occupancyMap[ROWS][COLS]);

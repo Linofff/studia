@@ -10,7 +10,11 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth,
                char occupancyMap[ROWS][COLS]);
 void DrawBird(BIRD *b);
 void ClearBird(BIRD *b);
-void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS]);
-void ManualMoveBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS]);
+void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
+              HUNTER *hunters, CONFIG *cfg, WIN *playwin);
+void ChangeDirectionBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS],
+                         STAR *stars, HUNTER *hunters, CONFIG *cfg,
+                         WIN *playwin);
+void FindWhichStar(BIRD *b, STAR *stars, CONFIG *cfg);
 
 #endif
