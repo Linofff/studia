@@ -16,6 +16,7 @@
 
 #define QUIT 'q'
 #define REVERSE ' '
+#define STOP 'b'
 #define UP 'w'
 #define DOWN 's'
 #define LEFT 'a'

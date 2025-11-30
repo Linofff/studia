@@ -44,7 +44,7 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch,
     *running = 0;
 
   // Bird Movement
-  if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT)
+  if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT || ch == STOP)
     ChangeDirectionBird(bird, ch, occupancyMap, stars, hunters, cfg, playwin);
   else
     MoveBird(bird, occupancyMap, stars, hunters, cfg, playwin);

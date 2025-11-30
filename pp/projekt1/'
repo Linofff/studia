@@ -189,10 +189,10 @@ void ChangeDirectionBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS],
       b->dx = 1;
       b->dy = 0;
     }
-    if (ch == STOP) {
-      b->dx = 0;
-      b->dy = 0;
-    }
+    // if (ch == UP) {
+    //   b->dx = 0;
+    //   b->dy = 0;
+    // }
 
     ChangeShape(b);
     MoveBird(b, occupancyMap, stars, hunters, cfg, playwin);

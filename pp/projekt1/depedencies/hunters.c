@@ -223,7 +223,24 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     hunters[i].x = (int)hunters[i].fx;
     hunters[i].y = (int)hunters[i].fy;
 
-    DrawHunter(w, &hunters[i], occupancyMap);
+    int collided = 0;
+    for (int r = 0; r < hunters[i].height; r++) {
+      for (int c = 0; c < hunters[i].width; c++) {
+        if (occupancyMap[hunters[i].y + r][hunters[i].x + c] == 'b') {
+          EraseHunter(w, &hunters[i], occupancyMap);
+          bird->health--;
+          flash();
+          hunters[i].alive = 0;
+          collided = 1;
+          break;
+        }
+      }
+      if (collided)
+        break;
+    }
+
+    if (!collided)
+      DrawHunter(w, &hunters[i], occupancyMap);
   }
   wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
 }
