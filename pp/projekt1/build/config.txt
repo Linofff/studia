@@ -35,8 +35,8 @@ hunter {
  }
 
  template 5 {
-    width = 1
-    height = 3
+    width = 2
+    height = 2
  }
 }
 

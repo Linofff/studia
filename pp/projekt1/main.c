@@ -16,7 +16,7 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
   UpdateConfig(cfg, startTime);
   // Handle Stars
   SpawnStar(bird, playwin, stars, *cfg, occupancyMap);
-  UpdateStars(playwin, stars, cfg->star_max, occupancyMap);
+  UpdateStars(playwin, stars, cfg->star_max, occupancyMap, bird);
 
   // Handle Hunters
   SpawnHunter(playwin, hunters, bird, *cfg, occupancyMap);

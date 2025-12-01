@@ -199,19 +199,25 @@ void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
                    const CONFIG cfg, char occupancyMap[ROWS][COLS]) {
   wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
+
   for (int i = 0; i < maxHunters; i++) {
     if (!hunters[i].alive)
       continue;
 
+    // 1. Erase from old position
     EraseHunter(w, &hunters[i], occupancyMap);
 
+    // 2. Logic
     HunterDash(w, &hunters[i], bird, cfg);
+
+    int prevx = hunters[i].x;
+    int prevy = hunters[i].y;
 
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
 
+    // 3. Wall Check
     int hit = BorderCheck(w, &hunters[i]);
-
     if (hit) {
       hunters[i].bounces--;
       if (hunters[i].bounces < 0) {
@@ -223,24 +229,54 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     hunters[i].x = (int)hunters[i].fx;
     hunters[i].y = (int)hunters[i].fy;
 
+    // --- CONTINUOUS COLLISION DETECTION (No Goto) ---
     int collided = 0;
-    for (int r = 0; r < hunters[i].height; r++) {
-      for (int c = 0; c < hunters[i].width; c++) {
-        if (occupancyMap[hunters[i].y + r][hunters[i].x + c] == 'b') {
-          EraseHunter(w, &hunters[i], occupancyMap);
-          bird->health--;
-          flash();
-          hunters[i].alive = 0;
-          collided = 1;
-          break;
+
+    int dx = hunters[i].x - prevx;
+    int dy = hunters[i].y - prevy;
+
+    // Calculate max steps needed
+    int steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
+    if (steps == 0)
+      steps = 1;
+
+    // Loop through interpolation steps
+    for (int s = 1; s <= steps; s++) {
+      float t = (float)s / (float)steps;
+      int checkX = prevx + (int)(dx * t);
+      int checkY = prevy + (int)(dy * t);
+
+      // Loop through hunter body rows
+      for (int r = 0; r < hunters[i].height; r++) {
+        // Loop through hunter body cols
+        for (int c = 0; c < hunters[i].width; c++) {
+
+          int mapY = checkY + r;
+          int mapX = checkX + c;
+
+          // Bounds check + Map Check
+          if (mapY >= 0 && mapY < ROWS && mapX >= 0 && mapX < COLS) {
+            if (occupancyMap[mapY][mapX] == 'b') {
+              collided = 1;
+              break; // Break 'c' loop
+            }
+          }
         }
+        if (collided)
+          break; // Break 'r' loop
       }
       if (collided)
-        break;
+        break; // Break 's' loop (raycast)
     }
+    // ------------------------------------------------
 
-    if (!collided)
+    if (collided) {
+      bird->health--;
+      hunters[i].alive = 0;
+      flash();
+    } else {
       DrawHunter(w, &hunters[i], occupancyMap);
+    }
   }
   wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
 }

@@ -24,7 +24,7 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
 }
 
 void UpdateStars(WIN *w, STAR *stars, int maxStars,
-                 char occupancyMap[ROWS][COLS]) {
+                 char occupancyMap[ROWS][COLS], BIRD *bird) {
   wattron(w->window, COLOR_PAIR(PLAY_COLOR));
 
   for (int i = 0; i < maxStars; i++) {
@@ -40,6 +40,12 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars,
     if (stars[i].y >= w->rows - BORDER) {
       stars[i].alive = 0;
       continue;
+    }
+
+    if (occupancyMap[stars[i].y][stars[i].x] == 'b') {
+      stars[i].alive = 0;
+      bird->points++;
+      break;
     }
 
     mvwprintw(w->window, stars[i].y, stars[i].x, "*");
