@@ -69,7 +69,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
   UpdateConfig(cfg, (int)startTime);
 
-  StartScreen(playwin, statwin, &running);
+  StartScreen(playwin, &running);
 
   // Initialize time variables
   cfg->game_time_elapsed = 0;
@@ -127,8 +127,8 @@ int main() {
 
   InitMap(occupancyMap);
 
-  cfg.game_speed = 0;
   cfg.frame_time = FRAME_TIME;
+  cfg.game_time_left = 0;
 
   // 2. Start Ncurses
   WINDOW *mainwin = Start();

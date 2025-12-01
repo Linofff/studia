@@ -289,6 +289,8 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
     if (hit_type)
       break;
   }
+  CollisionTypeReaction(hit_type, tempX, tempY, stars, occupancyMap, &cfg, bird,
+                        hunter, w);
 }
 
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,

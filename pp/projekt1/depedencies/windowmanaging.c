@@ -20,14 +20,14 @@ WINDOW *Start() {
   return win;
 }
 
-void StartScreen(WIN *playwin, WIN *statwin, bool *running) {
+void StartScreen(WIN *playwin, bool *running) {
   box(playwin->window, 0, 0);
   mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
             "Press SPACEBAR to START");
   wrefresh(playwin->window);
 
   int startCh;
-  while ((startCh = wgetch(statwin->window)) != SPACEBAR) {
+  while ((startCh = wgetch(playwin->window)) != SPACEBAR) {
     if (startCh == QUIT) {
       running = 0;
       break;
