@@ -20,7 +20,8 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
 
   // Handle Hunters
   SpawnHunter(playwin, hunters, bird, *cfg, occupancyMap);
-  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg, occupancyMap);
+  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg, occupancyMap,
+                stars);
 }
 
 void ResolveChar(WIN *playwin, WIN *statwin, char ch,

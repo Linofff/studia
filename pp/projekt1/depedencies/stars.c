@@ -28,8 +28,13 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars,
   wattron(w->window, COLOR_PAIR(PLAY_COLOR));
 
   for (int i = 0; i < maxStars; i++) {
-    if (!stars[i].alive)
+    if (!stars[i].alive) {
+      if (occupancyMap[stars[i].y][stars[i].x] == 's') {
+        mvwprintw(w->window, stars[i].y, stars[i].x, " ");
+        occupancyMap[stars[i].y][stars[i].x] = ' ';
+      }
       continue;
+    }
 
     mvwprintw(w->window, stars[i].y, stars[i].x, " ");
     occupancyMap[stars[i].y][stars[i].x] = ' ';
@@ -45,7 +50,14 @@ void UpdateStars(WIN *w, STAR *stars, int maxStars,
     if (occupancyMap[stars[i].y][stars[i].x] == 'b') {
       stars[i].alive = 0;
       bird->points++;
-      break;
+      continue;
+    }
+
+    if (occupancyMap[stars[i].y][stars[i].x] == 'h') {
+      stars[i].alive = 0;
+      mvwprintw(w->window, stars[i].y, stars[i].x, " ");
+      occupancyMap[stars[i].y][stars[i].x] = ' ';
+      continue;
     }
 
     mvwprintw(w->window, stars[i].y, stars[i].x, "*");

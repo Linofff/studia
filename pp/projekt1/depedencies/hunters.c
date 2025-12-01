@@ -196,8 +196,20 @@ void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
       }
 }
 
+void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
+                          char occupancyMap[ROWS][COLS]) {
+  for (int i = 0; i < cfg->star_max; i++) {
+    if (stars[i].x == x && stars[i].y == y) {
+      mvwprintw(w->window, stars[i].y, stars[i].x, " ");
+      occupancyMap[stars[i].y][stars[i].x] = ' ';
+      stars[i].alive = 0;
+    }
+  }
+}
+
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
-                   const CONFIG cfg, char occupancyMap[ROWS][COLS]) {
+                   const CONFIG cfg, char occupancyMap[ROWS][COLS],
+                   STAR *stars) {
   wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
 
   for (int i = 0; i < maxHunters; i++) {
@@ -229,51 +241,62 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     hunters[i].x = (int)hunters[i].fx;
     hunters[i].y = (int)hunters[i].fy;
 
-    // --- CONTINUOUS COLLISION DETECTION (No Goto) ---
-    int collided = 0;
+    // --- COLLISION DETECTION ---
+    int hit_type = 0; // 0 = Nothing, 1 = Bird, 2 = Star
 
     int dx = hunters[i].x - prevx;
     int dy = hunters[i].y - prevy;
 
-    // Calculate max steps needed
     int steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
+    int tempx, tempy;
     if (steps == 0)
       steps = 1;
 
-    // Loop through interpolation steps
     for (int s = 1; s <= steps; s++) {
       float t = (float)s / (float)steps;
       int checkX = prevx + (int)(dx * t);
       int checkY = prevy + (int)(dy * t);
 
-      // Loop through hunter body rows
       for (int r = 0; r < hunters[i].height; r++) {
-        // Loop through hunter body cols
         for (int c = 0; c < hunters[i].width; c++) {
 
           int mapY = checkY + r;
           int mapX = checkX + c;
 
-          // Bounds check + Map Check
           if (mapY >= 0 && mapY < ROWS && mapX >= 0 && mapX < COLS) {
-            if (occupancyMap[mapY][mapX] == 'b') {
-              collided = 1;
-              break; // Break 'c' loop
+
+            char cell = occupancyMap[mapY][mapX];
+
+            // Check for BIRD
+            if (cell == 'b') {
+              hit_type = 1; // Mark as hitting BIRD
+              break;
+            }
+            // Check for STAR
+            else if (cell == 's') {
+              hit_type = 2; // Mark as hitting STAR
+              tempx = mapX;
+              tempy = mapY;
+              break;
             }
           }
         }
-        if (collided)
-          break; // Break 'r' loop
+        if (hit_type > 0)
+          break; // Break 'c' loop
       }
-      if (collided)
-        break; // Break 's' loop (raycast)
+      if (hit_type > 0)
+        break; // Break 'r' loop
     }
     // ------------------------------------------------
 
-    if (collided) {
-      bird->health--;
+    if (hit_type == 1) {
+      // CASE 1: Hit a BIRD
+      bird->health -= cfg.hunter_damage;
       hunters[i].alive = 0;
       flash();
+    } else if (hit_type == 2) {
+      // CASE 2: Hit a STAR
+      FindWhichStarHunters(w, tempx, tempy, stars, &cfg, occupancyMap);
     } else {
       DrawHunter(w, &hunters[i], occupancyMap);
     }
