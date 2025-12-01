@@ -1,6 +1,13 @@
 #include "./../headers/configmanaging.h"
 
-// Forward declaration if not in header
+void InitMap(char occupancyMap[ROWS][COLS]) {
+  for (int y = 0; y < ROWS; y++) {
+    for (int x = 0; x < COLS; x++) {
+      occupancyMap[y][x] = ' ';
+    }
+  }
+}
+
 void SanitizeLine(char *line) {
   for (int i = 0; line[i]; i++) {
     if (line[i] == '=' || line[i] == '{') {

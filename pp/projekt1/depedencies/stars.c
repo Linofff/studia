@@ -8,14 +8,32 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
 
     for (int i = 0; i < cfg.star_max; i++) {
       if (!stars[i].alive) {
-        stars[i].alive = 1;
-        stars[i].speed = (float)rand() / (float)RAND_MAX;
-
-        stars[i].x = (rand() % (w->cols - 2 * BORDER)) + BORDER;
+        bool findingspot = 1;
+        int attempts = 0;
+        while (findingspot && attempts < 50) {
+          int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
+          bool occupied = 0;
+          for (int y = 0; y < ROWS; y++) {
+            if (occupancyMap[y][randomizedX] == 's') {
+              occupied = 1;
+              break;
+            }
+          }
+          if (!occupied) {
+            stars[i].x = randomizedX;
+            findingspot = 0;
+          }
+          attempts++;
+        }
+        if (findingspot) {
+          break;
+        }
         stars[i].y = BORDER;
 
+        stars[i].speed = (float)rand() / (float)RAND_MAX;
         stars[i].fy = (float)BORDER;
 
+        stars[i].alive = 1;
         occupancyMap[stars[i].y][stars[i].x] = 's';
         break;
       }

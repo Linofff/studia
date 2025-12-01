@@ -20,6 +20,26 @@ WINDOW *Start() {
   return win;
 }
 
+void StartScreen(WIN *playwin, WIN *statwin, bool *running) {
+  box(playwin->window, 0, 0);
+  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
+            "Press SPACEBAR to START");
+  wrefresh(playwin->window);
+
+  int startCh;
+  while ((startCh = wgetch(statwin->window)) != SPACEBAR) {
+    if (startCh == QUIT) {
+      running = 0;
+      break;
+    }
+    usleep(50000);
+  }
+
+  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
+            "                       ");
+  wrefresh(playwin->window);
+}
+
 void DebugDrawMap(WIN *w, char occupancyMap[ROWS][COLS]) {
   for (int y = 0; y < ROWS; y++) {
     for (int x = 0; x < COLS; x++) {

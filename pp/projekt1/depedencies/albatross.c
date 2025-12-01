@@ -1,5 +1,18 @@
 #include "../headers/albatross.h"
 
+void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird) {
+  if (bird->is_in_albatross_taxi) {
+    mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5), "You are in a taxi");
+
+    bird->was_in_taxi = 1;
+  } else if (bird->was_in_taxi) {
+
+    mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
+              "                   ");
+    bird->was_in_taxi = 0;
+  }
+}
+
 void AlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg,
                    char occupancyMap[ROWS][COLS]) {
   if (!bird->albatross_in_cooldown) {

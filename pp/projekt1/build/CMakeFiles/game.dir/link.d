@@ -5,7 +5,6 @@ game: \
   CMakeFiles/game.dir/depedencies/configmanaging.c.o \
   CMakeFiles/game.dir/depedencies/windowmanaging.c.o \
   CMakeFiles/game.dir/depedencies/bird.c.o \
-  CMakeFiles/game.dir/depedencies/collisions.c.o \
   CMakeFiles/game.dir/depedencies/stars.c.o \
   CMakeFiles/game.dir/depedencies/hunters.c.o \
   CMakeFiles/game.dir/depedencies/ranking.c.o \
@@ -51,8 +50,6 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 CMakeFiles/game.dir/depedencies/windowmanaging.c.o:
 
 CMakeFiles/game.dir/depedencies/bird.c.o:
-
-CMakeFiles/game.dir/depedencies/collisions.c.o:
 
 CMakeFiles/game.dir/depedencies/stars.c.o:
 

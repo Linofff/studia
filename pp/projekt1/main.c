@@ -1,6 +1,5 @@
 #include "./headers/albatross.h"
 #include "./headers/bird.h"
-#include "./headers/collisions.h"
 #include "./headers/configmanaging.h"
 #include "./headers/game_defs.h"
 #include "./headers/hunters.h"
@@ -30,14 +29,11 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch,
   if (ch == 'm' || ch == 'M') {
     DebugDrawMap(playwin, occupancyMap);
 
-    // Pause here so you can look at it.
-    // Wait for user to press 'm' again to resume.
     while (wgetch(statwin->window) != 'm')
       ;
 
-    // Clear the messy map before resuming the game graphics
     wclear(playwin->window);
-    box(playwin->window, 0, 0); // Redraw border
+    box(playwin->window, 0, 0);
   }
 
   // Exit conditions
@@ -65,8 +61,6 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch,
   }
 }
 
-// Calculates elapsed and remaining time based on the start time
-
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
               char occupancyMap[ROWS][COLS]) {
   time_t startTime = time(NULL);
@@ -75,23 +69,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
   UpdateConfig(cfg, (int)startTime);
 
-  box(playwin->window, 0, 0);
-  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
-            "Press SPACEBAR to START");
-  wrefresh(playwin->window);
-
-  int startCh;
-  while ((startCh = wgetch(statwin->window)) != SPACEBAR) {
-    if (startCh == QUIT) {
-      running = 0;
-      break;
-    }
-    usleep(50000);
-  }
-
-  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
-            "                       ");
-  wrefresh(playwin->window);
+  StartScreen(playwin, statwin, &running);
 
   // Initialize time variables
   cfg->game_time_elapsed = 0;
@@ -113,17 +91,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
     DrawBird(bird);
 
-    if (bird->is_in_albatross_taxi) {
-      mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
-                "You are in a taxi");
-
-      bird->was_in_taxi = 1;
-    } else if (bird->was_in_taxi) {
-
-      mvwprintw(playwin->window, (ROWS / 4), (2 * COLS / 5),
-                "                   ");
-      bird->was_in_taxi = 0;
-    }
+    MainLoopAlbatrossCheck(playwin, bird);
 
     UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime,
                     occupancyMap);
@@ -144,14 +112,6 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
   free(stars);
   free(hunters);
-}
-
-void InitMap(char occupancyMap[ROWS][COLS]) {
-  for (int y = 0; y < ROWS; y++) {
-    for (int x = 0; x < COLS; x++) {
-      occupancyMap[y][x] = ' '; // Set everything to empty space
-    }
-  }
 }
 
 int main() {

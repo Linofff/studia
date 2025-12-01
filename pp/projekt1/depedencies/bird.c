@@ -1,6 +1,5 @@
 #include "./../headers/bird.h"
 #include "./../headers/hunters.h"
-#include "./../headers/stars.h"
 
 BIRD *InitBird(WIN *w, int x, int y, int startHealth,
                char occupancyMap[ROWS][COLS]) {
@@ -99,6 +98,46 @@ void FindWhichHunter(BIRD *b, HUNTER *hunters, CONFIG *cfg,
   }
 }
 
+void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b) {
+  if (at_x_boundary) {
+    if (b->x <= BORDER)
+      b->dx = 1;
+    else if (b->x >= b->win->cols - BORDER - 1)
+      b->dx = -1;
+  } else {
+    int new_x = b->x + (int)(b->dx * b->speed);
+
+    if (new_x <= BORDER) {
+      b->x = BORDER;
+      b->dx = 1;
+    } else if (new_x >= b->win->cols - BORDER - 1) {
+      b->x = b->win->cols - BORDER - 1;
+      b->dx = -1;
+    } else {
+      b->x = new_x;
+    }
+  }
+
+  if (at_y_boundary) {
+    if (b->y <= BORDER)
+      b->dy = 1;
+    else if (b->y >= b->win->rows - BORDER - 1)
+      b->dy = -1;
+  } else {
+    int new_y = b->y + (int)(b->dy * b->speed);
+
+    if (new_y <= BORDER) {
+      b->y = BORDER;
+      b->dy = 1;
+    } else if (new_y >= b->win->rows - BORDER - 1) {
+      b->y = b->win->rows - BORDER - 1;
+      b->dy = -1;
+    } else {
+      b->y = new_y;
+    }
+  }
+}
+
 void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
               HUNTER *hunters, CONFIG *cfg, WIN *playwin) {
   ClearBird(b);
@@ -112,47 +151,11 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
   } else {
-    ChangeShape(b);
     int at_x_boundary = (b->x <= BORDER - 1) || (b->x >= b->win->cols - BORDER);
     int at_y_boundary = (b->y <= BORDER - 1) || (b->y >= b->win->rows - BORDER);
+    BirdBorderCheck(at_x_boundary, at_y_boundary, b);
 
-    if (at_x_boundary) {
-      if (b->x <= BORDER)
-        b->dx = 1;
-      else if (b->x >= b->win->cols - BORDER - 1)
-        b->dx = -1;
-    } else {
-      int new_x = b->x + (int)(b->dx * b->speed);
-
-      if (new_x <= BORDER) {
-        b->x = BORDER;
-        b->dx = 1;
-      } else if (new_x >= b->win->cols - BORDER - 1) {
-        b->x = b->win->cols - BORDER - 1;
-        b->dx = -1;
-      } else {
-        b->x = new_x;
-      }
-    }
-
-    if (at_y_boundary) {
-      if (b->y <= BORDER)
-        b->dy = 1;
-      else if (b->y >= b->win->rows - BORDER - 1)
-        b->dy = -1;
-    } else {
-      int new_y = b->y + (int)(b->dy * b->speed);
-
-      if (new_y <= BORDER) {
-        b->y = BORDER;
-        b->dy = 1;
-      } else if (new_y >= b->win->rows - BORDER - 1) {
-        b->y = b->win->rows - BORDER - 1;
-        b->dy = -1;
-      } else {
-        b->y = new_y;
-      }
-    }
+    ChangeShape(b);
   }
 
   if (occupancyMap[b->y][b->x] == 's') {

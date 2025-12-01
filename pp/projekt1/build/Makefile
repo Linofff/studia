@@ -177,30 +177,6 @@ depedencies/bird.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/bird.c.s
 .PHONY : depedencies/bird.c.s
 
-depedencies/collisions.o: depedencies/collisions.c.o
-.PHONY : depedencies/collisions.o
-
-# target to build an object file
-depedencies/collisions.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/collisions.c.o
-.PHONY : depedencies/collisions.c.o
-
-depedencies/collisions.i: depedencies/collisions.c.i
-.PHONY : depedencies/collisions.i
-
-# target to preprocess a source file
-depedencies/collisions.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/collisions.c.i
-.PHONY : depedencies/collisions.c.i
-
-depedencies/collisions.s: depedencies/collisions.c.s
-.PHONY : depedencies/collisions.s
-
-# target to generate assembly for a file
-depedencies/collisions.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/collisions.c.s
-.PHONY : depedencies/collisions.c.s
-
 depedencies/configmanaging.o: depedencies/configmanaging.c.o
 .PHONY : depedencies/configmanaging.o
 
@@ -360,9 +336,6 @@ help:
 	@echo "... depedencies/bird.o"
 	@echo "... depedencies/bird.i"
 	@echo "... depedencies/bird.s"
-	@echo "... depedencies/collisions.o"
-	@echo "... depedencies/collisions.i"
-	@echo "... depedencies/collisions.s"
 	@echo "... depedencies/configmanaging.o"
 	@echo "... depedencies/configmanaging.i"
 	@echo "... depedencies/configmanaging.s"

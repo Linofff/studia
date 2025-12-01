@@ -14,7 +14,6 @@ add_executable(game
     ./depedencies/configmanaging.c
     ./depedencies/windowmanaging.c
     ./depedencies/bird.c
-    ./depedencies/collisions.c
     ./depedencies/stars.c
     ./depedencies/hunters.c
     ./depedencies/ranking.c

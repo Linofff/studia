@@ -4,8 +4,6 @@ file(REMOVE_RECURSE
   "CMakeFiles/game.dir/depedencies/albatross.c.o.d"
   "CMakeFiles/game.dir/depedencies/bird.c.o"
   "CMakeFiles/game.dir/depedencies/bird.c.o.d"
-  "CMakeFiles/game.dir/depedencies/collisions.c.o"
-  "CMakeFiles/game.dir/depedencies/collisions.c.o.d"
   "CMakeFiles/game.dir/depedencies/configmanaging.c.o"
   "CMakeFiles/game.dir/depedencies/configmanaging.c.o.d"
   "CMakeFiles/game.dir/depedencies/hunters.c.o"
