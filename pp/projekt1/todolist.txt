@@ -1,2 +1,3 @@
-ranking
-cinematic over screen 
+Nightfall fog gradually shrinking the playable airspace (3 pts)
+Boss eagle patrolling diagonals with non-constant speed, predicting the
+swallow’s future location; never stops (2 pts)

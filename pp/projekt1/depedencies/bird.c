@@ -11,7 +11,7 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth,
   b->dy = 0;
   b->speed = 1;
   b->symbol = '|';
-  b->color = BIRD_COLOR1;
+  b->color = HIGH_HP_BIRD;
   b->points = 0;
   b->health = startHealth;
   b->albatross_taxi_left = 3;
@@ -21,15 +21,13 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth,
   return b;
 }
 
-// --- MOVEMENT & DRAWING ---
-
-void ChangeColor(BIRD *bird, CONFIG cfg) {
+void ChangeColorBird(BIRD *bird, CONFIG cfg) {
   int low = cfg.start_health / 3;
   int medium = low * 2;
   if (bird->health <= medium && bird->health > low)
-    bird->color = BIRD_COLOR2;
+    bird->color = MEDIUM_HP_BIRD;
   else if (bird->health <= low)
-    bird->color = BIRD_COLOR3;
+    bird->color = LOW_HP_BIRD;
 }
 
 void ChangeShape(BIRD *bird) {
@@ -47,10 +45,11 @@ void ChangeShape(BIRD *bird) {
   }
 }
 
-void DrawBird(BIRD *b) {
+void DrawBird(BIRD *b, char occupancyMap[ROWS][COLS]) {
   wattron(b->win->window, COLOR_PAIR(b->color));
   mvwprintw(b->win->window, b->y, b->x, "%c", b->symbol);
   wattron(b->win->window, COLOR_PAIR(b->win->color));
+  occupancyMap[b->y][b->x] = 'b';
 }
 
 void MoveToCenter(BIRD *bird) {
@@ -76,7 +75,10 @@ void MoveToCenter(BIRD *bird) {
   }
 }
 
-void ClearBird(BIRD *b) { mvwprintw(b->win->window, b->y, b->x, " "); }
+void ClearBird(BIRD *b, char occupancyMap[ROWS][COLS]) {
+  occupancyMap[b->y][b->x] = ' ';
+  mvwprintw(b->win->window, b->y, b->x, " ");
+}
 
 void FindWhichStar(BIRD *b, STAR *stars, CONFIG *cfg) {
   for (int i = 0; i < cfg->star_max; i++) {
@@ -140,9 +142,8 @@ void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b) {
 
 void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
               HUNTER *hunters, CONFIG *cfg, WIN *playwin) {
-  ClearBird(b);
-
-  occupancyMap[b->y][b->x] = ' ';
+  ClearBird(b, occupancyMap);
+  ChangeColorBird(b, *cfg);
 
   if (b->is_in_albatross_taxi) {
     MoveToCenter(b);
@@ -168,8 +169,7 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     flash();
   }
 
-  occupancyMap[b->y][b->x] = 'b';
-  DrawBird(b);
+  DrawBird(b, occupancyMap);
 }
 
 void ChangeDirectionBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS],

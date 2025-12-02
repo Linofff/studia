@@ -105,5 +105,6 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
  /home/fonil/studia/pp/projekt1/./headers/configmanaging.h \
  /home/fonil/studia/pp/projekt1/./headers/game_defs.h \
  /home/fonil/studia/pp/projekt1/./headers/hunters.h \
+ /home/fonil/studia/pp/projekt1/./headers/ranking.h \
  /home/fonil/studia/pp/projekt1/./headers/stars.h \
  /home/fonil/studia/pp/projekt1/./headers/windowmanaging.h

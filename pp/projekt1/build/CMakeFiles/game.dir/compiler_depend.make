@@ -414,6 +414,7 @@ CMakeFiles/game.dir/depedencies/hunters.c.o: /home/fonil/studia/pp/projekt1/depe
 CMakeFiles/game.dir/depedencies/ranking.c.o: /home/fonil/studia/pp/projekt1/depedencies/ranking.c \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/ranking.h \
+  /home/fonil/studia/pp/projekt1/headers/windowmanaging.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/atomic_wide_counter.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/byteswap.h \
@@ -515,6 +516,7 @@ CMakeFiles/game.dir/depedencies/ranking.c.o: /home/fonil/studia/pp/projekt1/depe
 
 CMakeFiles/game.dir/depedencies/stars.c.o: /home/fonil/studia/pp/projekt1/depedencies/stars.c \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
+  /home/fonil/studia/pp/projekt1/headers/hunters.h \
   /home/fonil/studia/pp/projekt1/headers/stars.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/atomic_wide_counter.h \
@@ -723,6 +725,7 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
   /home/fonil/studia/pp/projekt1/headers/configmanaging.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/hunters.h \
+  /home/fonil/studia/pp/projekt1/headers/ranking.h \
   /home/fonil/studia/pp/projekt1/headers/stars.h \
   /home/fonil/studia/pp/projekt1/headers/windowmanaging.h \
   /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \

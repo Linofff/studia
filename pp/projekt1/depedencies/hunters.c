@@ -1,30 +1,19 @@
 #include "./../headers/hunters.h"
 
+void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
+  int low = cfg.hunter_bounces / 3;
+  int medium = low * 2;
+  if (hunter->bounces <= medium && hunter->bounces > low)
+    hunter->color = MEDIUM_HP_HUNTER;
+  else if (hunter->bounces <= low)
+    hunter->color = LOW_HP_HUNTER;
+}
+
 void ChoseShape(HUNTER *hunter, CONFIG cfg) {
 
   int variant = rand() % 5;
-  switch (variant) {
-  case 0:
-    hunter->width = cfg.hunter_templates[0].width;
-    hunter->height = cfg.hunter_templates[0].height;
-    break;
-  case 1:
-    hunter->width = cfg.hunter_templates[1].width;
-    hunter->height = cfg.hunter_templates[1].height;
-    break;
-  case 2:
-    hunter->width = cfg.hunter_templates[2].width;
-    hunter->height = cfg.hunter_templates[2].height;
-    break;
-  case 3:
-    hunter->width = cfg.hunter_templates[3].width;
-    hunter->height = cfg.hunter_templates[3].height;
-    break;
-  case 4:
-    hunter->width = cfg.hunter_templates[4].width;
-    hunter->height = cfg.hunter_templates[4].height;
-    break;
-  }
+  hunter->width = cfg.hunter_templates[variant].width;
+  hunter->height = cfg.hunter_templates[variant].height;
 }
 
 void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
@@ -43,7 +32,8 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
 
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
                  char occupancyMap[ROWS][COLS]) {
-  if (!bird->is_in_albatross_taxi && cfg.game_time_elapsed > 2) {
+  if (!bird->is_in_albatross_taxi && cfg.game_time_elapsed > 2 &&
+      bird->albatross_in_cooldown < 3) {
     if ((rand() % 100) >= cfg.hunter_spawn_chance)
       return;
 
@@ -53,6 +43,7 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
         hunters[i].damage = cfg.hunter_damage;
         hunters[i].bounces = cfg.hunter_bounces;
         hunters[i].dashleft = 1;
+        hunters[i].color = HIGH_HP_HUNTER;
 
         ChoseShape(&hunters[i], cfg);
 
@@ -60,10 +51,10 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
         int startX, startY;
         int maxY = w->rows - BORDER - hunters[i].height;
 
-        if (side == 0) { // Left
+        if (side == 0) {
           startX = BORDER;
           startY = (rand() % (maxY - BORDER)) + BORDER;
-        } else { // Right
+        } else {
           startX = w->cols - BORDER - hunters[i].width;
           startY = (rand() % (maxY - BORDER)) + BORDER;
         }
@@ -187,6 +178,7 @@ void EraseHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
 }
 
 void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
+  wattron(w->window, COLOR_PAIR(hunter->color));
   char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
   for (int r = 0; r < hunter->height; r++)
     for (int c = 0; c < hunter->width; c++)
@@ -194,6 +186,7 @@ void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
         mvwprintw(w->window, hunter->y + r, hunter->x + c, "%c", disp);
         occupancyMap[hunter->y + r][hunter->x + c] = 'h';
       }
+  wattroff(w->window, COLOR_PAIR(hunter->color));
 }
 
 void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
@@ -218,6 +211,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   } else if (hit_type == 2) {
     // CASE 2: Hit a STAR
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, occupancyMap);
+    DrawHunter(w, hunter, occupancyMap);
   } else if (hit_type == 3) {
     // Hit Hunter -> BOUNCE
     // 1. Revert position to prevent sticking
@@ -296,9 +290,8 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
                    const CONFIG cfg, char occupancyMap[ROWS][COLS],
                    STAR *stars) {
-  wattron(w->window, COLOR_PAIR(HUNTER_COLOR));
-
   for (int i = 0; i < maxHunters; i++) {
+    ChangeColorHunter(&hunters[i], cfg);
     if (!hunters[i].alive)
       continue;
 
@@ -316,7 +309,7 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     int hit = BorderCheck(w, &hunters[i]);
     if (hit) {
       hunters[i].bounces--;
-      if (hunters[i].bounces < 0) {
+      if (hunters[i].bounces < 1) {
         hunters[i].alive = 0;
         continue;
       }
@@ -327,6 +320,4 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
 
     CollsionCheck(&hunters[i], occupancyMap, cfg, stars, bird, w);
   }
-
-  wattroff(w->window, COLOR_PAIR(HUNTER_COLOR));
 }

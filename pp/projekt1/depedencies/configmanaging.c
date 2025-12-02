@@ -45,7 +45,6 @@ void StarsConfigLoad(CONFIG *c, const char *key, float value) {
 
 void HunterConfigLoad(CONFIG *c, const char *key, float value,
                       int *active_template_id) {
-  // 1. Handle Template Specific Properties (width/height)
   if (*active_template_id != -1) {
     if (strcmp(key, "width") == 0) {
       c->hunter_templates[*active_template_id].width = (int)value;
@@ -56,7 +55,6 @@ void HunterConfigLoad(CONFIG *c, const char *key, float value,
     return;
   }
 
-  // 2. Handle Global Hunter Properties
   if (strcmp(key, "max_count") == 0)
     c->initial_hunter_max = (int)value;
   else if (strcmp(key, "spawn_chance") == 0)
@@ -68,30 +66,7 @@ void HunterConfigLoad(CONFIG *c, const char *key, float value,
   else if (strcmp(key, "speed") == 0)
     c->hunter_speed = value;
   else if (strcmp(key, "template") == 0)
-    LoadTemplates(c, key, value, active_template_id);
-}
-
-void LoadTemplates(CONFIG *c, const char *key, float value,
-                   int *active_template_id) {
-  switch ((int)(value)) {
-  case 1:
-    *active_template_id = 0;
-    break;
-  case 2:
-    *active_template_id = 1;
-    break;
-  case 3:
-    *active_template_id = 2;
-    break;
-  case 4:
-    *active_template_id = 3;
-    break;
-  case 5:
-    *active_template_id = 4;
-    break;
-  default:
-    break;
-  }
+    *active_template_id = ((int)(value)-1);
 }
 
 void GameConfigLoad(CONFIG *c, const char *key, float value) {
@@ -115,24 +90,19 @@ void LoadConfig(CONFIG *c) {
     return;
   }
 
-  // Initialize state: -1 means we are NOT inside a template block
   int active_template_id = -1;
 
   char line[256];
   char current_section[50] = "";
 
   while (fgets(line, sizeof(line), file)) {
-    // Krok 1: Wyczyść linię
     SanitizeLine(line);
 
-    // Krok 2: Obsługa końca sekcji
     if (strchr(line, '}')) {
-      // LOGIC CHANGE: If we are inside a template, '}' closes the template,
-      // not the whole 'hunter' section.
       if (active_template_id != -1) {
-        active_template_id = -1; // Reset template state
+        active_template_id = -1;
       } else {
-        current_section[0] = '\0'; // Reset section state (stars, hunter, etc)
+        current_section[0] = '\0';
       }
       continue;
     }
@@ -140,13 +110,9 @@ void LoadConfig(CONFIG *c) {
     char key[50];
     float value;
 
-    // Krok 3: Próba odczytania pary KLUCZ WARTOŚĆ
     if (sscanf(line, "%s %f", key, &value) == 2) {
       AssignConfigToInput(c, current_section, key, value, &active_template_id);
-    }
-    // Krok 4: Próba odczytania nowej SEKCJI
-    // We only change the main section if we are NOT inside a template
-    else if (sscanf(line, "%s", key) == 1 && active_template_id == -1) {
+    } else if (sscanf(line, "%s", key) == 1 && active_template_id == -1) {
       strcpy(current_section, key);
     }
   }

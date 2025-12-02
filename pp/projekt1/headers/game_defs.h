@@ -13,6 +13,7 @@
 
 #define RANKING_FILE "ranking.txt"
 #define TOP_N 5
+#define MAX_PLAYER_NAME_LENGTH 15
 
 #define QUIT 'q'
 #define REVERSE ' '
@@ -32,11 +33,13 @@
 #define MAIN_COLOR 1
 #define STAT_COLOR 2
 #define PLAY_COLOR 3
-#define BIRD_COLOR1 4
-#define BIRD_COLOR2 5
-#define BIRD_COLOR3 6
-#define HUNTER_COLOR 7
-#define TAXI_COLOR 8
+#define HIGH_HP_BIRD 4
+#define MEDIUM_HP_BIRD 5
+#define LOW_HP_BIRD 6
+#define HIGH_HP_HUNTER 7
+#define MEDIUM_HP_HUNTER 8
+#define LOW_HP_HUNTER 9
+#define STAR_COLOR 10
 
 #define BORDER 1
 #define ROWS 20
@@ -45,6 +48,14 @@
 #define OFFX 1
 
 #define MAX_TEMPLATES 5
+
+#define SAVEABLE_PLAYERS 10000
+
+typedef struct {
+  char name[MAX_PLAYER_NAME_LENGTH + 1];
+  int score;
+  int difficulty;
+} RankingTemplate;
 
 typedef struct {
   int width;
@@ -121,6 +132,7 @@ typedef struct {
   int dashleft;
   int sleep_timer;
   int boost_timer;
+  int color;
 } HUNTER;
 
 #endif

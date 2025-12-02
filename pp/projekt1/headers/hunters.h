@@ -3,6 +3,7 @@
 
 #include "game_defs.h"
 
+void ChangeColorHunter(HUNTER *hunter, CONFIG cfg);
 void ChoseShape(HUNTER *hunter, CONFIG cfg);
 void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg);
 void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
