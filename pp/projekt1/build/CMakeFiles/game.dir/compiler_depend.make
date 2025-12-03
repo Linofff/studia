@@ -309,6 +309,108 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o: /home/fonil/studia/pp/projek
   /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stddef.h \
   /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdint.h
 
+CMakeFiles/game.dir/depedencies/fog.c.o: /home/fonil/studia/pp/projekt1/depedencies/fog.c \
+  /home/fonil/studia/pp/projekt1/headers/fog.h \
+  /home/fonil/studia/pp/projekt1/headers/game_defs.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/atomic_wide_counter.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/byteswap.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/confname.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/endian.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/endianness.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/environments.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/floatn-common.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/floatn.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/flt-eval-method.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/fp-fast.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/fp-logb.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/getopt_core.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/getopt_posix.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/libc-header-start.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/libm-simd-decl-stubs.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/long-double.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/math-vector.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/mathcalls-helper-functions.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/mathcalls.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/posix_opt.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/pthreadtypes-arch.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/pthreadtypes.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/select-decl.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/select.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/select2.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdint-intn.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdint-least.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdint-uintn.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdio.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdio2-decl.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdio2.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdio_lim.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdlib-bsearch.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdlib-float.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/stdlib.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/string_fortified.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/strings_fortified.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/struct_mutex.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/struct_rwlock.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/thread-shared-types.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/time.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/time64.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/timesize.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/FILE.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__FILE.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__fpos64_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__fpos_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__locale_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__mbstate_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__sigset_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/clock_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/clockid_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/cookie_io_functions_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/locale_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/sigset_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/struct_FILE.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/struct_itimerspec.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/struct_timespec.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/struct_timeval.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/struct_tm.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/time_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/timer_t.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/typesizes.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/uintn-identity.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd-decl.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/unistd_ext.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/waitflags.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/waitstatus.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/wchar.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/wordsize.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/ctype.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/endian.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/features-time64.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/features.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/gnu/stubs-64.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/gnu/stubs.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/math.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdc-predef.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdint.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdio.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/stdlib.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/string.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/strings.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/sys/cdefs.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/sys/select.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/sys/types.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/time.h \
+  /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/unistd.h \
+  /nix/store/7wjcizg4va8cgbfzr3apa2v7m1ljirvj-ncurses-6.5-dev/include/curses.h \
+  /nix/store/7wjcizg4va8cgbfzr3apa2v7m1ljirvj-ncurses-6.5-dev/include/ncurses_dll.h \
+  /nix/store/7wjcizg4va8cgbfzr3apa2v7m1ljirvj-ncurses-6.5-dev/include/unctrl.h \
+  /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdarg.h \
+  /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdbool.h \
+  /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stddef.h \
+  /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdint.h
+
 CMakeFiles/game.dir/depedencies/hunters.c.o: /home/fonil/studia/pp/projekt1/depedencies/hunters.c \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/hunters.h \
@@ -723,6 +825,7 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
   /home/fonil/studia/pp/projekt1/headers/albatross.h \
   /home/fonil/studia/pp/projekt1/headers/bird.h \
   /home/fonil/studia/pp/projekt1/headers/configmanaging.h \
+  /home/fonil/studia/pp/projekt1/headers/fog.h \
   /home/fonil/studia/pp/projekt1/headers/game_defs.h \
   /home/fonil/studia/pp/projekt1/headers/hunters.h \
   /home/fonil/studia/pp/projekt1/headers/ranking.h \
@@ -847,6 +950,7 @@ game: /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unkn
   CMakeFiles/game.dir/depedencies/albatross.c.o \
   CMakeFiles/game.dir/depedencies/bird.c.o \
   CMakeFiles/game.dir/depedencies/configmanaging.c.o \
+  CMakeFiles/game.dir/depedencies/fog.c.o \
   CMakeFiles/game.dir/depedencies/hunters.c.o \
   CMakeFiles/game.dir/depedencies/ranking.c.o \
   CMakeFiles/game.dir/depedencies/stars.c.o \
@@ -862,13 +966,15 @@ CMakeFiles/game.dir/depedencies/configmanaging.c.o:
 
 CMakeFiles/game.dir/depedencies/bird.c.o:
 
-/nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib/lib/libgcc_s.so:
-
 /nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib/libmvec.so.1:
 
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/clockid_t.h:
 
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/select2.h:
+
+/nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib/libc_nonshared.a:
+
+/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__sigset_t.h:
 
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__locale_t.h:
 
@@ -939,10 +1045,6 @@ CMakeFiles/game.dir/depedencies/ranking.c.o:
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/posix_opt.h:
 
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types.h:
-
-/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/types/__sigset_t.h:
-
-/nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib/libc_nonshared.a:
 
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/alloca.h:
 
@@ -1088,6 +1190,8 @@ CMakeFiles/game.dir/depedencies/hunters.c.o:
 
 /nix/store/7wjcizg4va8cgbfzr3apa2v7m1ljirvj-ncurses-6.5-dev/include/unctrl.h:
 
+CMakeFiles/game.dir/depedencies/fog.c.o:
+
 /nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include/stdarg.h:
 
 /home/fonil/studia/pp/projekt1/main.c:
@@ -1107,6 +1211,12 @@ CMakeFiles/game.dir/depedencies/albatross.c.o:
 /nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include/bits/thread-shared-types.h:
 
 /home/fonil/studia/pp/projekt1/headers/bird.h:
+
+/home/fonil/studia/pp/projekt1/depedencies/fog.c:
+
+/nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib/lib/libgcc_s.so:
+
+/home/fonil/studia/pp/projekt1/headers/fog.h:
 
 /home/fonil/studia/pp/projekt1/depedencies/hunters.c:
 

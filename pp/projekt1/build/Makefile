@@ -201,6 +201,30 @@ depedencies/configmanaging.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/configmanaging.c.s
 .PHONY : depedencies/configmanaging.c.s
 
+depedencies/fog.o: depedencies/fog.c.o
+.PHONY : depedencies/fog.o
+
+# target to build an object file
+depedencies/fog.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/fog.c.o
+.PHONY : depedencies/fog.c.o
+
+depedencies/fog.i: depedencies/fog.c.i
+.PHONY : depedencies/fog.i
+
+# target to preprocess a source file
+depedencies/fog.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/fog.c.i
+.PHONY : depedencies/fog.c.i
+
+depedencies/fog.s: depedencies/fog.c.s
+.PHONY : depedencies/fog.s
+
+# target to generate assembly for a file
+depedencies/fog.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/game.dir/build.make CMakeFiles/game.dir/depedencies/fog.c.s
+.PHONY : depedencies/fog.c.s
+
 depedencies/hunters.o: depedencies/hunters.c.o
 .PHONY : depedencies/hunters.o
 
@@ -339,6 +363,9 @@ help:
 	@echo "... depedencies/configmanaging.o"
 	@echo "... depedencies/configmanaging.i"
 	@echo "... depedencies/configmanaging.s"
+	@echo "... depedencies/fog.o"
+	@echo "... depedencies/fog.i"
+	@echo "... depedencies/fog.s"
 	@echo "... depedencies/hunters.o"
 	@echo "... depedencies/hunters.i"
 	@echo "... depedencies/hunters.s"

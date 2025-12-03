@@ -32,7 +32,7 @@ void ChangeColorBird(BIRD *bird, CONFIG cfg) {
 
 void ChangeShape(BIRD *bird, CONFIG cfg) {
   if (!bird->is_in_albatross_taxi) {
-    if (cfg.framecounter % 14 < 7)
+    if (cfg.framecounter % 10 < 3)
       bird->symbol = '-';
     else if (bird->dy == -1)
       bird->symbol = 'A';

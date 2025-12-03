@@ -18,6 +18,7 @@ add_executable(game
     ./depedencies/hunters.c
     ./depedencies/ranking.c
     ./depedencies/albatross.c
+    ./depedencies/fog.c
     main.c 
 )
 

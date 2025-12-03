@@ -9,6 +9,7 @@ game: \
   CMakeFiles/game.dir/depedencies/hunters.c.o \
   CMakeFiles/game.dir/depedencies/ranking.c.o \
   CMakeFiles/game.dir/depedencies/albatross.c.o \
+  CMakeFiles/game.dir/depedencies/fog.c.o \
   CMakeFiles/game.dir/main.c.o \
   /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libncurses.so \
   /nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib/libform.so \
@@ -58,6 +59,8 @@ CMakeFiles/game.dir/depedencies/hunters.c.o:
 CMakeFiles/game.dir/depedencies/ranking.c.o:
 
 CMakeFiles/game.dir/depedencies/albatross.c.o:
+
+CMakeFiles/game.dir/depedencies/fog.c.o:
 
 CMakeFiles/game.dir/main.c.o:
 

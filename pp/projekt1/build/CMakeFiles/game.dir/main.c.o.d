@@ -103,6 +103,7 @@ CMakeFiles/game.dir/main.c.o: /home/fonil/studia/pp/projekt1/main.c \
  /home/fonil/studia/pp/projekt1/./headers/bird.h \
  /home/fonil/studia/pp/projekt1/./headers/albatross.h \
  /home/fonil/studia/pp/projekt1/./headers/configmanaging.h \
+ /home/fonil/studia/pp/projekt1/./headers/fog.h \
  /home/fonil/studia/pp/projekt1/./headers/game_defs.h \
  /home/fonil/studia/pp/projekt1/./headers/hunters.h \
  /home/fonil/studia/pp/projekt1/./headers/ranking.h \

@@ -1,6 +1,7 @@
 #include "./headers/albatross.h"
 #include "./headers/bird.h"
 #include "./headers/configmanaging.h"
+#include "./headers/fog.h"
 #include "./headers/game_defs.h"
 #include "./headers/hunters.h"
 #include "./headers/ranking.h"

@@ -3,7 +3,6 @@
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
                char occupancyMap[ROWS][COLS]) {
-  wattron(w->window, COLOR_PAIR(HIGH_HP_HUNTER));
   if (!bird->is_in_albatross_taxi && cfg.game_time_elapsed > 1 &&
       bird->albatross_in_cooldown < 4) {
     if ((rand() % 100) >= cfg.star_spawn_chance)
@@ -64,7 +63,7 @@ void EraseStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star) {
 void DrawStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star, CONFIG cfg) {
   wattron(w->window, COLOR_PAIR(STAR_COLOR));
 
-  if (star->y > 2 * ROWS / 3) {
+  if (star->y > ROWS / 2) {
     if (cfg.framecounter % 4 < 3) {
       mvwprintw(w->window, star->y, star->x, "*");
     }

@@ -1,2 +1,5 @@
+siurek 1625 0
+fonil 1240 0
 fonil 1165 0
 maciek 950 0
+Player 920 0

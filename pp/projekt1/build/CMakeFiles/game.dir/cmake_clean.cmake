@@ -6,6 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/game.dir/depedencies/bird.c.o.d"
   "CMakeFiles/game.dir/depedencies/configmanaging.c.o"
   "CMakeFiles/game.dir/depedencies/configmanaging.c.o.d"
+  "CMakeFiles/game.dir/depedencies/fog.c.o"
+  "CMakeFiles/game.dir/depedencies/fog.c.o.d"
   "CMakeFiles/game.dir/depedencies/hunters.c.o"
   "CMakeFiles/game.dir/depedencies/hunters.c.o.d"
   "CMakeFiles/game.dir/depedencies/ranking.c.o"
