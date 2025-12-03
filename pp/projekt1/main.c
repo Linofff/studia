@@ -101,6 +101,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
     flushinp();
     usleep(cfg->frame_time * 1000);
+    cfg->framecounter++;
   }
 
   free(stars);

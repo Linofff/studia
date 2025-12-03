@@ -30,9 +30,11 @@ void ChangeColorBird(BIRD *bird, CONFIG cfg) {
     bird->color = LOW_HP_BIRD;
 }
 
-void ChangeShape(BIRD *bird) {
+void ChangeShape(BIRD *bird, CONFIG cfg) {
   if (!bird->is_in_albatross_taxi) {
-    if (bird->dy == -1)
+    if (cfg.framecounter % 14 < 7)
+      bird->symbol = '-';
+    else if (bird->dy == -1)
       bird->symbol = 'A';
     else if (bird->dy == 1)
       bird->symbol = 'V';
@@ -147,7 +149,7 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
 
   if (b->is_in_albatross_taxi) {
     MoveToCenter(b);
-    ChangeShape(b);
+    ChangeShape(b, *cfg);
 
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
@@ -156,7 +158,7 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     int at_y_boundary = (b->y <= BORDER - 1) || (b->y >= b->win->rows - BORDER);
     BirdBorderCheck(at_x_boundary, at_y_boundary, b);
 
-    ChangeShape(b);
+    ChangeShape(b, *cfg);
   }
 
   if (occupancyMap[b->y][b->x] == 's') {
@@ -197,7 +199,7 @@ void ChangeDirectionBird(BIRD *b, int ch, char occupancyMap[ROWS][COLS],
       b->dy = 0;
     }
 
-    ChangeShape(b);
+    ChangeShape(b, *cfg);
     MoveBird(b, occupancyMap, stars, hunters, cfg, playwin);
   }
 }

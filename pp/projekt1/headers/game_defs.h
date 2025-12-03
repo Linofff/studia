@@ -88,6 +88,7 @@ typedef struct {
   int frame_time;
   int game_speed;
   int seed;
+  int framecounter;
 } CONFIG;
 
 // --- GAME STRUCTS ---
