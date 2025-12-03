@@ -17,6 +17,8 @@ WINDOW *Start() {
   init_pair(MEDIUM_HP_HUNTER, COLOR_MAGENTA, COLOR_BLACK);
   init_pair(LOW_HP_HUNTER, COLOR_RED, COLOR_BLACK);
   init_pair(STAR_COLOR, COLOR_WHITE, COLOR_BLACK);
+  init_pair(FOG_COLOR_PAIR, COLOR_WHITE, COLOR_BLACK);
+
   noecho();
   curs_set(0);
   return win;

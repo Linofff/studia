@@ -5,7 +5,8 @@
 #include "game_defs.h"
 
 void ChangeColorBird(BIRD *bird, CONFIG cfg);
-void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b);
+void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b,
+                     char occupancyMap[ROWS][COLS]);
 void MoveToCenter(BIRD *bird);
 BIRD *InitBird(WIN *w, int x, int y, int startHealth,
                char occupancyMap[ROWS][COLS]);

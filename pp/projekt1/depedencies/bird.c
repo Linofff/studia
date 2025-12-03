@@ -102,23 +102,33 @@ void FindWhichHunter(BIRD *b, HUNTER *hunters, CONFIG *cfg,
   }
 }
 
-void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b) {
+void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b,
+                     char occupancyMap[ROWS][COLS]) {
+
   if (at_x_boundary) {
     if (b->x <= BORDER)
       b->dx = 1;
     else if (b->x >= b->win->cols - BORDER - 1)
       b->dx = -1;
   } else {
-    int new_x = b->x + (int)(b->dx * b->speed);
+    int dir_x = (b->dx > 0) ? 1 : -1;
 
-    if (new_x <= BORDER) {
-      b->x = BORDER;
-      b->dx = 1;
-    } else if (new_x >= b->win->cols - BORDER - 1) {
-      b->x = b->win->cols - BORDER - 1;
-      b->dx = -1;
+    if (occupancyMap[b->y][b->x + dir_x] == '#') {
+      b->dx *= -1;
     } else {
-      b->x = new_x;
+      int new_x = b->x + (int)(b->dx * b->speed);
+
+      if (new_x <= BORDER) {
+        b->x = BORDER;
+        b->dx = 1;
+      } else if (new_x >= b->win->cols - BORDER - 1) {
+        b->x = b->win->cols - BORDER - 1;
+        b->dx = -1;
+      } else if (occupancyMap[b->y][new_x] == '#') {
+        b->dx *= -1;
+      } else {
+        b->x = new_x;
+      }
     }
   }
 
@@ -154,9 +164,14 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
   } else {
-    int at_x_boundary = (b->x <= BORDER - 1) || (b->x >= b->win->cols - BORDER);
-    int at_y_boundary = (b->y <= BORDER - 1) || (b->y >= b->win->rows - BORDER);
-    BirdBorderCheck(at_x_boundary, at_y_boundary, b);
+    int at_x_boundary = (b->x <= BORDER - 1) ||
+                        (b->x >= b->win->cols - BORDER) ||
+                        (occupancyMap[b->y][b->x] == '#');
+    int at_y_boundary = (b->y <= BORDER - 1) ||
+                        (b->y >= b->win->rows - BORDER) ||
+                        (occupancyMap[b->y][b->x] == '#');
+
+    BirdBorderCheck(at_x_boundary, at_y_boundary, b, occupancyMap);
 
     ChangeShape(b, *cfg);
   }
@@ -169,6 +184,12 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     b->health--;
     FindWhichHunter(b, hunters, cfg, occupancyMap, playwin);
     flash();
+  }
+  if (occupancyMap[b->y][b->x] == '#') {
+    if (b->x < COLS / 2)
+      b->x++;
+    if (b->x > COLS / 2)
+      b->x--;
   }
 
   DrawBird(b, occupancyMap);

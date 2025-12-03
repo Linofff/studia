@@ -4,8 +4,7 @@
 #include "game_defs.h"
 
 void InitFog(CONFIG *cfg);
-void UpdateFog(CONFIG *cfg, WIN *playwin);
-void DrawFog(WIN *playwin, CONFIG *cfg);
-bool CheckFogCollision(BIRD *bird, CONFIG *cfg);
+void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird);
+void DrawFog(WIN *playwin, CONFIG *cfg, char occupancyMap[ROWS][COLS]);
 
 #endif

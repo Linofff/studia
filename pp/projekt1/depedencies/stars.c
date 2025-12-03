@@ -16,7 +16,8 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
           int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
           bool occupied = 0;
           for (int y = 0; y < ROWS; y++) {
-            if (occupancyMap[y][randomizedX] == 's') {
+            if (occupancyMap[y][randomizedX] == 's' ||
+                occupancyMap[y][randomizedX] == '#') {
               occupied = 1;
               break;
             }
@@ -107,6 +108,11 @@ void UpdateStars(WIN *w, STAR *stars, char occupancyMap[ROWS][COLS], BIRD *bird,
       mvwprintw(w->window, stars[i].y, stars[i].x, " ");
       occupancyMap[stars[i].y][stars[i].x] = ' ';
       RedrawHunter(&stars[i], hunters, cfg, occupancyMap, w);
+      continue;
+    }
+
+    if (occupancyMap[stars[i].y][stars[i].x] == '#') {
+      stars[i].alive = 0;
       continue;
     }
 

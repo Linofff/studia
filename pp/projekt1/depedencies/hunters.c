@@ -52,10 +52,10 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
         int maxY = w->rows - BORDER - hunters[i].height;
 
         if (side == 0) {
-          startX = BORDER;
+          startX = BORDER + cfg.fog_currentsize;
           startY = (rand() % (maxY - BORDER)) + BORDER;
         } else {
-          startX = w->cols - BORDER - hunters[i].width;
+          startX = w->cols - BORDER - hunters[i].width - cfg.fog_currentsize;
           startY = (rand() % (maxY - BORDER)) + BORDER;
         }
 
@@ -212,22 +212,26 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
     // CASE 2: Hit a STAR
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, occupancyMap);
     DrawHunter(w, hunter, occupancyMap);
-  } else if (hit_type == 3) {
-    // Hit Hunter -> BOUNCE
-    // 1. Revert position to prevent sticking
+  } else if (hit_type == 3 || hit_type == 4) {
     hunter->fx -= hunter->vx;
     hunter->fy -= hunter->vy;
     hunter->x = (int)hunter->fx;
     hunter->y = (int)hunter->fy;
 
-    // 2. Reverse Direction
     hunter->vx = -hunter->vx;
     hunter->vy = -hunter->vy;
 
-    // 3. Draw immediately so it doesn't flicker
-    DrawHunter(w, hunter, occupancyMap);
+    if (hit_type == 4) {
+      hunter->bounces--;
+      if (hunter->bounces < 1) {
+        hunter->alive = 0;
+        EraseHunter(w, hunter, occupancyMap);
+      }
+    }
+
+    if (hit_type != 4)
+      DrawHunter(w, hunter, occupancyMap);
   } else {
-    // Hit Nothing -> Draw normally
     DrawHunter(w, hunter, occupancyMap);
   }
 }
@@ -273,6 +277,9 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
             break;
           } else if (cell == 'h') {
             hit_type = 3;
+            break;
+          } else if (cell == '#') {
+            hit_type = 4;
             break;
           }
         }

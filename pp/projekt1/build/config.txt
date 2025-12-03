@@ -4,11 +4,11 @@ stars {
 }
 
 bird {
- health = 100
+ health = 6
 }
 
 hunter {
- max_count = 5
+ max_count = 2
  spawn_chance = 40
  damage = 1
  bounces = 3
@@ -41,7 +41,7 @@ hunter {
 }
 
 game {
- star_quota = 20
- game_time = 50
- seed = 10
+ star_quota = 10
+ game_time = 60
+ seed = 100
 }

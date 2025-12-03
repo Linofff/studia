@@ -40,6 +40,7 @@
 #define MEDIUM_HP_HUNTER 8
 #define LOW_HP_HUNTER 9
 #define STAR_COLOR 10
+#define FOG_COLOR_PAIR 11 // Added Fog Color
 
 #define BORDER 1
 #define ROWS 20
@@ -89,6 +90,12 @@ typedef struct {
   int game_speed;
   int seed;
   int framecounter;
+
+  int fog_min_x;
+  int fog_max_x;
+  int fog_currentsize;
+  int fog_timer;
+  int fog_update_interval;
 } CONFIG;
 
 // --- GAME STRUCTS ---
