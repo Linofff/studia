@@ -88,8 +88,6 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
     ResolveChar(playwin, statwin, ch, occupancyMap, bird, &running, hunters,
                 stars, cfg);
 
-    // DrawBird(bird, occupancyMap);
-
     MainLoopAlbatrossCheck(playwin, bird);
 
     UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime,

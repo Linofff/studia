@@ -68,12 +68,7 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
         hunters[i].initial_bird_y = bird->y;
 
         CalculateDirections(bird, &hunters[i], cfg);
-
-        for (int r = 0; r < hunters[i].height; r++) {
-          for (int c = 0; c < hunters[i].width; c++) {
-            occupancyMap[hunters[i].y + r][hunters[i].x + c] = 'h';
-          }
-        }
+        DrawHunter(w, &hunters[i], occupancyMap);
 
         break;
       }
@@ -203,16 +198,14 @@ void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
 void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
                            char occupancyMap[ROWS][COLS], CONFIG *cfg,
                            BIRD *bird, HUNTER *hunter, WIN *w) {
-  if (hit_type == 1) {
-    // Hit Bird -> Kill Hunter, Damage Bird
+  if (hit_type == HIT_BIRD) {
     bird->health -= cfg->hunter_damage;
     hunter->alive = 0;
     flash();
-  } else if (hit_type == 2) {
-    // CASE 2: Hit a STAR
+  } else if (hit_type == HIT_STAR) {
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, occupancyMap);
     DrawHunter(w, hunter, occupancyMap);
-  } else if (hit_type == 3 || hit_type == 4) {
+  } else if (hit_type == HIT_HUNTER || hit_type == HIT_WALL) {
     hunter->fx -= hunter->vx;
     hunter->fy -= hunter->vy;
     hunter->x = (int)hunter->fx;
@@ -221,7 +214,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
     hunter->vx = -hunter->vx;
     hunter->vy = -hunter->vy;
 
-    if (hit_type == 4) {
+    if (hit_type == HIT_WALL) {
       hunter->bounces--;
       if (hunter->bounces < 1) {
         hunter->alive = 0;
@@ -229,7 +222,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
       }
     }
 
-    if (hit_type != 4)
+    if (hit_type != HIT_WALL)
       DrawHunter(w, hunter, occupancyMap);
   } else {
     DrawHunter(w, hunter, occupancyMap);
@@ -268,18 +261,18 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
           char cell = occupancyMap[mapY][mapX];
 
           if (cell == 'b') {
-            hit_type = 1;
+            hit_type = HIT_BIRD;
             break;
           } else if (cell == 's') {
-            hit_type = 2;
+            hit_type = HIT_STAR;
             tempX = mapX;
             tempY = mapY;
             break;
           } else if (cell == 'h') {
-            hit_type = 3;
+            hit_type = HIT_HUNTER;
             break;
           } else if (cell == '#') {
-            hit_type = 4;
+            hit_type = HIT_WALL;
             break;
           }
         }
