@@ -75,7 +75,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
   STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
   int huntercount =
-      cfg->hunter_max + (cfg->game_time_left / TIME_ENTITY_MULTI) + 1;
+      cfg->hunter_max + (cfg->game_time_start / TIME_ENTITY_MULTI) + 1;
   HUNTER *hunters = (HUNTER *)calloc(huntercount, sizeof(HUNTER));
 
   StartScreen(playwin, &running);
