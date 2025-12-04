@@ -5,7 +5,7 @@
 
 void InitMap(char occupancyMap[ROWS][COLS]);
 void LoadConfig(CONFIG *c);
-void UpdateConfig(CONFIG *cfg, int startTime);
+void UpdateConfig(CONFIG *cfg);
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg);
 void AssignConfigToInput(CONFIG *c, const char *section, const char *key,
                          float value, int *active_template_id);

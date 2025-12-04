@@ -120,10 +120,10 @@ void LoadConfig(CONFIG *c) {
   fclose(file);
 }
 
-void UpdateConfig(CONFIG *cfg, int startTime) {
+void UpdateConfig(CONFIG *cfg) {
   cfg->hunter_bounces =
-      cfg->initial_hunter_bounces + ((time(NULL) - startTime) / 8);
-  cfg->hunter_max = cfg->initial_hunter_max + ((time(NULL) - startTime) / 8);
+      cfg->initial_hunter_bounces + (cfg->game_time_elapsed / 8);
+  cfg->hunter_max = cfg->initial_hunter_max + (cfg->game_time_elapsed / 8);
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {

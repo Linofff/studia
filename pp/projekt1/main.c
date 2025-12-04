@@ -11,7 +11,7 @@
 void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      CONFIG *cfg, int startTime,
                      char occupancyMap[ROWS][COLS]) {
-  UpdateConfig(cfg, startTime);
+  UpdateConfig(cfg);
   DrawFog(playwin, cfg, occupancyMap);
 
   UpdateFog(cfg, playwin, bird);
@@ -66,7 +66,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
   int ch;
   bool running = 1;
 
-  UpdateConfig(cfg, (int)startTime);
+  UpdateConfig(cfg);
   InitFog(cfg);
 
   cfg->game_time_elapsed = 0;

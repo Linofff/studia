@@ -16,9 +16,9 @@
 #define MAX_PLAYER_NAME_LENGTH 15
 
 #define HIT_BIRD 1
-#define HIT_STAR 1
-#define HIT_HUNTER 1
-#define HIT_WALL 1
+#define HIT_STAR 2
+#define HIT_HUNTER 3
+#define HIT_WALL 4
 
 #define QUIT 'q'
 #define REVERSE ' '
