@@ -51,12 +51,23 @@ void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
         int startX, startY;
         int maxY = w->rows - BORDER - hunters[i].height;
 
-        if (side == 0) {
-          startX = BORDER + cfg.fog_currentsize;
-          startY = (rand() % (maxY - BORDER)) + BORDER;
-        } else {
-          startX = w->cols - BORDER - hunters[i].width - cfg.fog_currentsize;
-          startY = (rand() % (maxY - BORDER)) + BORDER;
+        bool searching = 1;
+        while (searching) {
+          if (side == 0) {
+            startX = BORDER + cfg.fog_currentsize;
+            startY = (rand() % (maxY - BORDER)) + BORDER;
+          } else {
+            startX = w->cols - BORDER - hunters[i].width - cfg.fog_currentsize;
+            startY = (rand() % (maxY - BORDER)) + BORDER;
+          }
+          for (int r = 0; r < hunters[i].height; r++) {
+            for (int c = 0; c < hunters[i].width; c++) {
+              if (occupancyMap[startY + r][startX + c] != 'h' &&
+                  occupancyMap[startY + r][startX + c] != 'b') {
+                searching = 0;
+              }
+            }
+          }
         }
 
         hunters[i].fx = (float)startX;
@@ -201,7 +212,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   if (hit_type == HIT_BIRD) {
     bird->health -= cfg->hunter_damage;
     hunter->alive = 0;
-    flash();
+    // flash();
   } else if (hit_type == HIT_STAR) {
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, occupancyMap);
     DrawHunter(w, hunter, occupancyMap);

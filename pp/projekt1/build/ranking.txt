@@ -1,0 +1,8 @@
+siurek 1030 0
+siurek123 950 0
+linof 870 0
+fonil 220 0
+ff 75 0
+siurek -20 0
+f -30 0
+siurek -35 0

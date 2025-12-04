@@ -183,7 +183,7 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
   if (occupancyMap[b->y][b->x] == 'h') {
     b->health--;
     FindWhichHunter(b, hunters, cfg, occupancyMap, playwin);
-    flash();
+    // flash();
   }
   if (occupancyMap[b->y][b->x] == '#') {
     if (b->x < COLS / 2)

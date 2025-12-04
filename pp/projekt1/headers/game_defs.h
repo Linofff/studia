@@ -57,6 +57,8 @@
 
 #define SAVEABLE_PLAYERS 10000
 
+#define TIME_ENTITY_MULTI 5
+
 typedef struct {
   char name[MAX_PLAYER_NAME_LENGTH + 1];
   int score;
@@ -94,7 +96,7 @@ typedef struct {
   int frame_time;
   int game_speed;
   int seed;
-  int framecounter;
+  long long framecounter;
 
   int fog_min_x;
   int fog_max_x;

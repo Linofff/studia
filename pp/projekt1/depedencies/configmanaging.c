@@ -121,10 +121,13 @@ void LoadConfig(CONFIG *c) {
 }
 
 void UpdateConfig(CONFIG *cfg) {
-  cfg->hunter_bounces =
-      (int)(cfg->initial_hunter_bounces + (cfg->game_time_elapsed / 8));
-  cfg->hunter_max =
-      (int)(cfg->initial_hunter_max + (cfg->game_time_elapsed / 8));
+  int bounces =
+      cfg->initial_hunter_max + cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  int maxcount =
+      cfg->initial_hunter_max + cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  if (bounces < 9)
+    cfg->hunter_bounces = bounces;
+  cfg->hunter_max = maxcount;
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {

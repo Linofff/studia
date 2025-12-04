@@ -4,7 +4,7 @@ stars {
 }
 
 bird {
- health = 1
+ health = 100
 }
 
 hunter {
