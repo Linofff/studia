@@ -66,12 +66,12 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
   int ch;
   bool running = 1;
 
-  UpdateConfig(cfg);
-  InitFog(cfg);
-
-  cfg->game_time_elapsed = 0;
   int timeLeft = cfg->game_time_start;
   cfg->game_time_left = cfg->game_time_start;
+  cfg->game_time_elapsed = 0;
+
+  UpdateConfig(cfg);
+  InitFog(cfg);
 
   STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
   HUNTER *hunters = (HUNTER *)calloc(cfg->hunter_max, sizeof(HUNTER));
