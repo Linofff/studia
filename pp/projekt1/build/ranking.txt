@@ -1,8 +1,9 @@
-siurek 1030 0
-siurek123 950 0
-linof 870 0
-fonil 220 0
-ff 75 0
-siurek -20 0
-f -30 0
-siurek -35 0
+fonil 175554 4
+linof 174843 4
+linof 1770 0
+[Z 1490 0
+maciek123 1220 0
+flaskdjflkdas 1005 0
+lfkadjsklfj 140 0
+maciek 125 0
+ 0 0

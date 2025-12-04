@@ -51,7 +51,7 @@ void UpdateAndSaveRanking(const char *player_name, int score,
   RankingTemplate entries[SAVEABLE_PLAYERS];
   int count = 0;
 
-  FILE *fp = fopen(RANKING_FILE, "r");
+  FILE *fp = fopen(RANKING_FILE_NAME, "r");
   if (fp != NULL) {
     while (count < SAVEABLE_PLAYERS &&
            fscanf(fp, "%15s %d %d", entries[count].name, &entries[count].score,
@@ -69,7 +69,7 @@ void UpdateAndSaveRanking(const char *player_name, int score,
 
   qsort(entries, count, sizeof(RankingTemplate), compare_scores);
 
-  fp = fopen(RANKING_FILE, "w");
+  fp = fopen(RANKING_FILE_NAME, "w");
   if (fp == NULL) {
     perror("Error saving ranking");
     return;
@@ -93,7 +93,7 @@ void ShowRanking(WIN *w) {
   mvwprintw(w->window, 3, 25, "SCORE");
   mvwprintw(w->window, 3, 40, "DIFFICULTY");
 
-  FILE *fp = fopen(RANKING_FILE, "r");
+  FILE *fp = fopen(RANKING_FILE_NAME, "r");
   if (fp == NULL) {
     mvwprintw(w->window, 5, 5, "No rankings yet.");
   } else {

@@ -71,28 +71,6 @@ void StartScreen(WIN *playwin, bool *running) {
   wrefresh(playwin->window);
 }
 
-void DebugDrawMap(WIN *w, char occupancyMap[ROWS][COLS]) {
-  for (int y = 0; y < ROWS; y++) {
-    for (int x = 0; x < COLS; x++) {
-
-      char cell = occupancyMap[y][x];
-
-      if (cell == ' ' || cell == 0) {
-        wattron(w->window, A_DIM);
-        mvwaddch(w->window, y, x, '.');
-        wattroff(w->window, A_DIM);
-      } else if (isprint(cell)) {
-        wattron(w->window, A_BOLD);
-        mvwaddch(w->window, y, x, cell);
-        wattroff(w->window, A_BOLD);
-      } else {
-        mvwaddch(w->window, y, x, '?');
-      }
-    }
-  }
-  wrefresh(w->window);
-}
-
 void CleanWin(WIN *W, int bo) {
   wattron(W->window, COLOR_PAIR(W->color));
   if (bo)
@@ -121,11 +99,13 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   wbkgd(W->window, COLOR_PAIR(W->color));
   werase(W->window);
   box(W->window, 0, 0);
-  mvwprintw(W->window, 1, 2,
-            "Time left: %d | Albatross cooldown: %d | Game speed: %d",
-            cfg.game_time_left, bird->albatross_in_cooldown, cfg.game_speed);
-  mvwprintw(W->window, 2, 2,
-            "Score: %d | HP: %d | Goal: %d | [Q] Quit | [T/R] Albatros",
-            bird->points, bird->health, cfg.star_quota);
+  mvwprintw(W->window, 1, 2, "Name: %s | Level: %d | Game speed: %d",
+            cfg.player_name, cfg.levels[0].number, cfg.game_speed);
+  mvwprintw(W->window, 2, 2, "Time left: %d | HP: %d | Score: %d | Goal: %d",
+            cfg.game_time_left, bird->health, bird->points,
+            cfg.levels[0].star_quota);
+
+  mvwprintw(W->window, 3, 2, "TAXI cooldown: %d | [Q] Quit | [T/R] TAXI",
+            bird->albatross_in_cooldown);
   wrefresh(W->window);
 }

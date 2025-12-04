@@ -3,50 +3,50 @@
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
                char occupancyMap[ROWS][COLS]) {
-  if (!bird->is_in_albatross_taxi && cfg.game_time_elapsed > 1 &&
-      bird->albatross_in_cooldown < 4) {
-    if ((rand() % 100) >= cfg.star_spawn_chance)
-      return;
+  if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 1 ||
+      bird->albatross_in_cooldown > 4)
+    return;
+  if ((rand() % 100) >= cfg.levels[0].star_spawn_chance)
+    return;
 
-    for (int i = 0; i < cfg.star_max; i++) {
-      if (!stars[i].alive) {
-        bool findingspot = 1;
-        int attempts = 0;
-        while (findingspot && attempts < 50) {
-          int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
-          bool occupied = 0;
-          for (int y = 0; y < ROWS; y++) {
-            if (occupancyMap[y][randomizedX] == 's' ||
-                occupancyMap[y][randomizedX] == '#') {
-              occupied = 1;
-              break;
-            }
-          }
-          if (!occupied) {
-            stars[i].x = randomizedX;
-            findingspot = 0;
-          }
-          attempts++;
-        }
-        if (findingspot) {
+  for (int i = 0; i < cfg.levels[0].star_max; i++) {
+    if (stars[i].alive)
+      continue;
+    bool findingspot = 1;
+    int attempts = 0;
+    while (findingspot && attempts < 50) {
+      int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
+      bool occupied = 0;
+      for (int y = 0; y < ROWS; y++) {
+        if (occupancyMap[y][randomizedX] == 's' ||
+            occupancyMap[y][randomizedX] == '#') {
+          occupied = 1;
           break;
         }
-        stars[i].y = BORDER;
-
-        stars[i].speed = (float)rand() / (float)RAND_MAX;
-        stars[i].fy = (float)BORDER;
-
-        stars[i].alive = 1;
-        occupancyMap[stars[i].y][stars[i].x] = 's';
-        break;
       }
+      if (!occupied) {
+        stars[i].x = randomizedX;
+        findingspot = 0;
+      }
+      attempts++;
     }
+    if (findingspot) {
+      break;
+    }
+    stars[i].y = BORDER;
+
+    stars[i].speed = (float)rand() / (float)RAND_MAX;
+    stars[i].fy = (float)BORDER;
+
+    stars[i].alive = 1;
+    occupancyMap[stars[i].y][stars[i].x] = 's';
+    break;
   }
 }
 
 void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg,
                   char occupancyMap[ROWS][COLS], WIN *playwin) {
-  for (int i = 0; i < cfg->hunter_max; i++) {
+  for (int i = 0; i < cfg->levels[0].hunter_max; i++) {
     for (int r = 0; r < hunters[i].height; r++)
       for (int c = 0; c < hunters[i].width; c++) {
         if ((hunters[i].x + c) == star->x && (hunters[i].y + r) == star->y) {
@@ -80,7 +80,7 @@ void DrawStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star, CONFIG cfg) {
 void UpdateStars(WIN *w, STAR *stars, char occupancyMap[ROWS][COLS], BIRD *bird,
                  CONFIG *cfg, HUNTER *hunters) {
 
-  for (int i = 0; i < cfg->star_max; i++) {
+  for (int i = 0; i < cfg->levels[0].star_max; i++) {
     if (!stars[i].alive) {
       if (occupancyMap[stars[i].y][stars[i].x] == 's') {
         EraseStar(w, occupancyMap, &stars[i]);

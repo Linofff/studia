@@ -14,8 +14,8 @@ void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]);
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
                    const CONFIG cfg, char occupancyMap[ROWS][COLS],
                    STAR *stars);
-void HunterDash(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg);
-void HunterSleep(HUNTER *hunter, BIRD *bird, CONFIG cfg);
+void UpdateDashingHunters(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg);
+void HunterTriggerDash(HUNTER *hunter, BIRD *bird, CONFIG cfg);
 void IncreaseHunterSpeed(HUNTER *h, float multiplier);
 
 #endif

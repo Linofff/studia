@@ -1,18 +1,22 @@
 stars {
- max = 10
- spawn_chance = 20
+  max = 10
+  spawn_chance = 20
+}
+
+player {
+  name = Fonil
 }
 
 bird {
- health = 100
+  health = 9
 }
 
 hunter {
- max_count = 2
- spawn_chance = 40
- damage = 1
- bounces = 3
- speed = 0.9
+  max_count = 2
+  spawn_chance = 40
+  damage = 1
+  bounces = 3
+  speed = 0.9
 
  template 1 {
     width = 1
@@ -41,7 +45,8 @@ hunter {
 }
 
 game {
- star_quota = 10
- game_time = 60
- seed = 100
+  level = 1
+  star_quota = 15
+  game_time = 60
+  seed = 100
 }

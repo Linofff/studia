@@ -5,7 +5,7 @@
 
 void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird);
 void AlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg,
-                   char occupancyMap[ROWS][COLS]);
+                   char occupancyMap[ROWS][COLS], WIN *playwin);
 void OutOfAlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg);
 
 #endif

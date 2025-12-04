@@ -12,41 +12,31 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      CONFIG *cfg, int startTime,
                      char occupancyMap[ROWS][COLS]) {
   UpdateConfig(cfg);
-  DrawFog(playwin, cfg, occupancyMap);
 
+  DrawFog(playwin, cfg, occupancyMap);
   UpdateFog(cfg, playwin, bird);
 
   SpawnStar(bird, playwin, stars, *cfg, occupancyMap);
   UpdateStars(playwin, stars, occupancyMap, bird, cfg, hunters);
 
   SpawnHunter(playwin, hunters, bird, *cfg, occupancyMap);
-  UpdateHunters(playwin, hunters, cfg->hunter_max, bird, *cfg, occupancyMap,
-                stars);
+  UpdateHunters(playwin, hunters, cfg->levels[0].hunter_max, bird, *cfg,
+                occupancyMap, stars);
 }
 
 void ResolveChar(WIN *playwin, WIN *statwin, char ch,
                  char occupancyMap[ROWS][COLS], BIRD *bird, bool *running,
                  HUNTER *hunters, STAR *stars, CONFIG *cfg) {
-  if (ch == 'm' || ch == 'M') {
-    DebugDrawMap(playwin, occupancyMap);
-
-    while (wgetch(statwin->window) != 'm')
-      ;
-
-    wclear(playwin->window);
-    box(playwin->window, 0, 0);
-  }
-
   if (ch == QUIT)
     *running = 0;
 
-  if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT || ch == STOP)
+  if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT)
     ChangeDirectionBird(bird, ch, occupancyMap, stars, hunters, cfg, playwin);
   else
     MoveBird(bird, occupancyMap, stars, hunters, cfg, playwin);
 
   if (ch == TAXI_IN)
-    AlbatrossTaxi(hunters, stars, bird, cfg, occupancyMap);
+    AlbatrossTaxi(hunters, stars, bird, cfg, occupancyMap, playwin);
 
   if (ch == TAXI_OUT)
     OutOfAlbatrossTaxi(hunters, stars, bird, cfg);
@@ -60,6 +50,13 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch,
   }
 }
 
+void AllocateMemory(CONFIG *cfg, STAR **stars, HUNTER **hunters) {
+  *stars = (STAR *)calloc(cfg->levels[0].star_max, sizeof(STAR));
+  int maxNumberOfHunters = cfg->levels[0].initial_hunter_max +
+                           (cfg->game_time_start / TIME_ENTITY_MULTI) + 1;
+  *hunters = (HUNTER *)calloc(maxNumberOfHunters, sizeof(HUNTER));
+}
+
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
               char occupancyMap[ROWS][COLS]) {
   time_t startTime = time(NULL);
@@ -68,15 +65,14 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
 
   int timeLeft = cfg->game_time_start;
   cfg->game_time_left = cfg->game_time_start;
-  cfg->game_time_elapsed = 0;
+
+  STAR *stars = NULL;
+  HUNTER *hunters = NULL;
 
   UpdateConfig(cfg);
   InitFog(cfg);
 
-  STAR *stars = (STAR *)calloc(cfg->star_max, sizeof(STAR));
-  int huntercount =
-      cfg->hunter_max + (cfg->game_time_start / TIME_ENTITY_MULTI) + 1;
-  HUNTER *hunters = (HUNTER *)calloc(huntercount, sizeof(HUNTER));
+  AllocateMemory(cfg, &stars, &hunters);
 
   StartScreen(playwin, &running);
 
@@ -101,7 +97,7 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg,
     if (bird->health <= 0 || cfg->game_time_left <= 0)
       running = 0;
 
-    if (bird->points >= cfg->star_quota)
+    if (bird->points >= cfg->levels[0].star_quota)
       running = 0;
 
     flushinp();
@@ -126,13 +122,14 @@ int main() {
 
   cfg.frame_time = FRAME_TIME;
   cfg.game_time_left = 0;
+  cfg.game_time_elapsed = 0;
 
   WINDOW *mainwin = Start();
 
   WIN *playwin =
       InitWin(mainwin, ROWS, COLS, OFFY, OFFX, PLAY_COLOR, BORDER, 0);
   WIN *statwin =
-      InitWin(mainwin, 4, COLS, ROWS + OFFY, OFFX, STAT_COLOR, BORDER, 0);
+      InitWin(mainwin, 5, COLS, ROWS + OFFY, OFFX, STAT_COLOR, BORDER, 0);
 
   playwin->color = MAIN_COLOR;
 

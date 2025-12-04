@@ -17,30 +17,37 @@ void SanitizeLine(char *line) {
 }
 
 void AssignConfigToInput(CONFIG *c, const char *section, const char *key,
-                         float value, int *active_template_id) {
+                         const char *val_str, int *active_template_id) {
+
+  float val_float = (float)atof(val_str);
+
   // STARS SECTION
   if (strcmp(section, "stars") == 0) {
-    StarsConfigLoad(c, key, value);
+    StarsConfigLoad(c, key, val_float);
+  }
+  // PLAYER SECTION
+  else if (strcmp(section, "player") == 0) {
+    PlayerConfigLoad(c, key, val_str);
   }
   // BIRD SECTION
   else if (strcmp(section, "bird") == 0) {
-    BirdConfigLoad(c, key, value);
+    BirdConfigLoad(c, key, val_float);
   }
   // HUNTER SECTION
   else if (strcmp(section, "hunter") == 0) {
-    HunterConfigLoad(c, key, value, active_template_id);
+    HunterConfigLoad(c, key, val_float, active_template_id);
   }
   // GAME SECTION
   else if (strcmp(section, "game") == 0) {
-    GameConfigLoad(c, key, value);
+    GameConfigLoad(c, key, val_float);
   }
 }
 
 void StarsConfigLoad(CONFIG *c, const char *key, float value) {
   if (strcmp(key, "max") == 0)
-    c->star_max = (int)value;
+    c->levels[0].star_max = (int)value;
   else if (strcmp(key, "spawn_chance") == 0)
-    c->star_spawn_chance = (int)value;
+    c->levels[0].star_spawn_chance = (int)value;
 }
 
 void HunterConfigLoad(CONFIG *c, const char *key, float value,
@@ -51,27 +58,28 @@ void HunterConfigLoad(CONFIG *c, const char *key, float value,
     } else if (strcmp(key, "height") == 0) {
       c->hunter_templates[*active_template_id].height = (int)value;
     }
-    // Return here so we don't accidentally overwrite global hunter stats
     return;
   }
 
   if (strcmp(key, "max_count") == 0)
-    c->initial_hunter_max = (int)value;
+    c->levels[0].initial_hunter_max = (int)value;
   else if (strcmp(key, "spawn_chance") == 0)
-    c->hunter_spawn_chance = (int)value;
+    c->levels[0].hunter_spawn_chance = (int)value;
   else if (strcmp(key, "damage") == 0)
-    c->hunter_damage = (int)value;
+    c->levels[0].hunter_damage = (int)value;
   else if (strcmp(key, "bounces") == 0)
-    c->initial_hunter_bounces = (int)value;
+    c->levels[0].initial_hunter_bounces = (int)value;
   else if (strcmp(key, "speed") == 0)
-    c->hunter_speed = value;
+    c->levels[0].hunter_speed = value;
   else if (strcmp(key, "template") == 0)
     *active_template_id = ((int)(value)-1);
 }
 
 void GameConfigLoad(CONFIG *c, const char *key, float value) {
-  if (strcmp(key, "star_quota") == 0)
-    c->star_quota = (int)value;
+  if (strcmp(key, "level") == 0)
+    c->levels[0].number = (int)value;
+  else if (strcmp(key, "star_quota") == 0)
+    c->levels[0].star_quota = (int)value;
   else if (strcmp(key, "game_time") == 0)
     c->game_time_start = (int)value;
   else if (strcmp(key, "seed") == 0)
@@ -83,10 +91,15 @@ void BirdConfigLoad(CONFIG *c, const char *key, float value) {
     c->start_health = (int)value;
 }
 
+void PlayerConfigLoad(CONFIG *c, const char *key, const char *val_str) {
+  if (strcmp(key, "name") == 0) {
+    strcpy(c->player_name, val_str);
+  }
+}
+
 void LoadConfig(CONFIG *c) {
-  FILE *file = fopen("config.txt", "r");
+  FILE *file = fopen(CONFIG_FILE_NAME, "r");
   if (!file) {
-    printf("BLAD: Nie mozna otworzyc pliku\n");
     return;
   }
 
@@ -108,10 +121,11 @@ void LoadConfig(CONFIG *c) {
     }
 
     char key[50];
-    float value;
+    char val_str[100];
 
-    if (sscanf(line, "%s %f", key, &value) == 2) {
-      AssignConfigToInput(c, current_section, key, value, &active_template_id);
+    if (sscanf(line, "%s %s", key, val_str) == 2) {
+      AssignConfigToInput(c, current_section, key, val_str,
+                          &active_template_id);
     } else if (sscanf(line, "%s", key) == 1 && active_template_id == -1) {
       strcpy(current_section, key);
     }
@@ -121,13 +135,13 @@ void LoadConfig(CONFIG *c) {
 }
 
 void UpdateConfig(CONFIG *cfg) {
-  int bounces =
-      cfg->initial_hunter_max + cfg->game_time_elapsed / TIME_ENTITY_MULTI;
-  int maxcount =
-      cfg->initial_hunter_max + cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  int bounces = cfg->levels[0].initial_hunter_max +
+                cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  int maxcount = cfg->levels[0].initial_hunter_max +
+                 cfg->game_time_elapsed / TIME_ENTITY_MULTI;
   if (bounces < 9)
-    cfg->hunter_bounces = bounces;
-  cfg->hunter_max = maxcount;
+    cfg->levels[0].hunter_bounces = bounces;
+  cfg->levels[0].hunter_max = maxcount;
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {

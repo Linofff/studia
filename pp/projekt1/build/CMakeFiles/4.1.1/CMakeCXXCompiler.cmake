@@ -1,4 +1,4 @@
-set(CMAKE_CXX_COMPILER "/nix/store/kks0nbx2riwry5qsx0qr87qr0lswmhzi-gcc-wrapper-14.3.0/bin/g++")
+set(CMAKE_CXX_COMPILER "/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/g++")
 set(CMAKE_CXX_COMPILER_ARG1 "")
 set(CMAKE_CXX_COMPILER_ID "GNU")
 set(CMAKE_CXX_COMPILER_VERSION "14.3.0")
@@ -19,19 +19,20 @@ set(CMAKE_CXX26_COMPILE_FEATURES "cxx_std_26")
 set(CMAKE_CXX_PLATFORM_ID "Linux")
 set(CMAKE_CXX_SIMULATE_ID "")
 set(CMAKE_CXX_COMPILER_FRONTEND_VARIANT "GNU")
+set(CMAKE_CXX_COMPILER_APPLE_SYSROOT "")
 set(CMAKE_CXX_SIMULATE_VERSION "")
+set(CMAKE_CXX_COMPILER_ARCHITECTURE_ID "x86_64")
 
 
 
-
-set(CMAKE_AR "/nix/store/kks0nbx2riwry5qsx0qr87qr0lswmhzi-gcc-wrapper-14.3.0/bin/ar")
-set(CMAKE_CXX_COMPILER_AR "/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/bin/gcc-ar")
-set(CMAKE_RANLIB "/nix/store/kks0nbx2riwry5qsx0qr87qr0lswmhzi-gcc-wrapper-14.3.0/bin/ranlib")
-set(CMAKE_CXX_COMPILER_RANLIB "/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/bin/gcc-ranlib")
-set(CMAKE_LINKER "/nix/store/kks0nbx2riwry5qsx0qr87qr0lswmhzi-gcc-wrapper-14.3.0/bin/ld")
+set(CMAKE_AR "/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/ar")
+set(CMAKE_CXX_COMPILER_AR "/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/bin/gcc-ar")
+set(CMAKE_RANLIB "/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/ranlib")
+set(CMAKE_CXX_COMPILER_RANLIB "/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/bin/gcc-ranlib")
+set(CMAKE_LINKER "/nix/store/dmypp1h4ldn0vfk3fi6yfyf5yxp9yz0k-gcc-wrapper-14.3.0/bin/ld")
 set(CMAKE_LINKER_LINK "")
 set(CMAKE_LINKER_LLD "")
-set(CMAKE_CXX_COMPILER_LINKER "/nix/store/iga4lv0say4pbbbgkf1v79403n1ip7hf-binutils-wrapper-2.44/bin/ld")
+set(CMAKE_CXX_COMPILER_LINKER "/nix/store/0fq1mnfqjl9ain4jg5j56kl6h8bbmy1h-binutils-wrapper-2.44/bin/ld")
 set(CMAKE_CXX_COMPILER_LINKER_ID "GNU")
 set(CMAKE_CXX_COMPILER_LINKER_VERSION 2.44)
 set(CMAKE_CXX_COMPILER_LINKER_FRONTEND_VARIANT GNU)
@@ -58,7 +59,9 @@ endforeach()
 
 set(CMAKE_CXX_LINKER_PREFERENCE 30)
 set(CMAKE_CXX_LINKER_PREFERENCE_PROPAGATES 1)
-set(CMAKE_CXX_LINKER_DEPFILE_SUPPORTED )
+set(CMAKE_CXX_LINKER_DEPFILE_SUPPORTED TRUE)
+set(CMAKE_LINKER_PUSHPOP_STATE_SUPPORTED TRUE)
+set(CMAKE_CXX_LINKER_PUSHPOP_STATE_SUPPORTED TRUE)
 
 # Save compiler ABI information.
 set(CMAKE_CXX_SIZEOF_DATA_PTR "8")
@@ -87,9 +90,9 @@ endif()
 
 
 
-set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/nix/store/hgc91dkd1iqjdic0s55j1j2rycxd20k0-ncurses-6.5-dev/include;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/include/c++/14.3.0;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/include/c++/14.3.0/backward;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/include;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include-fixed;/nix/store/1v9ggwkpb0xy708s11s1g9fhinn3b06r-glibc-2.40-66-dev/include")
+set(CMAKE_CXX_IMPLICIT_INCLUDE_DIRECTORIES "/nix/store/7wjcizg4va8cgbfzr3apa2v7m1ljirvj-ncurses-6.5-dev/include;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/include/c++/14.3.0;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/include/c++/14.3.0/x86_64-unknown-linux-gnu;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/include/c++/14.3.0/backward;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/include;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0/include-fixed;/nix/store/0zv32kh0zb4s1v4ld6mc99vmzydj9nm9-glibc-2.40-66-dev/include")
 set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "stdc++;m;gcc_s;gcc;c;gcc_s;gcc")
-set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/nix/store/vj3rmg6937p9icir6bazbdcb4xdnrg9j-ncurses-6.5/lib;/nix/store/i3ibgfskl99qd8rslafbpaa1dmxdzh1z-glibc-2.40-66/lib;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0;/nix/store/cf1a53iqg6ncnygl698c4v0l8qam5a2q-gcc-14.3.0-lib/lib;/nix/store/iga4lv0say4pbbbgkf1v79403n1ip7hf-binutils-wrapper-2.44/bin;/nix/store/y28c83zz73yr4vwz1fsl4nsrn6yz5fj0-gcc-14.3.0/lib")
+set(CMAKE_CXX_IMPLICIT_LINK_DIRECTORIES "/nix/store/lm4wm3f4ynilxw8yvgqq0hj2ng8ky9xy-ncurses-6.5/lib;/nix/store/qhw0sp183mqd04x5jp75981kwya64npv-glibc-2.40-66/lib;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib/gcc/x86_64-unknown-linux-gnu/14.3.0;/nix/store/xp989kyfg52803fmkzbz5py35jphcpgd-gcc-14.3.0-lib/lib;/nix/store/k6gpflj398qaxzx4bmqhnnj4l328vabk-gcc-14.3.0/lib")
 set(CMAKE_CXX_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")
 set(CMAKE_CXX_COMPILER_CLANG_RESOURCE_DIR "")
 

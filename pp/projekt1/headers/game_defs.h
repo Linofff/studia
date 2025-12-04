@@ -11,9 +11,12 @@
 #include <time.h>
 #include <unistd.h>
 
-#define RANKING_FILE "ranking.txt"
+#define CONFIG_FILE_NAME "config1.txt"
+
+#define RANKING_FILE_NAME "ranking.txt"
 #define TOP_N 5
 #define MAX_PLAYER_NAME_LENGTH 15
+#define SAVEABLE_PLAYERS 10000
 
 #define HIT_BIRD 1
 #define HIT_STAR 2
@@ -45,7 +48,7 @@
 #define MEDIUM_HP_HUNTER 8
 #define LOW_HP_HUNTER 9
 #define STAR_COLOR 10
-#define FOG_COLOR_PAIR 11 // Added Fog Color
+#define FOG_COLOR_PAIR 11
 
 #define BORDER 1
 #define ROWS 20
@@ -55,9 +58,7 @@
 
 #define MAX_TEMPLATES 5
 
-#define SAVEABLE_PLAYERS 10000
-
-#define TIME_ENTITY_MULTI 5
+#define TIME_ENTITY_MULTI 8
 
 typedef struct {
   char name[MAX_PLAYER_NAME_LENGTH + 1];
@@ -70,16 +71,11 @@ typedef struct {
   int height;
 } HunterTemplate;
 
-// --- CONFIGURATION STRUCT ---
 typedef struct {
-  int game_time_start;
-  int game_time_left;
-  int game_time_elapsed;
-
-  int star_max;
+  int number;
   int star_quota;
+  int star_max;
   int star_spawn_chance;
-  float star_speed;
 
   int initial_hunter_max;
   int hunter_max;
@@ -89,6 +85,17 @@ typedef struct {
   int initial_hunter_bounces;
   int hunter_bounces;
 
+} Level;
+
+typedef struct {
+  char player_name[20];
+
+  int game_time_start;
+  int game_time_left;
+  int game_time_elapsed;
+
+  Level levels[1];
+
   HunterTemplate hunter_templates[MAX_TEMPLATES];
 
   int start_health;
@@ -96,7 +103,7 @@ typedef struct {
   int frame_time;
   int game_speed;
   int seed;
-  long long framecounter;
+  unsigned int framecounter;
 
   int fog_min_x;
   int fog_max_x;
@@ -105,7 +112,6 @@ typedef struct {
   int fog_update_interval;
 } CONFIG;
 
-// --- GAME STRUCTS ---
 typedef struct {
   WINDOW *window;
   int rows, cols;
@@ -144,7 +150,7 @@ typedef struct {
   int damage;
   int bounces;
   int initial_bird_x, initial_bird_y;
-  int dashleft;
+  int dashes_left;
   int sleep_timer;
   int boost_timer;
   int color;

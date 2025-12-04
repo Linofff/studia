@@ -83,7 +83,7 @@ void ClearBird(BIRD *b, char occupancyMap[ROWS][COLS]) {
 }
 
 void FindWhichStar(BIRD *b, STAR *stars, CONFIG *cfg) {
-  for (int i = 0; i < cfg->star_max; i++) {
+  for (int i = 0; i < cfg->levels[0].star_max; i++) {
     if (stars[i].x == b->x && stars[i].y == b->y)
       stars[i].alive = 0;
   }
@@ -91,7 +91,7 @@ void FindWhichStar(BIRD *b, STAR *stars, CONFIG *cfg) {
 
 void FindWhichHunter(BIRD *b, HUNTER *hunters, CONFIG *cfg,
                      char occupancyMap[ROWS][COLS], WIN *playwin) {
-  for (int i = 0; i < cfg->hunter_max; i++) {
+  for (int i = 0; i < cfg->levels[0].hunter_max; i++) {
     for (int r = 0; r < hunters[i].height; r++)
       for (int c = 0; c < hunters[i].width; c++) {
         if ((hunters[i].x + c) == b->x && (hunters[i].y + r) == b->y) {
@@ -181,7 +181,7 @@ void MoveBird(BIRD *b, char occupancyMap[ROWS][COLS], STAR *stars,
     FindWhichStar(b, stars, cfg);
   }
   if (occupancyMap[b->y][b->x] == 'h') {
-    b->health--;
+    b->health -= hunters->damage;
     FindWhichHunter(b, hunters, cfg, occupancyMap, playwin);
     // flash();
   }
