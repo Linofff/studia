@@ -51,8 +51,6 @@
 #define FOG_COLOR_PAIR 11
 
 #define BORDER 1
-#define ROWS 20
-#define COLS 80
 #define OFFY 0
 #define OFFX 1
 
@@ -85,7 +83,10 @@ typedef struct {
   int initial_hunter_bounces;
   int hunter_bounces;
 
-} Level;
+  int cols;
+  int rows;
+
+} LevelTemplate;
 
 typedef struct {
   char player_name[20];
@@ -94,7 +95,7 @@ typedef struct {
   int game_time_left;
   int game_time_elapsed;
 
-  Level levels[1];
+  LevelTemplate level;
 
   HunterTemplate hunter_templates[MAX_TEMPLATES];
 

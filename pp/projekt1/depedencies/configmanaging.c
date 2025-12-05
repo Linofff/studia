@@ -1,8 +1,8 @@
 #include "./../headers/configmanaging.h"
 
-void InitMap(char occupancyMap[ROWS][COLS]) {
-  for (int y = 0; y < ROWS; y++) {
-    for (int x = 0; x < COLS; x++) {
+void InitMap(int rows, int cols, char occupancyMap[rows][cols]) {
+  for (int y = 0; y < rows; y++) {
+    for (int x = 0; x < cols; x++) {
       occupancyMap[y][x] = ' ';
     }
   }
@@ -45,9 +45,9 @@ void AssignConfigToInput(CONFIG *c, const char *section, const char *key,
 
 void StarsConfigLoad(CONFIG *c, const char *key, float value) {
   if (strcmp(key, "max") == 0)
-    c->levels[0].star_max = (int)value;
+    c->level.star_max = (int)value;
   else if (strcmp(key, "spawn_chance") == 0)
-    c->levels[0].star_spawn_chance = (int)value;
+    c->level.star_spawn_chance = (int)value;
 }
 
 void HunterConfigLoad(CONFIG *c, const char *key, float value,
@@ -62,24 +62,28 @@ void HunterConfigLoad(CONFIG *c, const char *key, float value,
   }
 
   if (strcmp(key, "max_count") == 0)
-    c->levels[0].initial_hunter_max = (int)value;
+    c->level.initial_hunter_max = (int)value;
   else if (strcmp(key, "spawn_chance") == 0)
-    c->levels[0].hunter_spawn_chance = (int)value;
+    c->level.hunter_spawn_chance = (int)value;
   else if (strcmp(key, "damage") == 0)
-    c->levels[0].hunter_damage = (int)value;
+    c->level.hunter_damage = (int)value;
   else if (strcmp(key, "bounces") == 0)
-    c->levels[0].initial_hunter_bounces = (int)value;
+    c->level.initial_hunter_bounces = (int)value;
   else if (strcmp(key, "speed") == 0)
-    c->levels[0].hunter_speed = value;
+    c->level.hunter_speed = value;
   else if (strcmp(key, "template") == 0)
     *active_template_id = ((int)(value)-1);
 }
 
 void GameConfigLoad(CONFIG *c, const char *key, float value) {
-  if (strcmp(key, "level") == 0)
-    c->levels[0].number = (int)value;
+  if (strcmp(key, "height") == 0)
+    c->level.rows = (int)value;
+  else if (strcmp(key, "width") == 0)
+    c->level.cols = (int)value;
+  else if (strcmp(key, "level") == 0)
+    c->level.number = (int)value;
   else if (strcmp(key, "star_quota") == 0)
-    c->levels[0].star_quota = (int)value;
+    c->level.star_quota = (int)value;
   else if (strcmp(key, "game_time") == 0)
     c->game_time_start = (int)value;
   else if (strcmp(key, "seed") == 0)
@@ -135,13 +139,13 @@ void LoadConfig(CONFIG *c) {
 }
 
 void UpdateConfig(CONFIG *cfg) {
-  int bounces = cfg->levels[0].initial_hunter_max +
+  int bounces = cfg->level.initial_hunter_bounces +
                 cfg->game_time_elapsed / TIME_ENTITY_MULTI;
-  int maxcount = cfg->levels[0].initial_hunter_max +
+  int maxcount = cfg->level.initial_hunter_max +
                  cfg->game_time_elapsed / TIME_ENTITY_MULTI;
   if (bounces < 9)
-    cfg->levels[0].hunter_bounces = bounces;
-  cfg->levels[0].hunter_max = maxcount;
+    cfg->level.hunter_bounces = bounces;
+  cfg->level.hunter_max = maxcount;
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {

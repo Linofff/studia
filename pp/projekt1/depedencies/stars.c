@@ -1,15 +1,15 @@
 #include "./../headers/stars.h"
 #include "./../headers/hunters.h"
 
-void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
-               char occupancyMap[ROWS][COLS]) {
+void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, int rows, int cols,
+               char occupancyMap[rows][cols]) {
   if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 1 ||
       bird->albatross_in_cooldown > 4)
     return;
-  if ((rand() % 100) >= cfg.levels[0].star_spawn_chance)
+  if ((rand() % 100) >= cfg.level.star_spawn_chance)
     return;
 
-  for (int i = 0; i < cfg.levels[0].star_max; i++) {
+  for (int i = 0; i < cfg.level.star_max; i++) {
     if (stars[i].alive)
       continue;
     bool findingspot = 1;
@@ -17,7 +17,7 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
     while (findingspot && attempts < 50) {
       int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
       bool occupied = 0;
-      for (int y = 0; y < ROWS; y++) {
+      for (int y = 0; y < rows; y++) {
         if (occupancyMap[y][randomizedX] == 's' ||
             occupancyMap[y][randomizedX] == '#') {
           occupied = 1;
@@ -44,27 +44,29 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg,
   }
 }
 
-void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg,
-                  char occupancyMap[ROWS][COLS], WIN *playwin) {
-  for (int i = 0; i < cfg->levels[0].hunter_max; i++) {
+void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg, int rows, int cols,
+                  char occupancyMap[rows][cols], WIN *playwin) {
+  for (int i = 0; i < cfg->level.hunter_max; i++) {
     for (int r = 0; r < hunters[i].height; r++)
       for (int c = 0; c < hunters[i].width; c++) {
         if ((hunters[i].x + c) == star->x && (hunters[i].y + r) == star->y) {
-          DrawHunter(playwin, &hunters[i], occupancyMap);
+          DrawHunter(playwin, &hunters[i], rows, cols, occupancyMap);
         }
       }
   }
 }
 
-void EraseStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star) {
+void EraseStar(WIN *w, int rows, int cols, char occupancyMap[rows][cols],
+               STAR *star) {
   mvwprintw(w->window, star->y, star->x, " ");
   occupancyMap[star->y][star->x] = ' ';
 }
 
-void DrawStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star, CONFIG cfg) {
+void DrawStar(WIN *w, int rows, int cols, char occupancyMap[rows][cols],
+              STAR *star, CONFIG cfg) {
   wattron(w->window, COLOR_PAIR(STAR_COLOR));
 
-  if (star->y > ROWS / 2) {
+  if (star->y > rows / 2) {
     if (cfg.framecounter % 4 < 3) {
       mvwprintw(w->window, star->y, star->x, "*");
     }
@@ -77,18 +79,19 @@ void DrawStar(WIN *w, char occupancyMap[ROWS][COLS], STAR *star, CONFIG cfg) {
   wattroff(w->window, COLOR_PAIR(STAR_COLOR));
 }
 
-void UpdateStars(WIN *w, STAR *stars, char occupancyMap[ROWS][COLS], BIRD *bird,
-                 CONFIG *cfg, HUNTER *hunters) {
+void UpdateStars(WIN *w, STAR *stars, int rows, int cols,
+                 char occupancyMap[rows][cols], BIRD *bird, CONFIG *cfg,
+                 HUNTER *hunters) {
 
-  for (int i = 0; i < cfg->levels[0].star_max; i++) {
+  for (int i = 0; i < cfg->level.star_max; i++) {
     if (!stars[i].alive) {
       if (occupancyMap[stars[i].y][stars[i].x] == 's') {
-        EraseStar(w, occupancyMap, &stars[i]);
+        EraseStar(w, rows, cols, occupancyMap, &stars[i]);
       }
       continue;
     }
 
-    EraseStar(w, occupancyMap, &stars[i]);
+    EraseStar(w, rows, cols, occupancyMap, &stars[i]);
     stars[i].fy += stars[i].speed;
     stars[i].y = (int)(stars[i].fy);
 
@@ -107,7 +110,7 @@ void UpdateStars(WIN *w, STAR *stars, char occupancyMap[ROWS][COLS], BIRD *bird,
       stars[i].alive = 0;
       mvwprintw(w->window, stars[i].y, stars[i].x, " ");
       occupancyMap[stars[i].y][stars[i].x] = ' ';
-      RedrawHunter(&stars[i], hunters, cfg, occupancyMap, w);
+      RedrawHunter(&stars[i], hunters, cfg, rows, cols, occupancyMap, w);
       continue;
     }
 
@@ -116,6 +119,6 @@ void UpdateStars(WIN *w, STAR *stars, char occupancyMap[ROWS][COLS], BIRD *bird,
       continue;
     }
 
-    DrawStar(w, occupancyMap, &stars[i], *cfg);
+    DrawStar(w, rows, cols, occupancyMap, &stars[i], *cfg);
   }
 }

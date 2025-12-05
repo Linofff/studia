@@ -3,7 +3,7 @@
 
 #include "game_defs.h"
 
-void InitMap(char occupancyMap[ROWS][COLS]);
+void InitMap(int rows, int cols, char occupancyMap[rows][cols]);
 void LoadConfig(CONFIG *c);
 void UpdateConfig(CONFIG *cfg);
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg);

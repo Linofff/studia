@@ -1,14 +1,14 @@
 #include "./../headers/fog.h"
 
-void InitFog(CONFIG *cfg) {
+void InitFog(CONFIG *cfg, int cols) {
   cfg->fog_min_x = 1;
-  cfg->fog_max_x = COLS - 2;
+  cfg->fog_max_x = cols - 2;
   cfg->fog_timer = 0;
 
-  cfg->fog_update_interval = 40;
+  cfg->fog_update_interval = 30;
 }
 
-void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird) {
+void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird, int cols) {
   if (bird->is_in_albatross_taxi)
     return;
 
@@ -18,8 +18,8 @@ void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird) {
     cfg->fog_timer = 0;
 
     int safe_zone_width = 40;
-    int left_limit = (COLS - safe_zone_width) / 2;
-    int right_limit = (COLS + safe_zone_width) / 2;
+    int left_limit = (cols - safe_zone_width) / 2;
+    int right_limit = (cols + safe_zone_width) / 2;
 
     if (cfg->fog_min_x < left_limit) {
       cfg->fog_min_x++;
@@ -30,20 +30,22 @@ void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird) {
     }
   }
 }
-void DrawFog(WIN *playwin, CONFIG *cfg, char occupancyMap[ROWS][COLS]) {
+
+void DrawFog(WIN *playwin, CONFIG *cfg, int rows, int cols,
+             char occupancyMap[rows][cols]) {
   wattron(playwin->window, COLOR_PAIR(FOG_COLOR_PAIR));
 
-  for (int y = 1; y < ROWS - 1; y++) {
+  for (int y = 1; y < rows - 1; y++) {
     for (int x = 1; x < cfg->fog_min_x; x++) {
       occupancyMap[y][x] = '#';
-      mvwaddch(playwin->window, y, x, '#');
+      mvwprintw(playwin->window, y, x, "%c", '#');
     }
   }
 
-  for (int y = 1; y < ROWS - 1; y++) {
-    for (int x = cfg->fog_max_x + 1; x < COLS - 1; x++) {
+  for (int y = 1; y < rows - 1; y++) {
+    for (int x = cfg->fog_max_x + 1; x < cols - 1; x++) {
       occupancyMap[y][x] = '#';
-      mvwaddch(playwin->window, y, x, '#');
+      mvwprintw(playwin->window, y, x, "%c", '#');
     }
   }
 

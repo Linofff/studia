@@ -11,6 +11,17 @@ bird {
   health = 10
 }
 
+
+game {
+  height = 20
+  width = 80
+  level = 2
+  star_quota = 15
+  game_time = 90
+  seed = 20
+}
+
+
 hunter {
   max_count = 3
   spawn_chance = 40
@@ -42,11 +53,4 @@ hunter {
     width = 2
     height = 2
  }
-}
-
-game {
-  level = 2
-  star_quota = 15
-  game_time = 90
-  seed = 20
 }

@@ -51,10 +51,10 @@ void GameOver(WIN *playwin, WIN *statwin) {
   sleep(1);
 }
 
-void StartScreen(WIN *playwin, bool *running) {
+void StartScreen(WIN *playwin, int rows, int cols, bool *running) {
   box(playwin->window, 0, 0);
-  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
-            "Press SPACEBAR to START");
+  mvwprintw(playwin->window, (rows / 4), (cols / 2) - 10,
+            "Press SPACE to START");
   wrefresh(playwin->window);
 
   int startCh;
@@ -66,8 +66,7 @@ void StartScreen(WIN *playwin, bool *running) {
     usleep(50000);
   }
 
-  mvwprintw(playwin->window, (ROWS / 4), (3 * COLS / 8),
-            "                       ");
+  werase(playwin->window);
   wrefresh(playwin->window);
 }
 
@@ -100,10 +99,10 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   werase(W->window);
   box(W->window, 0, 0);
   mvwprintw(W->window, 1, 2, "Name: %s | Level: %d | Game speed: %d",
-            cfg.player_name, cfg.levels[0].number, cfg.game_speed);
+            cfg.player_name, cfg.level.number, cfg.game_speed);
   mvwprintw(W->window, 2, 2, "Time left: %d | HP: %d | Score: %d | Goal: %d",
             cfg.game_time_left, bird->health, bird->points,
-            cfg.levels[0].star_quota);
+            cfg.level.star_quota);
 
   mvwprintw(W->window, 3, 2, "TAXI cooldown: %d | [Q] Quit | [T/R] TAXI",
             bird->albatross_in_cooldown);

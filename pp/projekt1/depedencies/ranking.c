@@ -1,21 +1,22 @@
 #include "./../headers/ranking.h"
 #include "./../headers/windowmanaging.h"
 
-void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg) {
+void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg, int cols) {
   char player_name[16] = "Player";
   echo();
   nodelay(playwin->window, FALSE);
 
   CleanWin(statwin, 1);
-  mvwprintw(statwin->window, 1, 32, "Thanks for playing!");
+  mvwprintw(statwin->window, 1, (cols / 2) - 8, "Thanks for playing!");
   wrefresh(statwin->window);
 
   wclear(playwin->window);
   box(playwin->window, 0, 0);
-  mvwprintw(playwin->window, 10, 15, "Enter your name for ranking: ");
+  mvwprintw(playwin->window, 10, (cols / 2) - 20,
+            "Enter your name for ranking: ");
   wrefresh(playwin->window);
 
-  mvwgetnstr(playwin->window, 10, 44, player_name, 15);
+  mvwgetnstr(playwin->window, 10, (cols / 2) + 9, player_name, 15);
   noecho();
 
   int final_score = CalculateScore(bird, &cfg);
@@ -37,7 +38,10 @@ int CalculateScore(BIRD *bird, CONFIG *cfg) {
   base_score += (bird->health * 10);
   base_score -= (cfg->game_time_elapsed * 5);
 
-  return (int)(base_score * difficulty);
+  if (base_score * difficulty > 0)
+    return (int)(base_score * difficulty);
+  else
+    return 0;
 }
 
 int compare_scores(const void *a, const void *b) {

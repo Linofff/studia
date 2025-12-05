@@ -1,7 +1,7 @@
 #include "./../headers/hunters.h"
 
 void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
-  int low = cfg.levels[0].hunter_bounces / 3;
+  int low = cfg.level.hunter_bounces / 3;
   int medium = low * 2;
   if (hunter->bounces <= medium && hunter->bounces > low)
     hunter->color = MEDIUM_HP_HUNTER;
@@ -22,19 +22,19 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
   float dist = sqrtf(dx * dx + dy * dy);
 
   if (dist > 0) {
-    hunter->vx = (dx / dist) * cfg.levels[0].hunter_speed;
-    hunter->vy = (dy / dist) * cfg.levels[0].hunter_speed;
+    hunter->vx = (dx / dist) * cfg.level.hunter_speed;
+    hunter->vy = (dy / dist) * cfg.level.hunter_speed;
   } else {
     hunter->vx = 0;
     hunter->vy = 0;
   }
 }
 
-void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
-                        char occupancyMap[ROWS][COLS]) {
+void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg, int rows,
+                        int cols, char occupancyMap[rows][cols]) {
   h->alive = 1;
-  h->damage = cfg.levels[0].hunter_damage;
-  h->bounces = cfg.levels[0].hunter_bounces;
+  h->damage = cfg.level.hunter_damage;
+  h->bounces = cfg.level.hunter_bounces;
   h->dashes_left = 1;
   h->color = HIGH_HP_HUNTER;
 
@@ -71,21 +71,21 @@ void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
   h->initial_bird_y = bird->y;
 
   CalculateDirections(bird, h, cfg);
-  DrawHunter(w, h, occupancyMap);
+  DrawHunter(w, h, rows, cols, occupancyMap);
 }
 
-void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
-                 char occupancyMap[ROWS][COLS]) {
+void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg, int rows,
+                 int cols, char occupancyMap[rows][cols]) {
   if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 2 ||
       bird->albatross_in_cooldown >= 3)
     return;
 
-  if ((rand() % 100) >= cfg.levels[0].hunter_spawn_chance)
+  if ((rand() % 100) >= cfg.level.hunter_spawn_chance)
     return;
 
-  for (int i = 0; i < cfg.levels[0].hunter_max; i++) {
+  for (int i = 0; i < cfg.level.hunter_max; i++) {
     if (!hunters[i].alive) {
-      InitAndPlaceHunter(w, &hunters[i], bird, cfg, occupancyMap);
+      InitAndPlaceHunter(w, &hunters[i], bird, cfg, rows, cols, occupancyMap);
       break;
     }
   }
@@ -105,7 +105,7 @@ void HunterTriggerDash(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
 
 void UpdateDashingHunters(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
 
-  for (int i = 0; i < cfg.levels[0].hunter_max; i++) {
+  for (int i = 0; i < cfg.level.hunter_max; i++) {
     HUNTER *h = &hunters[i];
 
     if (h->sleep_timer > 0) {
@@ -170,7 +170,8 @@ int BorderCheck(WIN *w, HUNTER *hunter) {
   return 0;
 }
 
-void EraseHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
+void EraseHunter(WIN *w, HUNTER *hunter, int rows, int cols,
+                 char occupancyMap[rows][cols]) {
   if (hunter->alive)
     for (int r = 0; r < hunter->height; r++)
       for (int c = 0; c < hunter->width; c++) {
@@ -179,7 +180,8 @@ void EraseHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
       }
 }
 
-void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
+void DrawHunter(WIN *w, HUNTER *hunter, int rows, int cols,
+                char occupancyMap[rows][cols]) {
   wattron(w->window, COLOR_PAIR(hunter->color));
   char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
   for (int r = 0; r < hunter->height; r++)
@@ -192,8 +194,8 @@ void DrawHunter(WIN *w, HUNTER *hunter, char occupancyMap[ROWS][COLS]) {
 }
 
 void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
-                          char occupancyMap[ROWS][COLS]) {
-  for (int i = 0; i < cfg->levels[0].star_max; i++) {
+                          int rows, int cols, char occupancyMap[rows][cols]) {
+  for (int i = 0; i < cfg->level.star_max; i++) {
     if (stars[i].x == x && stars[i].y == y) {
       mvwprintw(w->window, stars[i].y, stars[i].x, " ");
       occupancyMap[stars[i].y][stars[i].x] = ' ';
@@ -203,15 +205,15 @@ void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
 }
 
 void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
-                           char occupancyMap[ROWS][COLS], CONFIG *cfg,
-                           BIRD *bird, HUNTER *hunter, WIN *w) {
+                           int rows, int cols, char occupancyMap[rows][cols],
+                           CONFIG *cfg, BIRD *bird, HUNTER *hunter, WIN *w) {
   if (hit_type == HIT_BIRD) {
-    bird->health -= cfg->levels[0].hunter_damage;
+    bird->health -= cfg->level.hunter_damage;
     hunter->alive = 0;
     // flash();
   } else if (hit_type == HIT_STAR) {
-    FindWhichStarHunters(w, tempX, tempY, stars, cfg, occupancyMap);
-    DrawHunter(w, hunter, occupancyMap);
+    FindWhichStarHunters(w, tempX, tempY, stars, cfg, rows, cols, occupancyMap);
+    DrawHunter(w, hunter, rows, cols, occupancyMap);
   } else if (hit_type == HIT_HUNTER || hit_type == HIT_WALL) {
     hunter->fx -= hunter->vx;
     hunter->fy -= hunter->vy;
@@ -225,19 +227,20 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
       hunter->bounces--;
       if (hunter->bounces < 1) {
         hunter->alive = 0;
-        EraseHunter(w, hunter, occupancyMap);
+        EraseHunter(w, hunter, rows, cols, occupancyMap);
       }
     }
 
     if (hit_type != HIT_WALL)
-      DrawHunter(w, hunter, occupancyMap);
+      DrawHunter(w, hunter, rows, cols, occupancyMap);
   } else {
-    DrawHunter(w, hunter, occupancyMap);
+    DrawHunter(w, hunter, rows, cols, occupancyMap);
   }
 }
 
-void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
-                   STAR *stars, BIRD *bird, WIN *w) {
+void CollsionCheck(HUNTER *hunter, int rows, int cols,
+                   char occupancyMap[rows][cols], CONFIG cfg, STAR *stars,
+                   BIRD *bird, WIN *w) {
 
   int prevx = hunter->x;
   int prevy = hunter->y;
@@ -263,7 +266,7 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
         int mapY = checkY + r;
         int mapX = checkX + c;
 
-        if (mapY >= 0 && mapY < ROWS && mapX >= 0 && mapX < COLS) {
+        if (mapY >= 0 && mapY < rows && mapX >= 0 && mapX < cols) {
 
           char cell = occupancyMap[mapY][mapX];
 
@@ -290,19 +293,19 @@ void CollsionCheck(HUNTER *hunter, char occupancyMap[ROWS][COLS], CONFIG cfg,
     if (hit_type)
       break;
   }
-  CollisionTypeReaction(hit_type, tempX, tempY, stars, occupancyMap, &cfg, bird,
-                        hunter, w);
+  CollisionTypeReaction(hit_type, tempX, tempY, stars, rows, cols, occupancyMap,
+                        &cfg, bird, hunter, w);
 }
 
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
-                   const CONFIG cfg, char occupancyMap[ROWS][COLS],
-                   STAR *stars) {
+                   const CONFIG cfg, int rows, int cols,
+                   char occupancyMap[rows][cols], STAR *stars) {
   for (int i = 0; i < maxHunters; i++) {
     ChangeColorHunter(&hunters[i], cfg);
     if (!hunters[i].alive)
       continue;
 
-    EraseHunter(w, &hunters[i], occupancyMap);
+    EraseHunter(w, &hunters[i], rows, cols, occupancyMap);
 
     UpdateDashingHunters(w, &hunters[i], bird, cfg);
 
@@ -321,6 +324,6 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     hunters[i].x = (int)hunters[i].fx;
     hunters[i].y = (int)hunters[i].fy;
 
-    CollsionCheck(&hunters[i], occupancyMap, cfg, stars, bird, w);
+    CollsionCheck(&hunters[i], rows, cols, occupancyMap, cfg, stars, bird, w);
   }
 }

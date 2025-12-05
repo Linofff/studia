@@ -4,7 +4,7 @@
 #include "game_defs.h"
 
 WINDOW *Start();
-void StartScreen(WIN *playwin, bool *running);
+void StartScreen(WIN *playwin, int rows, int cols, bool *running);
 void CleanWin(WIN *W, int bo);
 WIN *InitWin(WINDOW *parent, int rows, int cols, int y, int x, int color,
              int bo, int delay);
