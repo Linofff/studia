@@ -1,6 +1,6 @@
 stars {
-  max = 100
-  spawn_chance = 100
+  max = 20
+  spawn_chance = 70
 }
 
 player {
@@ -12,18 +12,18 @@ bird {
 }
 
 game {
-  height = 30
-  width = 120
+  height = 20
+  width = 80
   level = 1
-  star_quota = 2000
+  star_quota = 20
   game_time = 60
   seed = 100
 }
 
 hunter {
-  max_count = 100
-  spawn_chance = 100
-  damage = 0
+  max_count = 2
+  spawn_chance = 40
+  damage = 1
   bounces = 3
   speed = 0.9
 

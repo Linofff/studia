@@ -51,7 +51,7 @@ void GameOver(WIN *playwin, WIN *statwin) {
   sleep(1);
 }
 
-void StartScreen(WIN *playwin, int rows, int cols, bool *running) {
+void StartScreen(WIN *playwin, const int rows, const int cols, bool *running) {
   box(playwin->window, 0, 0);
   mvwprintw(playwin->window, (rows / 4), (cols / 2) - 10,
             "Press SPACE to START");
@@ -80,8 +80,8 @@ void CleanWin(WIN *W, int bo) {
   wrefresh(W->window);
 }
 
-WIN *InitWin(WINDOW *parent, int rows, int cols, int y, int x, int color,
-             int bo, int delay) {
+WIN *InitWin(WINDOW *parent, const int rows, const int cols, int y, int x,
+             int color, int bo, int delay) {
   WIN *W = (WIN *)malloc(sizeof(WIN));
   W->rows = rows;
   W->cols = cols;

@@ -4,7 +4,8 @@
 #include "game_defs.h"
 
 void GameOver(WIN *playwin, WIN *statwin);
-void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg, int cols);
+void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
+             const int cols);
 int CalculateScore(BIRD *bird, CONFIG *cfg);
 int compare_scores(const void *a, const void *b);
 void UpdateAndSaveRanking(const char *player_name, int score,

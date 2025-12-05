@@ -1,8 +1,8 @@
 #include "./../headers/stars.h"
 #include "./../headers/hunters.h"
 
-void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, int rows, int cols,
-               char occupancyMap[rows][cols]) {
+void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
+               const int cols, char occupancyMap[rows][cols]) {
   if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 1 ||
       bird->albatross_in_cooldown > 4)
     return;
@@ -44,8 +44,8 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, int rows, int cols,
   }
 }
 
-void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg, int rows, int cols,
-                  char occupancyMap[rows][cols], WIN *playwin) {
+void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg, const int rows,
+                  const int cols, char occupancyMap[rows][cols], WIN *playwin) {
   for (int i = 0; i < cfg->level.hunter_max; i++) {
     for (int r = 0; r < hunters[i].height; r++)
       for (int c = 0; c < hunters[i].width; c++) {
@@ -56,14 +56,14 @@ void RedrawHunter(STAR *star, HUNTER *hunters, CONFIG *cfg, int rows, int cols,
   }
 }
 
-void EraseStar(WIN *w, int rows, int cols, char occupancyMap[rows][cols],
-               STAR *star) {
+void EraseStar(WIN *w, const int rows, const int cols,
+               char occupancyMap[rows][cols], STAR *star) {
   mvwprintw(w->window, star->y, star->x, " ");
   occupancyMap[star->y][star->x] = ' ';
 }
 
-void DrawStar(WIN *w, int rows, int cols, char occupancyMap[rows][cols],
-              STAR *star, CONFIG cfg) {
+void DrawStar(WIN *w, const int rows, const int cols,
+              char occupancyMap[rows][cols], STAR *star, CONFIG cfg) {
   wattron(w->window, COLOR_PAIR(STAR_COLOR));
 
   if (star->y > rows / 2) {
@@ -79,7 +79,7 @@ void DrawStar(WIN *w, int rows, int cols, char occupancyMap[rows][cols],
   wattroff(w->window, COLOR_PAIR(STAR_COLOR));
 }
 
-void UpdateStars(WIN *w, STAR *stars, int rows, int cols,
+void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
                  char occupancyMap[rows][cols], BIRD *bird, CONFIG *cfg,
                  HUNTER *hunters) {
 

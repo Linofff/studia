@@ -1,7 +1,8 @@
 #include "./../headers/ranking.h"
 #include "./../headers/windowmanaging.h"
 
-void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg, int cols) {
+void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
+             const int cols) {
   char player_name[16] = "Player";
   echo();
   nodelay(playwin->window, FALSE);

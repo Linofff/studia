@@ -1,6 +1,6 @@
 #include "./../headers/configmanaging.h"
 
-void InitMap(int rows, int cols, char occupancyMap[rows][cols]) {
+void InitMap(const int rows, const int cols, char occupancyMap[rows][cols]) {
   for (int y = 0; y < rows; y++) {
     for (int x = 0; x < cols; x++) {
       occupancyMap[y][x] = ' ';

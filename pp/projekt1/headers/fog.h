@@ -4,7 +4,7 @@
 #include "game_defs.h"
 
 void InitFog(CONFIG *cfg, int cols);
-void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird, int cols);
+void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols);
 void DrawFog(WIN *playwin, CONFIG *cfg, int rows, int cols,
              char occupancyMap[rows][cols]);
 

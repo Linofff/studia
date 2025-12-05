@@ -13,7 +13,7 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      char occupancyMap[rows][cols]) {
   UpdateConfig(cfg);
 
-  UpdateFog(cfg, playwin, bird, cols);
+  UpdateFog(cfg, bird, cols);
 
   SpawnStar(bird, playwin, stars, *cfg, rows, cols, occupancyMap);
   UpdateStars(playwin, stars, rows, cols, occupancyMap, bird, cfg, hunters);
@@ -40,7 +40,7 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch, int rows, int cols,
     AlbatrossTaxi(hunters, stars, bird, cfg, rows, cols, occupancyMap, playwin);
 
   if (ch == TAXI_OUT)
-    OutOfAlbatrossTaxi(hunters, stars, bird, cfg);
+    OutOfAlbatrossTaxi(bird);
 
   if (ch == FASTER && cfg->game_speed < 4) {
     cfg->frame_time /= 1.5;

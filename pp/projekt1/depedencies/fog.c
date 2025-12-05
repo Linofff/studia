@@ -1,6 +1,6 @@
 #include "./../headers/fog.h"
 
-void InitFog(CONFIG *cfg, int cols) {
+void InitFog(CONFIG *cfg, const int cols) {
   cfg->fog_min_x = 1;
   cfg->fog_max_x = cols - 2;
   cfg->fog_timer = 0;
@@ -8,7 +8,7 @@ void InitFog(CONFIG *cfg, int cols) {
   cfg->fog_update_interval = 30;
 }
 
-void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird, int cols) {
+void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols) {
   if (bird->is_in_albatross_taxi)
     return;
 
@@ -31,7 +31,7 @@ void UpdateFog(CONFIG *cfg, WIN *playwin, BIRD *bird, int cols) {
   }
 }
 
-void DrawFog(WIN *playwin, CONFIG *cfg, int rows, int cols,
+void DrawFog(WIN *playwin, CONFIG *cfg, const int rows, const int cols,
              char occupancyMap[rows][cols]) {
   wattron(playwin->window, COLOR_PAIR(FOG_COLOR_PAIR));
 

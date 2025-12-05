@@ -1,8 +1,8 @@
 #include "./../headers/bird.h"
 #include "./../headers/hunters.h"
 
-BIRD *InitBird(WIN *w, int x, int y, int startHealth, int rows, int cols,
-               char occupancyMap[rows][cols]) {
+BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
+               const int cols, char occupancyMap[rows][cols]) {
   BIRD *b = (BIRD *)malloc(sizeof(BIRD));
   b->win = w;
   b->x = x;
@@ -21,7 +21,7 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth, int rows, int cols,
   return b;
 }
 
-void ChangeColorBird(BIRD *bird, CONFIG cfg) {
+void ChangeColorBird(BIRD *bird, const CONFIG cfg) {
   int low = cfg.start_health / 3;
   int medium = low * 2;
   if (bird->health <= medium && bird->health > low)
@@ -30,7 +30,7 @@ void ChangeColorBird(BIRD *bird, CONFIG cfg) {
     bird->color = LOW_HP_BIRD;
 }
 
-void ChangeShape(BIRD *bird, CONFIG cfg) {
+void ChangeShape(BIRD *bird, const CONFIG cfg) {
   if (!bird->is_in_albatross_taxi) {
     if (cfg.framecounter % 10 < 3)
       bird->symbol = '-';
@@ -47,14 +47,15 @@ void ChangeShape(BIRD *bird, CONFIG cfg) {
   }
 }
 
-void DrawBird(BIRD *b, int rows, int cols, char occupancyMap[rows][cols]) {
+void DrawBird(const BIRD *b, const int rows, const int cols,
+              char occupancyMap[rows][cols]) {
   wattron(b->win->window, COLOR_PAIR(b->color));
   mvwprintw(b->win->window, b->y, b->x, "%c", b->symbol);
   wattron(b->win->window, COLOR_PAIR(b->win->color));
   occupancyMap[b->y][b->x] = 'b';
 }
 
-void MoveToCenter(BIRD *bird, int rows, int cols) {
+void MoveToCenter(BIRD *bird, const int rows, const int cols) {
   float target_x = (float)cols / 2.0f;
   float target_y = (float)rows / 2.0f;
 
@@ -77,19 +78,21 @@ void MoveToCenter(BIRD *bird, int rows, int cols) {
   }
 }
 
-void ClearBird(BIRD *b, int rows, int cols, char occupancyMap[rows][cols]) {
+void ClearBird(BIRD *b, const int rows, const int cols,
+               char occupancyMap[rows][cols]) {
   occupancyMap[b->y][b->x] = ' ';
   mvwprintw(b->win->window, b->y, b->x, " ");
 }
 
-void FindWhichStar(BIRD *b, STAR *stars, CONFIG *cfg) {
+void FindWhichStar(const BIRD *b, STAR *stars, const CONFIG *cfg) {
   for (int i = 0; i < cfg->level.star_max; i++) {
     if (stars[i].x == b->x && stars[i].y == b->y)
       stars[i].alive = 0;
   }
 }
 
-void FindWhichHunter(BIRD *b, HUNTER *hunters, CONFIG *cfg, int rows, int cols,
+void FindWhichHunter(const BIRD *b, HUNTER *hunters, const CONFIG *cfg,
+                     const int rows, const int cols,
                      char occupancyMap[rows][cols], WIN *playwin) {
   for (int i = 0; i < cfg->level.hunter_max; i++) {
     for (int r = 0; r < hunters[i].height; r++)
@@ -102,8 +105,9 @@ void FindWhichHunter(BIRD *b, HUNTER *hunters, CONFIG *cfg, int rows, int cols,
   }
 }
 
-void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b, int rows,
-                     int cols, char occupancyMap[rows][cols]) {
+void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
+                     const int rows, const int cols,
+                     char occupancyMap[rows][cols]) {
 
   if (at_x_boundary) {
     if (b->x <= BORDER)
@@ -152,8 +156,9 @@ void BirdBorderCheck(int at_x_boundary, int at_y_boundary, BIRD *b, int rows,
   }
 }
 
-void MoveBird(BIRD *b, int rows, int cols, char occupancyMap[rows][cols],
-              STAR *stars, HUNTER *hunters, CONFIG *cfg, WIN *playwin) {
+void MoveBird(BIRD *b, const int rows, const int cols,
+              char occupancyMap[rows][cols], STAR *stars, HUNTER *hunters,
+              const CONFIG *cfg, WIN *playwin) {
   ClearBird(b, rows, cols, occupancyMap);
   ChangeColorBird(b, *cfg);
 
@@ -186,16 +191,16 @@ void MoveBird(BIRD *b, int rows, int cols, char occupancyMap[rows][cols],
     // flash();
   }
   if (occupancyMap[b->y][b->x] == '#') {
-    if (b->x < COLS / 2)
+    if (b->x < cols / 2)
       b->x++;
-    if (b->x > COLS / 2)
+    if (b->x > cols / 2)
       b->x--;
   }
 
   DrawBird(b, rows, cols, occupancyMap);
 }
 
-void ChangeDirectionBird(BIRD *b, int ch, int rows, int cols,
+void ChangeDirectionBird(BIRD *b, int ch, const int rows, const int cols,
                          char occupancyMap[rows][cols], STAR *stars,
                          HUNTER *hunters, CONFIG *cfg, WIN *playwin) {
   if (!b->is_in_albatross_taxi) {

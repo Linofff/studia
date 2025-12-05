@@ -16,7 +16,7 @@ void ChoseShape(HUNTER *hunter, CONFIG cfg) {
   hunter->height = cfg.hunter_templates[variant].height;
 }
 
-void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
+void CalculateDirections(const BIRD *bird, HUNTER *hunter, const CONFIG cfg) {
   float dx = (float)bird->x - hunter->fx;
   float dy = (float)bird->y - hunter->fy;
   float dist = sqrtf(dx * dx + dy * dy);
@@ -30,8 +30,9 @@ void CalculateDirections(BIRD *bird, HUNTER *hunter, CONFIG cfg) {
   }
 }
 
-void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg, int rows,
-                        int cols, char occupancyMap[rows][cols]) {
+void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
+                        const int rows, const int cols,
+                        char occupancyMap[rows][cols]) {
   h->alive = 1;
   h->damage = cfg.level.hunter_damage;
   h->bounces = cfg.level.hunter_bounces;
@@ -74,8 +75,9 @@ void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg, int rows,
   DrawHunter(w, h, rows, cols, occupancyMap);
 }
 
-void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg, int rows,
-                 int cols, char occupancyMap[rows][cols]) {
+void SpawnHunter(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg,
+                 const int rows, const int cols,
+                 char occupancyMap[rows][cols]) {
   if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 2 ||
       bird->albatross_in_cooldown >= 3)
     return;
@@ -170,7 +172,7 @@ int BorderCheck(WIN *w, HUNTER *hunter) {
   return 0;
 }
 
-void EraseHunter(WIN *w, HUNTER *hunter, int rows, int cols,
+void EraseHunter(WIN *w, HUNTER *hunter, const int rows, const int cols,
                  char occupancyMap[rows][cols]) {
   if (hunter->alive)
     for (int r = 0; r < hunter->height; r++)
@@ -180,7 +182,7 @@ void EraseHunter(WIN *w, HUNTER *hunter, int rows, int cols,
       }
 }
 
-void DrawHunter(WIN *w, HUNTER *hunter, int rows, int cols,
+void DrawHunter(WIN *w, HUNTER *hunter, const int rows, const int cols,
                 char occupancyMap[rows][cols]) {
   wattron(w->window, COLOR_PAIR(hunter->color));
   char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
@@ -194,7 +196,8 @@ void DrawHunter(WIN *w, HUNTER *hunter, int rows, int cols,
 }
 
 void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
-                          int rows, int cols, char occupancyMap[rows][cols]) {
+                          const int rows, const int cols,
+                          char occupancyMap[rows][cols]) {
   for (int i = 0; i < cfg->level.star_max; i++) {
     if (stars[i].x == x && stars[i].y == y) {
       mvwprintw(w->window, stars[i].y, stars[i].x, " ");
@@ -205,8 +208,9 @@ void FindWhichStarHunters(WIN *w, int x, int y, STAR *stars, const CONFIG *cfg,
 }
 
 void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
-                           int rows, int cols, char occupancyMap[rows][cols],
-                           CONFIG *cfg, BIRD *bird, HUNTER *hunter, WIN *w) {
+                           const int rows, const int cols,
+                           char occupancyMap[rows][cols], CONFIG *cfg,
+                           BIRD *bird, HUNTER *hunter, WIN *w) {
   if (hit_type == HIT_BIRD) {
     bird->health -= cfg->level.hunter_damage;
     hunter->alive = 0;
@@ -238,7 +242,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   }
 }
 
-void CollsionCheck(HUNTER *hunter, int rows, int cols,
+void CollsionCheck(HUNTER *hunter, const int rows, const int cols,
                    char occupancyMap[rows][cols], CONFIG cfg, STAR *stars,
                    BIRD *bird, WIN *w) {
 
@@ -298,7 +302,7 @@ void CollsionCheck(HUNTER *hunter, int rows, int cols,
 }
 
 void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
-                   const CONFIG cfg, int rows, int cols,
+                   const CONFIG cfg, const int rows, const int cols,
                    char occupancyMap[rows][cols], STAR *stars) {
   for (int i = 0; i < maxHunters; i++) {
     ChangeColorHunter(&hunters[i], cfg);
