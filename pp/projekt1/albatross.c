@@ -1,5 +1,5 @@
-#include "../headers/albatross.h"
-#include "../headers/hunters.h"
+#include "albatross.h"
+#include "hunters.h"
 
 void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
                             const int cols) {

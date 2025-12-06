@@ -18,7 +18,7 @@ game {
   height = 30
   width = 120
   level = 1
-  star_quota = 15
+  star_quota = 8
   game_time = 60
   seed = 100
 }

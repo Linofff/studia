@@ -1,5 +1,5 @@
-#include "../headers/ranking.h"
-#include "../headers/windowmanaging.h"
+#include "ranking.h"
+#include "windowmanaging.h"
 
 void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
              const int cols) {

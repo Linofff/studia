@@ -5,7 +5,7 @@ CFLAGS = -c -Wall -Wextra -Wpedantic -Wstrict-overflow=5 -Wimplicit-fallthrough=
 LDFLAGS = -lasan -lubsan -lncurses -lm
 # LDFLAGS = -lncurses -lm
 
-SRCS = main.c $(wildcard dependencies/*.c)
+SRCS = main.c $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 all: swallow-stars

@@ -1,5 +1,5 @@
-#include "../headers/stars.h"
-#include "../headers/hunters.h"
+#include "stars.h"
+#include "hunters.h"
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
                const int cols, char occupancyMap[rows][cols]) {
@@ -12,6 +12,8 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
   for (int i = 0; i < cfg.level.star_max; i++) {
     if (stars[i].alive)
       continue;
+    stars[i].symbol = '*';
+    stars[i].ticks_lived = 0;
     bool findingspot = 1;
     int attempts = 0;
     while (findingspot && attempts < 50) {
@@ -63,33 +65,20 @@ void EraseStar(WIN *w, const int rows, const int cols,
 }
 
 void DrawStar(WIN *w, const int rows, const int cols,
-              char occupancyMap[rows][cols], STAR *star, CONFIG cfg) {
+              char occupancyMap[rows][cols], STAR *star) {
   wattron(w->window, COLOR_PAIR(STAR_COLOR));
 
+  if (star->ticks_lived % 8 < 4)
+    star->symbol = '*';
+  else
+    star->symbol = '+';
+
   if (star->y > rows / 2) {
-    if (cfg.framecounter % 4 < 3) {
-      mvwprintw(w->window, star->y, star->x, "*");
-    }
-    occupancyMap[star->y][star->x] = 's';
+    mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
   } else {
-    mvwprintw(w->window, star->y, star->x, "*");
-    occupancyMap[star->y][star->x] = 's';
+    mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
   }
-  //   if (star->y > rows / 2) {
-  //   if (cfg.framecounter % 4 < 3) {
-  //     if (cfg.framecounter % 4 < 2)
-  //       mvwprintw(w->window, star->y, star->x, "*");
-  //     else
-  //       mvwprintw(w->window, star->y, star->x, "+");
-  //   }
-  //   occupancyMap[star->y][star->x] = 's';
-  // } else {
-  //   if (cfg.framecounter % 4 < 2)
-  //     mvwprintw(w->window, star->y, star->x, "*");
-  //   else
-  //     mvwprintw(w->window, star->y, star->x, "+");
-  //   occupancyMap[star->y][star->x] = 's';
-  // }
+  occupancyMap[star->y][star->x] = 's';
 
   wattroff(w->window, COLOR_PAIR(STAR_COLOR));
 }
@@ -105,6 +94,8 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
       }
       continue;
     }
+
+    stars[i].ticks_lived++;
 
     EraseStar(w, rows, cols, occupancyMap, &stars[i]);
     stars[i].fy += stars[i].speed;
@@ -123,8 +114,7 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
 
     if (occupancyMap[stars[i].y][stars[i].x] == 'h') {
       stars[i].alive = 0;
-      mvwprintw(w->window, stars[i].y, stars[i].x, " ");
-      occupancyMap[stars[i].y][stars[i].x] = ' ';
+      EraseStar(w, rows, cols, occupancyMap, &stars[i]);
       RedrawHunter(&stars[i], hunters, cfg, rows, cols, occupancyMap, w);
       continue;
     }
@@ -134,6 +124,6 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
       continue;
     }
 
-    DrawStar(w, rows, cols, occupancyMap, &stars[i], *cfg);
+    DrawStar(w, rows, cols, occupancyMap, &stars[i]);
   }
 }

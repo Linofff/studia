@@ -1,12 +1,12 @@
-#include "headers/albatross.h"
-#include "headers/bird.h"
-#include "headers/configmanaging.h"
-#include "headers/fog.h"
-#include "headers/game_defs.h"
-#include "headers/hunters.h"
-#include "headers/ranking.h"
-#include "headers/stars.h"
-#include "headers/windowmanaging.h"
+#include "albatross.h"
+#include "bird.h"
+#include "configmanaging.h"
+#include "fog.h"
+#include "game_defs.h"
+#include "hunters.h"
+#include "ranking.h"
+#include "stars.h"
+#include "windowmanaging.h"
 
 void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      CONFIG *cfg, int rows, int cols,

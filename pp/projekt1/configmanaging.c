@@ -1,4 +1,4 @@
-#include "../headers/configmanaging.h"
+#include "configmanaging.h"
 
 void InitMap(const int rows, const int cols, char occupancyMap[rows][cols]) {
   for (int y = 0; y < rows; y++) {

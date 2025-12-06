@@ -16,7 +16,7 @@
 #define RANKING_FILE_NAME "ranking.txt"
 #define TOP_N 5
 #define MAX_PLAYER_NAME_LENGTH 15
-#define SAVEABLE_PLAYERS 10000
+#define SAVEABLE_PLAYERS 500
 
 #define HIT_BIRD 1
 #define HIT_STAR 2
@@ -142,8 +142,10 @@ typedef struct {
 typedef struct {
   float fy;
   int x, y;
+  char symbol;
   int alive;
   float speed;
+  int ticks_lived;
 } STAR;
 
 typedef struct {

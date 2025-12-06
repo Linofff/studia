@@ -1,4 +1,4 @@
-#include "../headers/hunters.h"
+#include "hunters.h"
 
 void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
   const int low = cfg.level.hunter_bounces / 3;
@@ -218,7 +218,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   if (hit_type == HIT_BIRD) {
     bird->health -= cfg->level.hunter_damage;
     hunter->alive = 0;
-    // flash();
+    flash();
   } else if (hit_type == HIT_STAR) {
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, rows, cols, occupancyMap);
     DrawHunter(w, hunter, rows, cols, occupancyMap);

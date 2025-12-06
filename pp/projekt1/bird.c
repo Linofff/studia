@@ -1,5 +1,5 @@
-#include "../headers/bird.h"
-#include "../headers/hunters.h"
+#include "bird.h"
+#include "hunters.h"
 
 BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
                const int cols, char occupancyMap[rows][cols]) {
@@ -34,9 +34,12 @@ void ChangeColorBird(BIRD *bird, const CONFIG cfg) {
 
 void ChangeShape(BIRD *bird, const CONFIG cfg) {
   if (!bird->is_in_albatross_taxi) {
-    if (cfg.framecounter % 10 < 3)
-      bird->symbol = '-';
-    else if (bird->dy == -1)
+    if (cfg.framecounter % 10 < 3) {
+      if (bird->dy)
+        bird->symbol = '-';
+      else if (bird->dx)
+        bird->symbol = '|';
+    } else if (bird->dy == -1)
       bird->symbol = 'A';
     else if (bird->dy == 1)
       bird->symbol = 'V';
@@ -190,7 +193,7 @@ void MoveBird(BIRD *b, const int rows, const int cols,
   if (occupancyMap[b->y][b->x] == 'h') {
     b->health -= hunters->damage;
     FindWhichHunter(b, hunters, cfg, rows, cols, occupancyMap, playwin);
-    // flash();
+    flash();
   }
   if (occupancyMap[b->y][b->x] == '#') {
     if (b->x < cols / 2)

@@ -1,11 +1,11 @@
-#include "../headers/fog.h"
+#include "fog.h"
 
 void InitFog(CONFIG *cfg, const int cols) {
   cfg->fog_min_x = 1;
   cfg->fog_max_x = cols - 2;
   cfg->fog_timer = 0;
 
-  cfg->fog_update_interval = 10;
+  cfg->fog_update_interval = 30;
 }
 
 void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols) {
