@@ -1,19 +1,22 @@
 #include "bird.h"
 #include "hunters.h"
 
-BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
-               const int cols, char occupancyMap[rows][cols]) {
+BIRD *InitBird(WIN *w, int x, int y, const int rows, const int cols,
+               char occupancyMap[rows][cols], CONFIG cfg) {
+  // initilizing bird
   BIRD *b = (BIRD *)malloc(sizeof(BIRD));
+  if (b == NULL)
+    exit(EXIT_FAILURE);
   b->win = w;
   b->x = x;
   b->y = y;
   b->dx = 0;
   b->dy = 0;
-  b->speed = 1;
+  b->speed = cfg.bird_speed;
   b->symbol = '|';
   b->color = HIGH_HP_BIRD;
   b->points = 0;
-  b->health = startHealth;
+  b->health = cfg.bird_start_health;
   b->albatross_taxi_left = 3;
   b->was_in_taxi = 0;
   b->albatross_in_cooldown = 0;
@@ -24,7 +27,8 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
 }
 
 void ChangeColorBird(BIRD *bird, const CONFIG cfg) {
-  const int low = cfg.start_health / 3;
+  // chnging color based on the health
+  const int low = cfg.bird_start_health / 3;
   const int medium = low * 2;
   if (bird->health <= medium && bird->health > low)
     bird->color = MEDIUM_HP_BIRD;
@@ -33,6 +37,7 @@ void ChangeColorBird(BIRD *bird, const CONFIG cfg) {
 }
 
 void ChangeShape(BIRD *bird, const CONFIG cfg) {
+  // changing shape of the bird based on the direction and gamestate
   if (!bird->is_in_albatross_taxi) {
     if (cfg.framecounter % 10 < 3) {
       if (bird->dy)
@@ -61,19 +66,19 @@ void DrawBird(const BIRD *b, const int rows, const int cols,
 }
 
 void MoveToCenter(BIRD *bird, const int rows, const int cols) {
+  // calculating center coordinates
   const float target_x = (float)cols / 2.0f;
   const float target_y = (float)rows / 2.0f;
 
+  // calculating the distance to the center
   const float dx = target_x - (float)bird->x;
   const float dy = target_y - (float)bird->y;
-
   const float dist = sqrtf(dx * dx + dy * dy);
 
+  // moving a bird and setting a cooldown to 0 to be able to exit taxi
   if (dist > 0) {
-    const float speed = (float)bird->speed;
-
-    bird->dx = (dx / dist) * speed;
-    bird->dy = (dy / dist) * speed;
+    bird->dx = (dx / dist);
+    bird->dy = (dy / dist);
   } else {
     bird->x = (int)target_x;
     bird->y = (int)target_y;
@@ -114,6 +119,7 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
                      const int rows, const int cols,
                      char occupancyMap[rows][cols]) {
 
+  // cheching the x boundary and and fog with the '#' char in the occupancyMap
   if (at_x_boundary) {
     if (b->x <= BORDER)
       b->dx = 1;
@@ -141,6 +147,7 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
     }
   }
 
+  // cheching the y boundary
   if (at_y_boundary) {
     if (b->y <= BORDER)
       b->dy = 1;
@@ -167,6 +174,8 @@ void MoveBird(BIRD *b, const int rows, const int cols,
   ClearBird(b, rows, cols, occupancyMap);
   ChangeColorBird(b, *cfg);
 
+  // move bird to the center if it is in albatross taxi or of not check if is on
+  // x or y boundary
   if (b->is_in_albatross_taxi) {
     MoveToCenter(b, rows, cols);
     ChangeShape(b, *cfg);
@@ -174,6 +183,7 @@ void MoveBird(BIRD *b, const int rows, const int cols,
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
   } else {
+    // checking if on boundary
     const int at_x_boundary = (b->x <= BORDER - 1) ||
                               (b->x >= b->win->cols - BORDER) ||
                               (occupancyMap[b->y][b->x] == '#');
@@ -193,7 +203,6 @@ void MoveBird(BIRD *b, const int rows, const int cols,
   if (occupancyMap[b->y][b->x] == 'h') {
     b->health -= hunters->damage;
     FindWhichHunter(b, hunters, cfg, rows, cols, occupancyMap, playwin);
-    flash();
   }
   if (occupancyMap[b->y][b->x] == '#') {
     if (b->x < cols / 2)
@@ -205,7 +214,7 @@ void MoveBird(BIRD *b, const int rows, const int cols,
   DrawBird(b, rows, cols, occupancyMap);
 }
 
-void ChangeDirectionBird(BIRD *b, int ch, const int rows, const int cols,
+void ChangeDirectionBird(BIRD *b, char ch, const int rows, const int cols,
                          char occupancyMap[rows][cols], STAR *stars,
                          HUNTER *hunters, CONFIG *cfg, WIN *playwin) {
   if (!b->is_in_albatross_taxi) {
@@ -225,11 +234,6 @@ void ChangeDirectionBird(BIRD *b, int ch, const int rows, const int cols,
       b->dx = 1;
       b->dy = 0;
     }
-    if (ch == STOP) {
-      b->dx = 0;
-      b->dy = 0;
-    }
-
     ChangeShape(b, *cfg);
     MoveBird(b, rows, cols, occupancyMap, stars, hunters, cfg, playwin);
   }

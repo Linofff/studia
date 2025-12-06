@@ -12,6 +12,8 @@ void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
   wrefresh(statwin->window);
 
   wclear(playwin->window);
+
+  // getting a name for the ranking from the keyboard
   box(playwin->window, 0, 0);
   mvwprintw(playwin->window, 10, (cols / 2) - 20,
             "Enter your name for ranking: ");
@@ -35,6 +37,7 @@ int CalculateScore(BIRD *bird, CONFIG *cfg) {
 
   difficulty += ((float)cfg->game_speed / 5);
 
+  // calculating score based on the values from the config
   base_score += (bird->points * cfg->level.points_multiplyer);
   base_score += (bird->health * cfg->level.health_multiplyer);
   base_score -= (cfg->game_time_elapsed * cfg->level.time_multiplyer);
@@ -56,6 +59,7 @@ void UpdateAndSaveRanking(const char *player_name, int score,
   RankingTemplate entries[SAVEABLE_PLAYERS];
   int count = 0;
 
+  // reading file and saving the data to the entries
   FILE *fp = fopen(RANKING_FILE_NAME, "r");
   if (fp != NULL) {
     while (count < SAVEABLE_PLAYERS &&
@@ -66,12 +70,14 @@ void UpdateAndSaveRanking(const char *player_name, int score,
     fclose(fp);
   }
 
+  // making a new entry
   strncpy(entries[count].name, player_name, 15);
   entries[count].name[15] = '\0';
   entries[count].score = score;
   entries[count].difficulty = difficulty_level;
   count++;
 
+  // sorting all entries by score
   qsort(entries, count, sizeof(RankingTemplate), compare_scores);
 
   fp = fopen(RANKING_FILE_NAME, "w");
@@ -98,19 +104,22 @@ void ShowRanking(WIN *w) {
   mvwprintw(w->window, 3, 25, "SCORE");
   mvwprintw(w->window, 3, 40, "DIFFICULTY");
 
+  // reading file and printing TOP_N players
   FILE *fp = fopen(RANKING_FILE_NAME, "r");
   if (fp == NULL) {
     mvwprintw(w->window, 5, 5, "No rankings yet.");
   } else {
     int count = 0;
-    char name[20];
+    char name[16];
     int score, diff;
     int row = 5;
     while (fscanf(fp, "%s %d %d", name, &score, &diff) == 3 && count < TOP_N) {
       mvwprintw(w->window, row, 5, "%-15s", name);
       mvwprintw(w->window, row, 25, "%d", score);
 
-      char *diff_str = (diff > 3) ? "HARD" : "NORMAL";
+      // displaying hard or normal difficulty based on the game_speed set by
+      // player
+      char *diff_str = (diff > 2) ? "HARD" : "NORMAL";
       mvwprintw(w->window, row, 40, "%s", diff_str);
 
       count++;
@@ -123,6 +132,7 @@ void ShowRanking(WIN *w) {
   wrefresh(w->window);
 
   nodelay(w->window, FALSE);
+  // quiting final screen
   while (wgetch(w->window) != SPACEBAR)
     ;
   usleep(250000);

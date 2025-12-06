@@ -15,7 +15,6 @@
 
 #define RANKING_FILE_NAME "ranking.txt"
 #define TOP_N 5
-#define MAX_PLAYER_NAME_LENGTH 15
 #define SAVEABLE_PLAYERS 500
 
 #define HIT_BIRD 1
@@ -25,7 +24,6 @@
 
 #define QUIT 'q'
 #define REVERSE ' '
-#define STOP 'b'
 #define UP 'w'
 #define DOWN 's'
 #define LEFT 'a'
@@ -56,10 +54,12 @@
 
 #define MAX_TEMPLATES 5
 
+// value that is responsible for incressing maxbouces and number of hunters at
+// once
 #define TIME_ENTITY_MULTI 10
 
 typedef struct {
-  char name[MAX_PLAYER_NAME_LENGTH + 1];
+  char name[16];
   int score;
   int difficulty;
 } RankingTemplate;
@@ -103,13 +103,17 @@ typedef struct {
 
   HunterTemplate hunter_templates[MAX_TEMPLATES];
 
-  int start_health;
+  int bird_start_health;
+  int bird_speed;
 
   int frame_time;
   int game_speed;
   int seed;
   unsigned int framecounter;
 
+  int safe_zone_width;
+  int fog_left_limit;
+  int fog_right_limit;
   int fog_min_x;
   int fog_max_x;
   int fog_currentsize;
@@ -127,7 +131,7 @@ typedef struct {
   WIN *win;
   int x, y;
   float dx, dy;
-  float speed;
+  int speed;
   char symbol;
   int color;
   int points;

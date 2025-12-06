@@ -3,6 +3,7 @@
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
                const int cols, char occupancyMap[rows][cols]) {
+  // spawning conditions
   if (bird->is_in_albatross_taxi || cfg.game_time_elapsed <= 1 ||
       bird->albatross_in_cooldown > 4)
     return;
@@ -14,8 +15,12 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
       continue;
     stars[i].symbol = '*';
     stars[i].ticks_lived = 0;
+
     bool findingspot = 1;
     int attempts = 0;
+
+    // findint a free row withouot a star and fog in it to prevent star to star
+    // collision
     while (findingspot && attempts < 50) {
       const int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
       bool occupied = 0;
@@ -65,7 +70,7 @@ void EraseStar(WIN *w, const int rows, const int cols,
 }
 
 void DrawStar(WIN *w, const int rows, const int cols,
-              char occupancyMap[rows][cols], STAR *star) {
+              char occupancyMap[rows][cols], STAR *star, CONFIG cfg) {
   wattron(w->window, COLOR_PAIR(STAR_COLOR));
 
   if (star->ticks_lived % 8 < 4)
@@ -74,7 +79,8 @@ void DrawStar(WIN *w, const int rows, const int cols,
     star->symbol = '+';
 
   if (star->y > rows / 2) {
-    mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
+    if (cfg.framecounter % 10 < 9)
+      mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
   } else {
     mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
   }
@@ -106,6 +112,7 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
       continue;
     }
 
+    // looking for a collision before drawing the star in the new position
     if (occupancyMap[stars[i].y][stars[i].x] == 'b') {
       stars[i].alive = 0;
       bird->points++;
@@ -124,6 +131,6 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
       continue;
     }
 
-    DrawStar(w, rows, cols, occupancyMap, &stars[i]);
+    DrawStar(w, rows, cols, occupancyMap, &stars[i], *cfg);
   }
 }

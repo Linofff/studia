@@ -100,7 +100,9 @@ void GameConfigLoad(CONFIG *c, const char *key, float value) {
 
 void BirdConfigLoad(CONFIG *c, const char *key, float value) {
   if (strcmp(key, "health") == 0)
-    c->start_health = (int)value;
+    c->bird_start_health = (int)value;
+  else if (strcmp(key, "speed") == 0)
+    c->bird_speed = (int)value;
 }
 
 void PlayerConfigLoad(CONFIG *c, const char *key, const char *val_str) {
@@ -115,14 +117,17 @@ void LoadConfig(CONFIG *c) {
     return;
   }
 
+  // setting currect template of the hunter
   int active_template_id = -1;
 
   char line[256];
   char current_section[50] = "";
 
   while (fgets(line, sizeof(line), file)) {
+    // function to remove { and =
     SanitizeLine(line);
 
+    // exiting a section if not in the hunter templates
     if (strchr(line, '}')) {
       if (active_template_id != -1) {
         active_template_id = -1;
@@ -135,6 +140,8 @@ void LoadConfig(CONFIG *c) {
     char key[50];
     char val_str[100];
 
+    // based on the number of string loading loading a value to the config or
+    // changing current_section
     if (sscanf(line, "%s %s", key, val_str) == 2) {
       AssignConfigToInput(c, current_section, key, val_str,
                           &active_template_id);
@@ -147,6 +154,7 @@ void LoadConfig(CONFIG *c) {
 }
 
 void UpdateConfig(CONFIG *cfg) {
+  // changing max bounces and maxcount that hunter can have over time
   const int bounces = cfg->level.initial_hunter_bounces +
                       cfg->game_time_elapsed / TIME_ENTITY_MULTI;
   const int maxcount = cfg->level.initial_hunter_max +
@@ -157,6 +165,7 @@ void UpdateConfig(CONFIG *cfg) {
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {
+  // incrementing time if the player is not in the taxi
   const time_t current = time(NULL);
   if (bird->is_in_albatross_taxi) {
     *start_timestamp = current;

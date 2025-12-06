@@ -3,6 +3,7 @@
 
 void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
                             const int cols) {
+  // printing and removing the text informing about taxi state
   if (bird->is_in_albatross_taxi) {
     mvwprintw(playwin->window, (rows / 4), (cols / 2) - 8, "You are in a taxi");
 
@@ -18,6 +19,8 @@ void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
 void AlbatrossTaxi(HUNTER *hunters, STAR *stars, BIRD *bird, CONFIG *cfg,
                    const int rows, const int cols,
                    char occupancyMap[rows][cols], WIN *playwin) {
+  // removing entities from the screen when player is in albatross taxi,
+  // substracting 2 from the collected stars and setting cooldown
   if (!bird->albatross_in_cooldown) {
     bird->albatross_in_cooldown = 5;
     bird->albatross_out_cooldown = 1;

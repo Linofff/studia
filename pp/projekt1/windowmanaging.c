@@ -27,24 +27,25 @@ WINDOW *Start() {
 void GameOver(WIN *playwin, WIN *statwin) {
   CleanWin(playwin, 1);
   CleanWin(statwin, 1);
-  const char *title[] = {"  ____                         ",
-                         " / ___| __ _ _ __ ___   ___    ",
-                         "| |  _ / _` | '_ ` _ \\ / _ \\   ",
-                         "| |_| | (_| | | | | | |  __/   ",
-                         " \\____|\\__,_|_| |_| |_|\\___|   ",
-                         "    ___                 _        ",
-                         "   / _ \\__   _____ _ __| |       ",
-                         "  | | | \\ \\ / / _ \\ '__| |       ",
-                         "  | |_| |\\ V /  __/ |  |_|       ",
-                         "   \\___/  \\_/ \\___|_|  (_)       "};
-  const int title_lines = 10;
-  const int title_width = 31;
+  const char *gameover[] = {"  ____                         ",
+                            " / ___| __ _ _ __ ___   ___    ",
+                            "| |  _ / _` | '_ ` _ \\ / _ \\   ",
+                            "| |_| | (_| | | | | | |  __/   ",
+                            " \\____|\\__,_|_| |_| |_|\\___|   ",
+                            "    ___                 _        ",
+                            "   / _ \\__   _____ _ __| |       ",
+                            "  | | | \\ \\ / / _ \\ '__| |       ",
+                            "  | |_| |\\ V /  __/ |  |_|       ",
+                            "   \\___/  \\_/ \\___|_|  (_)       "};
+  const int gameover_lines = 10;
+  const int gameover_width = 31;
 
-  const int start_y = (playwin->rows / 2) - (title_lines / 2) - 1;
-  const int start_x = (playwin->cols / 2) - (title_width / 2) + 2;
+  const int start_y = (playwin->rows / 2) - (gameover_lines / 2) - 1;
+  const int start_x = (playwin->cols / 2) - (gameover_width / 2) + 2;
 
-  for (int i = 0; i < title_lines; i++) {
-    mvwprintw(playwin->window, start_y + i, start_x, "%s", title[i]);
+  // desplaying gameover the gameover
+  for (int i = 0; i < gameover_lines; i++) {
+    mvwprintw(playwin->window, start_y + i, start_x, "%s", gameover[i]);
     wrefresh(playwin->window);
     napms(100);
   }

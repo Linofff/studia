@@ -13,7 +13,7 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
                      char occupancyMap[rows][cols]) {
   UpdateConfig(cfg);
 
-  UpdateFog(cfg, bird, cols);
+  UpdateFog(cfg, bird);
 
   SpawnStar(bird, playwin, stars, *cfg, rows, cols, occupancyMap);
   UpdateStars(playwin, stars, rows, cols, occupancyMap, bird, cfg, hunters);
@@ -29,21 +29,24 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
 void ResolveChar(WIN *playwin, char ch, int rows, int cols,
                  char occupancyMap[rows][cols], BIRD *bird, bool *running,
                  HUNTER *hunters, STAR *stars, CONFIG *cfg) {
+  // Game quit
   if (ch == QUIT)
     *running = 0;
 
+  // Bird Movment
   if (ch == UP || ch == LEFT || ch == DOWN || ch == RIGHT)
     ChangeDirectionBird(bird, ch, rows, cols, occupancyMap, stars, hunters, cfg,
                         playwin);
   else
     MoveBird(bird, rows, cols, occupancyMap, stars, hunters, cfg, playwin);
 
+  // Handling Albatross Taxi
   if (ch == TAXI_IN)
     AlbatrossTaxi(hunters, stars, bird, cfg, rows, cols, occupancyMap, playwin);
-
   if (ch == TAXI_OUT)
     OutOfAlbatrossTaxi(bird);
 
+  // Changing the speed of the game
   if (ch == FASTER && cfg->game_speed < 4) {
     cfg->frame_time /= 1.5;
     cfg->game_speed++;
@@ -58,10 +61,10 @@ void AllocateMemory(CONFIG *cfg, STAR **stars, HUNTER **hunters) {
 
   if (*stars == NULL) {
     endwin();
-    fprintf(stderr, "FATAL ERROR: Memory allocation failed for Stars.\n");
     exit(EXIT_FAILURE);
   }
 
+  // calculating real number of hunter in given game time and rounding it up
   const int maxNumberOfHunters = cfg->level.initial_hunter_max +
                                  (cfg->game_time_start / TIME_ENTITY_MULTI) + 1;
 
@@ -70,15 +73,13 @@ void AllocateMemory(CONFIG *cfg, STAR **stars, HUNTER **hunters) {
   if (*hunters == NULL) {
     free(*stars);
     endwin();
-    fprintf(stderr, "FATAL ERROR: Memory allocation failed for Hunters.\n");
-    exit(EXIT_FAILURE);
   }
 }
 
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
               int cols, char occupancyMap[rows][cols]) {
   time_t startTime = time(NULL);
-  int ch;
+  char ch;
   bool running = 1;
 
   cfg->game_time_left = cfg->game_time_start;
@@ -118,6 +119,8 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
 
     flushinp();
     usleep(cfg->frame_time * 1000);
+
+    // incrementing framecounter to use it in animations
     cfg->framecounter++;
   }
 
@@ -139,6 +142,7 @@ int main() {
 
   InitMap(rows, cols, occupancyMap);
 
+  // initializing cfg values to prevent random values
   cfg.frame_time = FRAME_TIME;
   cfg.game_time_left = 0;
   cfg.game_time_elapsed = 0;
@@ -154,8 +158,8 @@ int main() {
 
   playwin->color = MAIN_COLOR;
 
-  BIRD *bird = InitBird(playwin, cols / 2, rows / 2, cfg.start_health, rows,
-                        cols, occupancyMap);
+  BIRD *bird =
+      InitBird(playwin, cols / 2, rows / 2, rows, cols, occupancyMap, cfg);
 
   DrawBird(bird, rows, cols, occupancyMap);
   ShowStatus(statwin, bird, cfg);

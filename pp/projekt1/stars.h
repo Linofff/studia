@@ -13,6 +13,6 @@ void UpdateStars(WIN *w, STAR *stars, const int rows, const int cols,
                  char occupancyMap[rows][cols], BIRD *bird, CONFIG *cfg,
                  HUNTER *hunters);
 void DrawStar(WIN *w, const int rows, const int cols,
-              char occupancyMap[rows][cols], STAR *star);
+              char occupancyMap[rows][cols], STAR *star, CONFIG cfg);
 
 #endif

@@ -1,6 +1,7 @@
 #include "hunters.h"
 
 void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
+  // changing color of the hunter based on the currect maxbouces
   const int low = cfg.level.hunter_bounces / 3;
   const int medium = low * 2;
   if (hunter->bounces <= medium && hunter->bounces > low)
@@ -10,12 +11,14 @@ void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
 }
 
 void ChoseShape(HUNTER *hunter, CONFIG cfg) {
+  // chosing shaped based on the randomized value
   const int variant = rand() % 5;
   hunter->width = cfg.hunter_templates[variant].width;
   hunter->height = cfg.hunter_templates[variant].height;
 }
 
 void CalculateDirections(const BIRD *bird, HUNTER *hunter, const CONFIG cfg) {
+  // calculating the direction for the spawning and dashing
   const float dx = (float)bird->x - hunter->fx;
   const float dy = (float)bird->y - hunter->fy;
   const float dist = sqrtf(dx * dx + dy * dy);
@@ -44,6 +47,8 @@ void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
   const int maxY = w->rows - BORDER - h->height;
   int searching = 1;
 
+  // randomizing the location to spawn hunter fill it finds a free spot on the
+  // border set by fog
   while (searching) {
     const int side = rand() % 2;
     startY = (rand() % (maxY - BORDER) + BORDER);
@@ -97,9 +102,11 @@ void HunterTriggerDash(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
 
   CalculateDirections(bird, hunter, cfg);
 
+  // changing speed for the time of the dash
   hunter->vx *= 2;
   hunter->vy *= 2;
 
+  // setting the time of the dash to be 1 second
   hunter->boost_timer = cfg.game_time_elapsed + 1;
 
   hunter->sleep_timer = 0;
@@ -112,28 +119,35 @@ void UpdateDashingHunters(HUNTER *hunters, BIRD *bird, CONFIG cfg) {
   for (int i = 0; i < cfg.level.hunter_max; i++) {
     HUNTER *h = &hunters[i];
 
+    // skipping hunter if not alive
     if (!h->alive || h == NULL)
       continue;
 
+    // checking sleep_timer funtion to either trigger dash or stop the hunter
     if (h->sleep_timer > 0) {
       if (cfg.game_time_elapsed < h->sleep_timer) {
         h->vx = 0;
         h->vy = 0;
         continue;
       }
-
+      //
       HunterTriggerDash(h, bird, cfg);
     }
 
+    // checking if the boost timer is positive and setting speed multiplied by 2
     if (h->boost_timer > 0 && cfg.game_time_elapsed >= h->boost_timer) {
       h->vx /= 2;
       h->vy /= 2;
       h->boost_timer = 0;
     }
 
+    // setting up targetx and targety to know where to dash
+    // each hunrer remember where the bird was when he was spawned and when he
+    // reaches this colation he dashes
     const int targetX = h->initial_bird_x;
     const int targetY = h->initial_bird_y;
 
+    // check if hunter reached this x and y
     const bool hitX = (targetX >= h->x) && (targetX <= (h->x + h->width));
     const bool hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
 
@@ -218,7 +232,6 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   if (hit_type == HIT_BIRD) {
     bird->health -= cfg->level.hunter_damage;
     hunter->alive = 0;
-    flash();
   } else if (hit_type == HIT_STAR) {
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, rows, cols, occupancyMap);
     DrawHunter(w, hunter, rows, cols, occupancyMap);
@@ -246,25 +259,31 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   }
 }
 
-void CollsionCheck(HUNTER *hunter, const int rows, const int cols,
-                   char occupancyMap[rows][cols], CONFIG cfg, STAR *stars,
-                   BIRD *bird, WIN *w) {
+void CollsionCheck(HUNTER *hunter, int oldX, int oldY, const int rows,
+                   const int cols, char occupancyMap[rows][cols], CONFIG cfg,
+                   STAR *stars, BIRD *bird, WIN *w) {
 
-  const int prevx = hunter->x;
-  const int prevy = hunter->y;
+  const int prevx = oldX;
+  const int prevy = oldY;
 
   int hit_type = 0;
 
   const int dx = hunter->x - prevx;
   const int dy = hunter->y - prevy;
 
+  // Calculate the largest distance we are moving
   int steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
+
   int tempX = 0, tempY = 0;
+
   if (steps == 0)
     steps = 1;
 
+  // iterating through each step to check every cell when moving with the speed
+  // is grater than 2 and moving multiple cells at ones
   for (int s = 1; s <= steps; s++) {
     const float t = (float)s / (float)steps;
+
     const int checkX = prevx + (int)(dx * t);
     const int checkY = prevy + (int)(dy * t);
 
@@ -298,9 +317,11 @@ void CollsionCheck(HUNTER *hunter, const int rows, const int cols,
       if (hit_type)
         break;
     }
-    if (hit_type)
+    if (hit_type) {
       break;
+    }
   }
+
   CollisionTypeReaction(hit_type, tempX, tempY, stars, rows, cols, occupancyMap,
                         &cfg, bird, hunter, w);
 }
@@ -313,11 +334,16 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     if (!hunters[i].alive)
       continue;
 
+    int oldX = hunters[i].x;
+    int oldY = hunters[i].y;
+
     EraseHunter(w, &hunters[i], rows, cols, occupancyMap);
 
+    // moving hunter (updating float coordinates)
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
 
+    // checking if hunter hit border
     const int hit = BorderCheck(w, &hunters[i]);
     if (hit) {
       hunters[i].bounces--;
@@ -330,6 +356,7 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
     hunters[i].x = (int)hunters[i].fx;
     hunters[i].y = (int)hunters[i].fy;
 
-    CollsionCheck(&hunters[i], rows, cols, occupancyMap, cfg, stars, bird, w);
+    CollsionCheck(&hunters[i], oldX, oldY, rows, cols, occupancyMap, cfg, stars,
+                  bird, w);
   }
 }
