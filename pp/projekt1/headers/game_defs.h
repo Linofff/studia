@@ -11,7 +11,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#define CONFIG_FILE_NAME "config1.txt"
+#define CONFIG_FILE_NAME "config.txt"
 
 #define RANKING_FILE_NAME "ranking.txt"
 #define TOP_N 5
@@ -56,7 +56,7 @@
 
 #define MAX_TEMPLATES 5
 
-#define TIME_ENTITY_MULTI 8
+#define TIME_ENTITY_MULTI 1
 
 typedef struct {
   char name[MAX_PLAYER_NAME_LENGTH + 1];

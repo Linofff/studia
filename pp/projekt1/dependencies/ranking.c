@@ -1,5 +1,5 @@
-#include "./../headers/ranking.h"
-#include "./../headers/windowmanaging.h"
+#include "../headers/ranking.h"
+#include "../headers/windowmanaging.h"
 
 void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
              const int cols) {
@@ -20,9 +20,9 @@ void Ranking(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG cfg,
   mvwgetnstr(playwin->window, 10, (cols / 2) + 9, player_name, 15);
   noecho();
 
-  int final_score = CalculateScore(bird, &cfg);
+  const int final_score = CalculateScore(bird, &cfg);
 
-  int diff_level = cfg.game_speed;
+  const int diff_level = cfg.game_speed;
 
   UpdateAndSaveRanking(player_name, final_score, diff_level);
 
@@ -46,8 +46,8 @@ int CalculateScore(BIRD *bird, CONFIG *cfg) {
 }
 
 int compare_scores(const void *a, const void *b) {
-  RankingTemplate *entryA = (RankingTemplate *)a;
-  RankingTemplate *entryB = (RankingTemplate *)b;
+  const RankingTemplate *entryA = (RankingTemplate *)a;
+  const RankingTemplate *entryB = (RankingTemplate *)b;
   return (entryB->score - entryA->score);
 }
 

@@ -1,18 +1,31 @@
 stars {
- max = 10
- spawn_chance = 25
+  max = 20
+  spawn_chance = 10
+}
+
+player {
+  name = Player
 }
 
 bird {
- health = 3
+  health = 9
+}
+
+game {
+  height = 30
+  width = 120
+  level = 1
+  star_quota = 200
+  game_time = 60
+  seed = 100
 }
 
 hunter {
- max_count = 2
- spawn_chance = 30
- damage = 1
- bounces = 2
- speed = 0.9
+  max_count = 3
+  spawn_chance = 5
+  damage = 1
+  bounces = 2
+  speed = 0.9
 
  template 1 {
     width = 1
@@ -20,28 +33,23 @@ hunter {
  }
 
  template 2 {
-    width = 1
-    height = 2
+    width = 2
+    height = 1
  }
 
  template 3 {
     width = 1
-    height = 2
+    height = 3
  }
 
  template 4 {
-    width = 1
-    height = 2
+    width = 3
+    height = 1
  }
 
  template 5 {
-    width = 1
+    width = 2
     height = 2
  }
 }
 
-game {
- star_quota = 3
- game_time = 50
- seed = 1
-}

@@ -1,5 +1,5 @@
-#include "./../headers/bird.h"
-#include "./../headers/hunters.h"
+#include "../headers/bird.h"
+#include "../headers/hunters.h"
 
 BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
                const int cols, char occupancyMap[rows][cols]) {
@@ -16,14 +16,16 @@ BIRD *InitBird(WIN *w, int x, int y, int startHealth, const int rows,
   b->health = startHealth;
   b->albatross_taxi_left = 3;
   b->was_in_taxi = 0;
+  b->albatross_in_cooldown = 0;
+  b->is_in_albatross_taxi = 0;
 
   occupancyMap[b->y][b->x] = 'b';
   return b;
 }
 
 void ChangeColorBird(BIRD *bird, const CONFIG cfg) {
-  int low = cfg.start_health / 3;
-  int medium = low * 2;
+  const int low = cfg.start_health / 3;
+  const int medium = low * 2;
   if (bird->health <= medium && bird->health > low)
     bird->color = MEDIUM_HP_BIRD;
   else if (bird->health <= low)
@@ -56,16 +58,16 @@ void DrawBird(const BIRD *b, const int rows, const int cols,
 }
 
 void MoveToCenter(BIRD *bird, const int rows, const int cols) {
-  float target_x = (float)cols / 2.0f;
-  float target_y = (float)rows / 2.0f;
+  const float target_x = (float)cols / 2.0f;
+  const float target_y = (float)rows / 2.0f;
 
-  float dx = target_x - (float)bird->x;
-  float dy = target_y - (float)bird->y;
+  const float dx = target_x - (float)bird->x;
+  const float dy = target_y - (float)bird->y;
 
-  float dist = sqrtf(dx * dx + dy * dy);
+  const float dist = sqrtf(dx * dx + dy * dy);
 
   if (dist > 0) {
-    float speed = (float)bird->speed;
+    const float speed = (float)bird->speed;
 
     bird->dx = (dx / dist) * speed;
     bird->dy = (dy / dist) * speed;
@@ -115,12 +117,12 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
     else if (b->x >= b->win->cols - BORDER - 1)
       b->dx = -1;
   } else {
-    int dir_x = (b->dx > 0) ? 1 : -1;
+    const int dir_x = (b->dx > 0) ? 1 : -1;
 
     if (occupancyMap[b->y][b->x + dir_x] == '#') {
       b->dx *= -1;
     } else {
-      int new_x = b->x + (int)(b->dx * b->speed);
+      const int new_x = b->x + (int)(b->dx * b->speed);
 
       if (new_x <= BORDER) {
         b->x = BORDER;
@@ -142,7 +144,7 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
     else if (b->y >= b->win->rows - BORDER - 1)
       b->dy = -1;
   } else {
-    int new_y = b->y + (int)(b->dy * b->speed);
+    const int new_y = b->y + (int)(b->dy * b->speed);
 
     if (new_y <= BORDER) {
       b->y = BORDER;
@@ -169,12 +171,12 @@ void MoveBird(BIRD *b, const int rows, const int cols,
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
   } else {
-    int at_x_boundary = (b->x <= BORDER - 1) ||
-                        (b->x >= b->win->cols - BORDER) ||
-                        (occupancyMap[b->y][b->x] == '#');
-    int at_y_boundary = (b->y <= BORDER - 1) ||
-                        (b->y >= b->win->rows - BORDER) ||
-                        (occupancyMap[b->y][b->x] == '#');
+    const int at_x_boundary = (b->x <= BORDER - 1) ||
+                              (b->x >= b->win->cols - BORDER) ||
+                              (occupancyMap[b->y][b->x] == '#');
+    const int at_y_boundary = (b->y <= BORDER - 1) ||
+                              (b->y >= b->win->rows - BORDER) ||
+                              (occupancyMap[b->y][b->x] == '#');
 
     BirdBorderCheck(at_x_boundary, at_y_boundary, b, rows, cols, occupancyMap);
 

@@ -1,8 +1,8 @@
-#include "./../headers/hunters.h"
+#include "../headers/hunters.h"
 
 void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
-  int low = cfg.level.hunter_bounces / 3;
-  int medium = low * 2;
+  const int low = cfg.level.hunter_bounces / 3;
+  const int medium = low * 2;
   if (hunter->bounces <= medium && hunter->bounces > low)
     hunter->color = MEDIUM_HP_HUNTER;
   else if (hunter->bounces <= low)
@@ -10,16 +10,15 @@ void ChangeColorHunter(HUNTER *hunter, CONFIG cfg) {
 }
 
 void ChoseShape(HUNTER *hunter, CONFIG cfg) {
-
-  int variant = rand() % 5;
+  const int variant = rand() % 5;
   hunter->width = cfg.hunter_templates[variant].width;
   hunter->height = cfg.hunter_templates[variant].height;
 }
 
 void CalculateDirections(const BIRD *bird, HUNTER *hunter, const CONFIG cfg) {
-  float dx = (float)bird->x - hunter->fx;
-  float dy = (float)bird->y - hunter->fy;
-  float dist = sqrtf(dx * dx + dy * dy);
+  const float dx = (float)bird->x - hunter->fx;
+  const float dy = (float)bird->y - hunter->fy;
+  const float dist = sqrtf(dx * dx + dy * dy);
 
   if (dist > 0) {
     hunter->vx = (dx / dist) * cfg.level.hunter_speed;
@@ -41,13 +40,13 @@ void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
 
   ChoseShape(h, cfg);
 
-  int startX, startY;
-  int maxY = w->rows - BORDER - h->height;
+  int startX = 0, startY = 0;
+  const int maxY = w->rows - BORDER - h->height;
   int searching = 1;
 
   while (searching) {
-    int side = rand() % 2;
-    startY = (rand() % (maxY - BORDER)) + BORDER;
+    const int side = rand() % 2;
+    startY = (rand() % (maxY - BORDER) + BORDER);
 
     if (side == 0)
       startX = BORDER + cfg.fog_currentsize;
@@ -62,6 +61,7 @@ void InitAndPlaceHunter(WIN *w, HUNTER *h, BIRD *bird, CONFIG cfg,
         }
       }
     }
+    searching = 0;
   }
 
   h->fx = (float)startX;
@@ -105,19 +105,24 @@ void HunterTriggerDash(HUNTER *hunter, BIRD *bird, CONFIG cfg) {
   hunter->sleep_timer = 0;
 }
 
-void UpdateDashingHunters(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
+void UpdateDashingHunters(HUNTER *hunters, BIRD *bird, CONFIG cfg) {
+  if (hunters == NULL)
+    return;
 
   for (int i = 0; i < cfg.level.hunter_max; i++) {
     HUNTER *h = &hunters[i];
+
+    if (!h->alive || h == NULL)
+      continue;
 
     if (h->sleep_timer > 0) {
       if (cfg.game_time_elapsed < h->sleep_timer) {
         h->vx = 0;
         h->vy = 0;
         continue;
-      } else {
-        HunterTriggerDash(h, bird, cfg);
       }
+
+      HunterTriggerDash(h, bird, cfg);
     }
 
     if (h->boost_timer > 0 && cfg.game_time_elapsed >= h->boost_timer) {
@@ -126,11 +131,11 @@ void UpdateDashingHunters(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
       h->boost_timer = 0;
     }
 
-    int targetX = h->initial_bird_x;
-    int targetY = h->initial_bird_y;
+    const int targetX = h->initial_bird_x;
+    const int targetY = h->initial_bird_y;
 
-    bool hitX = (targetX >= h->x) && (targetX <= (h->x + h->width));
-    bool hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
+    const bool hitX = (targetX >= h->x) && (targetX <= (h->x + h->width));
+    const bool hitY = (targetY >= h->y) && (targetY <= (h->y + h->height));
 
     if (hitX && hitY && h->dashes_left > 0) {
       if (h->boost_timer > 0) {
@@ -149,7 +154,6 @@ void UpdateDashingHunters(WIN *w, HUNTER *hunters, BIRD *bird, CONFIG cfg) {
 }
 
 int BorderCheck(WIN *w, HUNTER *hunter) {
-  int hit = 0;
   if (hunter->fx <= BORDER) {
     hunter->fx = BORDER + 0.1f;
     hunter->vx = -hunter->vx;
@@ -185,11 +189,11 @@ void EraseHunter(WIN *w, HUNTER *hunter, const int rows, const int cols,
 void DrawHunter(WIN *w, HUNTER *hunter, const int rows, const int cols,
                 char occupancyMap[rows][cols]) {
   wattron(w->window, COLOR_PAIR(hunter->color));
-  char disp = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
+  const char bounces = (hunter->bounces > 9) ? '9' : hunter->bounces + '0';
   for (int r = 0; r < hunter->height; r++)
     for (int c = 0; c < hunter->width; c++)
       if (hunter->y + r < w->rows && hunter->x + c < w->cols) {
-        mvwprintw(w->window, hunter->y + r, hunter->x + c, "%c", disp);
+        mvwprintw(w->window, hunter->y + r, hunter->x + c, "%c", bounces);
         occupancyMap[hunter->y + r][hunter->x + c] = 'h';
       }
   wattroff(w->window, COLOR_PAIR(hunter->color));
@@ -246,33 +250,33 @@ void CollsionCheck(HUNTER *hunter, const int rows, const int cols,
                    char occupancyMap[rows][cols], CONFIG cfg, STAR *stars,
                    BIRD *bird, WIN *w) {
 
-  int prevx = hunter->x;
-  int prevy = hunter->y;
+  const int prevx = hunter->x;
+  const int prevy = hunter->y;
 
   int hit_type = 0;
 
-  int dx = hunter->x - prevx;
-  int dy = hunter->y - prevy;
+  const int dx = hunter->x - prevx;
+  const int dy = hunter->y - prevy;
 
   int steps = (abs(dx) > abs(dy)) ? abs(dx) : abs(dy);
-  int tempX, tempY;
+  int tempX = 0, tempY = 0;
   if (steps == 0)
     steps = 1;
 
   for (int s = 1; s <= steps; s++) {
-    float t = (float)s / (float)steps;
-    int checkX = prevx + (int)(dx * t);
-    int checkY = prevy + (int)(dy * t);
+    const float t = (float)s / (float)steps;
+    const int checkX = prevx + (int)(dx * t);
+    const int checkY = prevy + (int)(dy * t);
 
     for (int r = 0; r < hunter->height; r++) {
       for (int c = 0; c < hunter->width; c++) {
 
-        int mapY = checkY + r;
-        int mapX = checkX + c;
+        const int mapY = checkY + r;
+        const int mapX = checkX + c;
 
         if (mapY >= 0 && mapY < rows && mapX >= 0 && mapX < cols) {
 
-          char cell = occupancyMap[mapY][mapX];
+          const char cell = occupancyMap[mapY][mapX];
 
           if (cell == 'b') {
             hit_type = HIT_BIRD;
@@ -311,12 +315,12 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
 
     EraseHunter(w, &hunters[i], rows, cols, occupancyMap);
 
-    UpdateDashingHunters(w, &hunters[i], bird, cfg);
+    UpdateDashingHunters(hunters, bird, cfg);
 
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
 
-    int hit = BorderCheck(w, &hunters[i]);
+    const int hit = BorderCheck(w, &hunters[i]);
     if (hit) {
       hunters[i].bounces--;
       if (hunters[i].bounces < 1) {

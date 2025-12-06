@@ -1,4 +1,4 @@
-#include "./../headers/windowmanaging.h"
+#include "../headers/windowmanaging.h"
 
 WINDOW *Start() {
   WINDOW *win;
@@ -37,11 +37,11 @@ void GameOver(WIN *playwin, WIN *statwin) {
                          "  | | | \\ \\ / / _ \\ '__| |       ",
                          "  | |_| |\\ V /  __/ |  |_|       ",
                          "   \\___/  \\_/ \\___|_|  (_)       "};
-  int title_lines = 10;
-  int title_width = 31;
+  const int title_lines = 10;
+  const int title_width = 31;
 
-  int start_y = (playwin->rows / 2) - (title_lines / 2) - 1;
-  int start_x = (playwin->cols / 2) - (title_width / 2) + 2;
+  const int start_y = (playwin->rows / 2) - (title_lines / 2) - 1;
+  const int start_x = (playwin->cols / 2) - (title_width / 2) + 2;
 
   for (int i = 0; i < title_lines; i++) {
     mvwprintw(playwin->window, start_y + i, start_x, "%s", title[i]);
@@ -60,7 +60,7 @@ void StartScreen(WIN *playwin, const int rows, const int cols, bool *running) {
   int startCh;
   while ((startCh = wgetch(playwin->window)) != SPACEBAR) {
     if (startCh == QUIT) {
-      running = 0;
+      *running = 0;
       break;
     }
     usleep(50000);

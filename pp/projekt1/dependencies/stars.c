@@ -1,5 +1,5 @@
-#include "./../headers/stars.h"
-#include "./../headers/hunters.h"
+#include "../headers/stars.h"
+#include "../headers/hunters.h"
 
 void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
                const int cols, char occupancyMap[rows][cols]) {
@@ -15,7 +15,7 @@ void SpawnStar(BIRD *bird, WIN *w, STAR *stars, CONFIG cfg, const int rows,
     bool findingspot = 1;
     int attempts = 0;
     while (findingspot && attempts < 50) {
-      int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
+      const int randomizedX = (rand() % (w->cols - 2 * BORDER)) + BORDER;
       bool occupied = 0;
       for (int y = 0; y < rows; y++) {
         if (occupancyMap[y][randomizedX] == 's' ||
@@ -75,6 +75,21 @@ void DrawStar(WIN *w, const int rows, const int cols,
     mvwprintw(w->window, star->y, star->x, "*");
     occupancyMap[star->y][star->x] = 's';
   }
+  //   if (star->y > rows / 2) {
+  //   if (cfg.framecounter % 4 < 3) {
+  //     if (cfg.framecounter % 4 < 2)
+  //       mvwprintw(w->window, star->y, star->x, "*");
+  //     else
+  //       mvwprintw(w->window, star->y, star->x, "+");
+  //   }
+  //   occupancyMap[star->y][star->x] = 's';
+  // } else {
+  //   if (cfg.framecounter % 4 < 2)
+  //     mvwprintw(w->window, star->y, star->x, "*");
+  //   else
+  //     mvwprintw(w->window, star->y, star->x, "+");
+  //   occupancyMap[star->y][star->x] = 's';
+  // }
 
   wattroff(w->window, COLOR_PAIR(STAR_COLOR));
 }

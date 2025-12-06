@@ -1,11 +1,11 @@
-#include "./../headers/fog.h"
+#include "../headers/fog.h"
 
 void InitFog(CONFIG *cfg, const int cols) {
   cfg->fog_min_x = 1;
   cfg->fog_max_x = cols - 2;
   cfg->fog_timer = 0;
 
-  cfg->fog_update_interval = 30;
+  cfg->fog_update_interval = 10;
 }
 
 void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols) {
@@ -17,9 +17,9 @@ void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols) {
   if (cfg->fog_timer >= cfg->fog_update_interval) {
     cfg->fog_timer = 0;
 
-    int safe_zone_width = 40;
-    int left_limit = (cols - safe_zone_width) / 2;
-    int right_limit = (cols + safe_zone_width) / 2;
+    const int safe_zone_width = 40;
+    const int left_limit = (cols - safe_zone_width) / 2;
+    const int right_limit = (cols + safe_zone_width) / 2;
 
     if (cfg->fog_min_x < left_limit) {
       cfg->fog_min_x++;

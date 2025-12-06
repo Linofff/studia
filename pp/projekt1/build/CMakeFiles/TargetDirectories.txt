@@ -1,3 +1,0 @@
-/home/fonil/studia/pp/projekt1/build/CMakeFiles/game.dir
-/home/fonil/studia/pp/projekt1/build/CMakeFiles/edit_cache.dir
-/home/fonil/studia/pp/projekt1/build/CMakeFiles/rebuild_cache.dir

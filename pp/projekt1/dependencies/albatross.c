@@ -1,5 +1,5 @@
-#include "./../headers/albatross.h"
-#include "./../headers/hunters.h"
+#include "../headers/albatross.h"
+#include "../headers/hunters.h"
 
 void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
                             const int cols) {
@@ -9,7 +9,7 @@ void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
     bird->was_in_taxi = 1;
   } else if (bird->was_in_taxi) {
 
-    mvwprintw(playwin->window, (rows / 4), (2 * cols / 5),
+    mvwprintw(playwin->window, (rows / 4), (cols / 2) - 8,
               "                   ");
     bird->was_in_taxi = 0;
   }

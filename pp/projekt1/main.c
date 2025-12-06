@@ -1,15 +1,15 @@
-#include "./headers/albatross.h"
-#include "./headers/bird.h"
-#include "./headers/configmanaging.h"
-#include "./headers/fog.h"
-#include "./headers/game_defs.h"
-#include "./headers/hunters.h"
-#include "./headers/ranking.h"
-#include "./headers/stars.h"
-#include "./headers/windowmanaging.h"
+#include "headers/albatross.h"
+#include "headers/bird.h"
+#include "headers/configmanaging.h"
+#include "headers/fog.h"
+#include "headers/game_defs.h"
+#include "headers/hunters.h"
+#include "headers/ranking.h"
+#include "headers/stars.h"
+#include "headers/windowmanaging.h"
 
 void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
-                     CONFIG *cfg, int startTime, int rows, int cols,
+                     CONFIG *cfg, int rows, int cols,
                      char occupancyMap[rows][cols]) {
   UpdateConfig(cfg);
 
@@ -21,10 +21,11 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
   SpawnHunter(playwin, hunters, bird, *cfg, rows, cols, occupancyMap);
   UpdateHunters(playwin, hunters, cfg->level.hunter_max, bird, *cfg, rows, cols,
                 occupancyMap, stars);
+
   DrawFog(playwin, cfg, rows, cols, occupancyMap);
 }
 
-void ResolveChar(WIN *playwin, WIN *statwin, char ch, int rows, int cols,
+void ResolveChar(WIN *playwin, char ch, int rows, int cols,
                  char occupancyMap[rows][cols], BIRD *bird, bool *running,
                  HUNTER *hunters, STAR *stars, CONFIG *cfg) {
   if (ch == QUIT)
@@ -52,10 +53,25 @@ void ResolveChar(WIN *playwin, WIN *statwin, char ch, int rows, int cols,
 }
 
 void AllocateMemory(CONFIG *cfg, STAR **stars, HUNTER **hunters) {
-  *stars = (STAR *)malloc(cfg->level.star_max * sizeof(STAR));
-  int maxNumberOfHunters = cfg->level.initial_hunter_max +
-                           (cfg->game_time_start / TIME_ENTITY_MULTI) + 2;
-  *hunters = (HUNTER *)malloc(maxNumberOfHunters * sizeof(HUNTER));
+  *stars = (STAR *)calloc(cfg->level.star_max, sizeof(STAR));
+
+  if (*stars == NULL) {
+    endwin();
+    fprintf(stderr, "FATAL ERROR: Memory allocation failed for Stars.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  const int maxNumberOfHunters = cfg->level.initial_hunter_max +
+                                 (cfg->game_time_start / TIME_ENTITY_MULTI) + 1;
+
+  *hunters = (HUNTER *)calloc(maxNumberOfHunters, sizeof(HUNTER));
+
+  if (*hunters == NULL) {
+    free(*stars);
+    endwin();
+    fprintf(stderr, "FATAL ERROR: Memory allocation failed for Hunters.\n");
+    exit(EXIT_FAILURE);
+  }
 }
 
 void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
@@ -64,7 +80,6 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
   int ch;
   bool running = 1;
 
-  int timeLeft = cfg->game_time_start;
   cfg->game_time_left = cfg->game_time_start;
 
   STAR *stars = NULL;
@@ -74,7 +89,6 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
   InitFog(cfg, cols);
 
   AllocateMemory(cfg, &stars, &hunters);
-
   StartScreen(playwin, rows, cols, &running);
 
   while (running) {
@@ -84,13 +98,13 @@ void MainLoop(WIN *playwin, WIN *statwin, BIRD *bird, CONFIG *cfg, int rows,
     UpdateTimeState(bird, &startTime, cfg);
 
     ch = wgetch(statwin->window);
-    ResolveChar(playwin, statwin, ch, rows, cols, occupancyMap, bird, &running,
-                hunters, stars, cfg);
+    ResolveChar(playwin, ch, rows, cols, occupancyMap, bird, &running, hunters,
+                stars, cfg);
 
     MainLoopAlbatrossCheck(playwin, bird, rows, cols);
 
-    UpdateGameWorld(playwin, stars, hunters, bird, cfg, (int)startTime, rows,
-                    cols, occupancyMap);
+    UpdateGameWorld(playwin, stars, hunters, bird, cfg, rows, cols,
+                    occupancyMap);
 
     ShowStatus(statwin, bird, *cfg);
     wrefresh(playwin->window);
@@ -117,8 +131,8 @@ int main() {
 
   srand(cfg.seed);
 
-  int rows = cfg.level.rows;
-  int cols = cfg.level.cols;
+  const int rows = cfg.level.rows;
+  const int cols = cfg.level.cols;
 
   char occupancyMap[rows][cols];
 
@@ -127,6 +141,8 @@ int main() {
   cfg.frame_time = FRAME_TIME;
   cfg.game_time_left = 0;
   cfg.game_time_elapsed = 0;
+  cfg.game_speed = 0;
+  cfg.fog_currentsize = 0;
 
   WINDOW *mainwin = Start();
 

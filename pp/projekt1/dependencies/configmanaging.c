@@ -1,4 +1,4 @@
-#include "./../headers/configmanaging.h"
+#include "../headers/configmanaging.h"
 
 void InitMap(const int rows, const int cols, char occupancyMap[rows][cols]) {
   for (int y = 0; y < rows; y++) {
@@ -19,7 +19,7 @@ void SanitizeLine(char *line) {
 void AssignConfigToInput(CONFIG *c, const char *section, const char *key,
                          const char *val_str, int *active_template_id) {
 
-  float val_float = (float)atof(val_str);
+  const float val_float = (float)atof(val_str);
 
   // STARS SECTION
   if (strcmp(section, "stars") == 0) {
@@ -139,17 +139,17 @@ void LoadConfig(CONFIG *c) {
 }
 
 void UpdateConfig(CONFIG *cfg) {
-  int bounces = cfg->level.initial_hunter_bounces +
-                cfg->game_time_elapsed / TIME_ENTITY_MULTI;
-  int maxcount = cfg->level.initial_hunter_max +
-                 cfg->game_time_elapsed / TIME_ENTITY_MULTI;
-  if (bounces < 9)
+  const int bounces = cfg->level.initial_hunter_bounces +
+                      cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  const int maxcount = cfg->level.initial_hunter_max +
+                       cfg->game_time_elapsed / TIME_ENTITY_MULTI;
+  if (bounces < 10)
     cfg->level.hunter_bounces = bounces;
   cfg->level.hunter_max = maxcount;
 }
 
 void UpdateTimeState(BIRD *bird, time_t *start_timestamp, CONFIG *cfg) {
-  time_t current = time(NULL);
+  const time_t current = time(NULL);
   if (bird->is_in_albatross_taxi) {
     *start_timestamp = current;
     return;
