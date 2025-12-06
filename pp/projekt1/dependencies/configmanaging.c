@@ -80,6 +80,14 @@ void GameConfigLoad(CONFIG *c, const char *key, float value) {
     c->level.rows = (int)value;
   else if (strcmp(key, "width") == 0)
     c->level.cols = (int)value;
+
+  else if (strcmp(key, "points_multiplyer") == 0)
+    c->level.points_multiplyer = (int)value;
+  else if (strcmp(key, "health_multiplyer") == 0)
+    c->level.health_multiplyer = (int)value;
+  else if (strcmp(key, "time_multiplyer") == 0)
+    c->level.time_multiplyer = (int)value;
+
   else if (strcmp(key, "level") == 0)
     c->level.number = (int)value;
   else if (strcmp(key, "star_quota") == 0)

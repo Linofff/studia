@@ -35,9 +35,9 @@ int CalculateScore(BIRD *bird, CONFIG *cfg) {
 
   difficulty += ((float)cfg->game_speed / 5);
 
-  base_score += (bird->points * 100);
-  base_score += (bird->health * 10);
-  base_score -= (cfg->game_time_elapsed * 5);
+  base_score += (bird->points * cfg->level.points_multiplyer);
+  base_score += (bird->health * cfg->level.health_multiplyer);
+  base_score -= (cfg->game_time_elapsed * cfg->level.time_multiplyer);
 
   if (base_score * difficulty > 0)
     return (int)(base_score * difficulty);

@@ -17,7 +17,7 @@ void UpdateFog(CONFIG *cfg, BIRD *bird, const int cols) {
   if (cfg->fog_timer >= cfg->fog_update_interval) {
     cfg->fog_timer = 0;
 
-    const int safe_zone_width = 40;
+    const int safe_zone_width = cols / 2;
     const int left_limit = (cols - safe_zone_width) / 2;
     const int right_limit = (cols + safe_zone_width) / 2;
 

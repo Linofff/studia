@@ -315,8 +315,6 @@ void UpdateHunters(WIN *w, HUNTER *hunters, int maxHunters, BIRD *bird,
 
     EraseHunter(w, &hunters[i], rows, cols, occupancyMap);
 
-    UpdateDashingHunters(hunters, bird, cfg);
-
     hunters[i].fx += hunters[i].vx;
     hunters[i].fy += hunters[i].vy;
 

@@ -19,6 +19,7 @@ void UpdateGameWorld(WIN *playwin, STAR *stars, HUNTER *hunters, BIRD *bird,
   UpdateStars(playwin, stars, rows, cols, occupancyMap, bird, cfg, hunters);
 
   SpawnHunter(playwin, hunters, bird, *cfg, rows, cols, occupancyMap);
+  UpdateDashingHunters(hunters, bird, *cfg);
   UpdateHunters(playwin, hunters, cfg->level.hunter_max, bird, *cfg, rows, cols,
                 occupancyMap, stars);
 

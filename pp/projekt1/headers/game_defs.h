@@ -56,7 +56,7 @@
 
 #define MAX_TEMPLATES 5
 
-#define TIME_ENTITY_MULTI 1
+#define TIME_ENTITY_MULTI 10
 
 typedef struct {
   char name[MAX_PLAYER_NAME_LENGTH + 1];
@@ -85,6 +85,10 @@ typedef struct {
 
   int cols;
   int rows;
+
+  int points_multiplyer;
+  int health_multiplyer;
+  int time_multiplyer;
 
 } LevelTemplate;
 

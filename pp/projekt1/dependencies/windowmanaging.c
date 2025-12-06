@@ -100,7 +100,7 @@ void ShowStatus(WIN *W, BIRD *bird, CONFIG cfg) {
   box(W->window, 0, 0);
   mvwprintw(W->window, 1, 2, "Name: %s | Level: %d | Game speed: %d",
             cfg.player_name, cfg.level.number, cfg.game_speed);
-  mvwprintw(W->window, 2, 2, "Time left: %d | HP: %d | Score: %d | Goal: %d",
+  mvwprintw(W->window, 2, 2, "Time left: %d | HP: %d | Stars: %d | Goal: %d",
             cfg.game_time_left, bird->health, bird->points,
             cfg.level.star_quota);
 

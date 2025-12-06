@@ -1,5 +1,5 @@
 stars {
-  max = 20
+  max = 15
   spawn_chance = 10
 }
 
@@ -12,10 +12,13 @@ bird {
 }
 
 game {
+  points_multiplyer = 100
+  health_multiplyer = 10
+  time_multiplyer = 5
   height = 30
   width = 120
   level = 1
-  star_quota = 200
+  star_quota = 15
   game_time = 60
   seed = 100
 }
