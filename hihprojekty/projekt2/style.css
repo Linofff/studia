@@ -1,0 +1,33 @@
+body {
+  font-family: Arial;
+}
+
+.term {
+  font-weight: bold;
+  color: #d35400;
+}
+
+.yearnumber {
+  color: gray;
+  font-size: 0.9em;
+}
+
+.step-name {
+  font-weight: bold;
+  color: #0056b3;
+}
+
+.video-link {
+  color: red;
+  text-decoration: none;
+}
+
+.pdf-link {
+  color: darkred;
+  text-decoration: none;
+}
+
+.html-link {
+  color: green;
+  text-decoration: none;
+}

@@ -44,6 +44,7 @@ void ChangeShape(BIRD *bird, const CONFIG cfg) {
         bird->symbol = '-';
       else if (bird->dx)
         bird->symbol = '|';
+
     } else if (bird->dy == -1)
       bird->symbol = 'A';
     else if (bird->dy == 1)
@@ -52,6 +53,7 @@ void ChangeShape(BIRD *bird, const CONFIG cfg) {
       bird->symbol = '>';
     else if (bird->dx == -1)
       bird->symbol = '<';
+
   } else {
     bird->symbol = 'T';
   }
@@ -79,6 +81,7 @@ void MoveToCenter(BIRD *bird, const int rows, const int cols) {
   if (dist > 0) {
     bird->dx = (dx / dist);
     bird->dy = (dy / dist);
+
   } else {
     bird->x = (int)target_x;
     bird->y = (int)target_y;
@@ -125,22 +128,27 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
       b->dx = 1;
     else if (b->x >= b->win->cols - BORDER - 1)
       b->dx = -1;
+
   } else {
     const int dir_x = (b->dx > 0) ? 1 : -1;
 
     if (occupancyMap[b->y][b->x + dir_x] == '#') {
       b->dx *= -1;
+
     } else {
-      const int new_x = b->x + (int)(b->dx * b->speed);
+      const int new_x = b->x + (int)(b->dx);
 
       if (new_x <= BORDER) {
         b->x = BORDER;
         b->dx = 1;
+
       } else if (new_x >= b->win->cols - BORDER - 1) {
         b->x = b->win->cols - BORDER - 1;
         b->dx = -1;
+
       } else if (occupancyMap[b->y][new_x] == '#') {
         b->dx *= -1;
+
       } else {
         b->x = new_x;
       }
@@ -153,15 +161,18 @@ void BirdBorderCheck(const int at_x_boundary, const int at_y_boundary, BIRD *b,
       b->dy = 1;
     else if (b->y >= b->win->rows - BORDER - 1)
       b->dy = -1;
+
   } else {
-    const int new_y = b->y + (int)(b->dy * b->speed);
+    const int new_y = b->y + (int)(b->dy);
 
     if (new_y <= BORDER) {
       b->y = BORDER;
       b->dy = 1;
+
     } else if (new_y >= b->win->rows - BORDER - 1) {
       b->y = b->win->rows - BORDER - 1;
       b->dy = -1;
+
     } else {
       b->y = new_y;
     }
@@ -182,6 +193,7 @@ void MoveBird(BIRD *b, const int rows, const int cols,
 
     b->x += (int)round(b->dx);
     b->y += (int)round(b->dy);
+
   } else {
     // checking if on boundary
     const int at_x_boundary = (b->x <= BORDER - 1) ||
@@ -191,24 +203,26 @@ void MoveBird(BIRD *b, const int rows, const int cols,
                               (b->y >= b->win->rows - BORDER) ||
                               (occupancyMap[b->y][b->x] == '#');
 
-    BirdBorderCheck(at_x_boundary, at_y_boundary, b, rows, cols, occupancyMap);
+    for (int i = 0; i < b->speed; i++) {
+      BirdBorderCheck(at_x_boundary, at_y_boundary, b, rows, cols,
+                      occupancyMap);
+      if (occupancyMap[b->y][b->x] == 's') {
+        b->points++;
+        FindWhichStar(b, stars, cfg);
+      }
+      if (occupancyMap[b->y][b->x] == 'h') {
+        b->health -= hunters->damage;
+        FindWhichHunter(b, hunters, cfg, rows, cols, occupancyMap, playwin);
+      }
+      if (occupancyMap[b->y][b->x] == '#') {
+        if (b->x < cols / 2)
+          b->x++;
+        if (b->x > cols / 2)
+          b->x--;
+      }
+    }
 
     ChangeShape(b, *cfg);
-  }
-
-  if (occupancyMap[b->y][b->x] == 's') {
-    b->points++;
-    FindWhichStar(b, stars, cfg);
-  }
-  if (occupancyMap[b->y][b->x] == 'h') {
-    b->health -= hunters->damage;
-    FindWhichHunter(b, hunters, cfg, rows, cols, occupancyMap, playwin);
-  }
-  if (occupancyMap[b->y][b->x] == '#') {
-    if (b->x < cols / 2)
-      b->x++;
-    if (b->x > cols / 2)
-      b->x--;
   }
 
   DrawBird(b, rows, cols, occupancyMap);

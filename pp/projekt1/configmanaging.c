@@ -24,18 +24,22 @@ void AssignConfigToInput(CONFIG *c, const char *section, const char *key,
   // STARS SECTION
   if (strcmp(section, "stars") == 0) {
     StarsConfigLoad(c, key, val_float);
+
   }
   // PLAYER SECTION
   else if (strcmp(section, "player") == 0) {
     PlayerConfigLoad(c, key, val_str);
+
   }
   // BIRD SECTION
   else if (strcmp(section, "bird") == 0) {
     BirdConfigLoad(c, key, val_float);
+
   }
   // HUNTER SECTION
   else if (strcmp(section, "hunter") == 0) {
     HunterConfigLoad(c, key, val_float, active_template_id);
+
   }
   // GAME SECTION
   else if (strcmp(section, "game") == 0) {
@@ -55,6 +59,7 @@ void HunterConfigLoad(CONFIG *c, const char *key, float value,
   if (*active_template_id != -1) {
     if (strcmp(key, "width") == 0) {
       c->hunter_templates[*active_template_id].width = (int)value;
+
     } else if (strcmp(key, "height") == 0) {
       c->hunter_templates[*active_template_id].height = (int)value;
     }
@@ -131,6 +136,7 @@ void LoadConfig(CONFIG *c) {
     if (strchr(line, '}')) {
       if (active_template_id != -1) {
         active_template_id = -1;
+
       } else {
         current_section[0] = '\0';
       }
@@ -145,6 +151,7 @@ void LoadConfig(CONFIG *c) {
     if (sscanf(line, "%s %s", key, val_str) == 2) {
       AssignConfigToInput(c, current_section, key, val_str,
                           &active_template_id);
+
     } else if (sscanf(line, "%s", key) == 1 && active_template_id == -1) {
       strcpy(current_section, key);
     }

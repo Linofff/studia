@@ -8,6 +8,7 @@ void MainLoopAlbatrossCheck(WIN *playwin, BIRD *bird, const int rows,
     mvwprintw(playwin->window, (rows / 4), (cols / 2) - 8, "You are in a taxi");
 
     bird->was_in_taxi = 1;
+
   } else if (bird->was_in_taxi) {
 
     mvwprintw(playwin->window, (rows / 4), (cols / 2) - 8,

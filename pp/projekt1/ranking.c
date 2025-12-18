@@ -82,7 +82,6 @@ void UpdateAndSaveRanking(const char *player_name, int score,
 
   fp = fopen(RANKING_FILE_NAME, "w");
   if (fp == NULL) {
-    perror("Error saving ranking");
     return;
   }
 
@@ -108,6 +107,7 @@ void ShowRanking(WIN *w) {
   FILE *fp = fopen(RANKING_FILE_NAME, "r");
   if (fp == NULL) {
     mvwprintw(w->window, 5, 5, "No rankings yet.");
+
   } else {
     int count = 0;
     char name[16];

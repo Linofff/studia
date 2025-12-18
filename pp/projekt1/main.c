@@ -1,3 +1,5 @@
+// projekt przygotowany na podstawie szablonu dr hab. inż. Michała
+// Małafiejskiego
 #include "albatross.h"
 #include "bird.h"
 #include "configmanaging.h"
@@ -50,6 +52,7 @@ void ResolveChar(WIN *playwin, char ch, int rows, int cols,
   if (ch == FASTER && cfg->game_speed < 4) {
     cfg->frame_time /= 1.5;
     cfg->game_speed++;
+
   } else if (ch == SLOWER && cfg->game_speed > 0) {
     cfg->frame_time *= 1.5;
     cfg->game_speed--;

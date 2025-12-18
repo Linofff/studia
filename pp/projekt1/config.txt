@@ -4,7 +4,7 @@ stars {
 }
 
 player {
-  name = Player
+  name = Fonil
 }
 
 bird {
@@ -56,4 +56,3 @@ hunter {
     height = 2
  }
 }
-

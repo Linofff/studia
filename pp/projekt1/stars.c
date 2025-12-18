@@ -81,6 +81,7 @@ void DrawStar(WIN *w, const int rows, const int cols,
   if (star->y > rows / 2) {
     if (cfg.framecounter % 10 < 9)
       mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
+
   } else {
     mvwprintw(w->window, star->y, star->x, "%c", star->symbol);
   }

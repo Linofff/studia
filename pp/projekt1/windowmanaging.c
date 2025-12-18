@@ -3,7 +3,6 @@
 WINDOW *Start() {
   WINDOW *win;
   if ((win = initscr()) == NULL) {
-    fprintf(stderr, "Error initialising ncurses.\n");
     exit(EXIT_FAILURE);
   }
   start_color();

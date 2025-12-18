@@ -26,6 +26,7 @@ void CalculateDirections(const BIRD *bird, HUNTER *hunter, const CONFIG cfg) {
   if (dist > 0) {
     hunter->vx = (dx / dist) * cfg.level.hunter_speed;
     hunter->vy = (dy / dist) * cfg.level.hunter_speed;
+
   } else {
     hunter->vx = 0;
     hunter->vy = 0;
@@ -172,6 +173,7 @@ int BorderCheck(WIN *w, HUNTER *hunter) {
     hunter->fx = BORDER + 0.1f;
     hunter->vx = -hunter->vx;
     return 1;
+
   } else if (hunter->fx + hunter->width >= w->cols - BORDER) {
     hunter->fx = w->cols - BORDER - hunter->width - 0.1f;
     hunter->vx = -hunter->vx;
@@ -182,6 +184,7 @@ int BorderCheck(WIN *w, HUNTER *hunter) {
     hunter->fy = BORDER + 0.1f;
     hunter->vy = -hunter->vy;
     return 1;
+
   } else if (hunter->fy + hunter->height >= w->rows - BORDER) {
     hunter->fy = w->rows - BORDER - hunter->height + 0.1f;
     hunter->vy = -hunter->vy;
@@ -232,9 +235,11 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
   if (hit_type == HIT_BIRD) {
     bird->health -= cfg->level.hunter_damage;
     hunter->alive = 0;
+
   } else if (hit_type == HIT_STAR) {
     FindWhichStarHunters(w, tempX, tempY, stars, cfg, rows, cols, occupancyMap);
     DrawHunter(w, hunter, rows, cols, occupancyMap);
+
   } else if (hit_type == HIT_HUNTER || hit_type == HIT_WALL) {
     hunter->fx -= hunter->vx;
     hunter->fy -= hunter->vy;
@@ -254,6 +259,7 @@ void CollisionTypeReaction(int hit_type, int tempX, int tempY, STAR *stars,
 
     if (hit_type != HIT_WALL)
       DrawHunter(w, hunter, rows, cols, occupancyMap);
+
   } else {
     DrawHunter(w, hunter, rows, cols, occupancyMap);
   }
@@ -300,14 +306,17 @@ void CollsionCheck(HUNTER *hunter, int oldX, int oldY, const int rows,
           if (cell == 'b') {
             hit_type = HIT_BIRD;
             break;
+
           } else if (cell == 's') {
             hit_type = HIT_STAR;
             tempX = mapX;
             tempY = mapY;
             break;
+
           } else if (cell == 'h') {
             hit_type = HIT_HUNTER;
             break;
+
           } else if (cell == '#') {
             hit_type = HIT_WALL;
             break;
