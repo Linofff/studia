@@ -52,13 +52,11 @@ class UploadController {
             'png' => imagecreatefrompng($sourceImagePath),
         };
 
-        [$width, $height] = getimagesize($sourceImagePath);
-        $resized = imagecreatetruecolor($targetWidth, $targetHeight);
+        $resize = imagescale($src, $targetWidth, $targetHeight);
 
-        imagecopyresampled($resized, $src, 0, 0, 0, 0, $targetWidth, $targetHeight, $width, $height);
-        imagepng($resized, $targetImagePath);
+        imagepng($resize, $targetImagePath);
 
         imagedestroy($src);
-        imagedestroy($resized);
+        imagedestroy($resize);
     }
 }

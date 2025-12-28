@@ -1,0 +1,621 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a4e224d4-7d40-4452-8d24-4a5b38cd433e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/Gallery.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/galleryview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/partials/htmlfoot.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/partials/htmlhead.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (2).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (2)_mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (3).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (3)_mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (4).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (4)_mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (5).png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (5)_mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/likephoto_mini.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/web/images/photo_mini.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/autoload.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/ClassLoader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/InstalledVersions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_classmap.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_files.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_namespaces.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_psr4.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_real.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/autoload_static.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/installed.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/installed.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/composer/platform_check.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/sbom.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/AccumulatorAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/AddToSetAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/AvgAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/BottomAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/BottomNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/CountAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/CovariancePopAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/CovarianceSampAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/DenseRankAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/DerivativeAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/DocumentNumberAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/ExpMovingAvgAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/FactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/FirstAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/FirstNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/IntegralAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/LastAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/LastNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/LinearFillAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/LocfAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MaxAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MaxNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MedianAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MergeObjectsAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MinAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/MinNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/PercentileAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/PushAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/RankAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/ShiftAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/StdDevPopAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/StdDevSampAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/SumAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/TopAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Accumulator/TopNAccumulator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/BuilderEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/CombinedFieldQueryEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/DateTimeEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/DictionaryEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/FieldPathEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/OperatorEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/OutputWindowEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/PipelineEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/QueryEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/RecursiveEncode.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Encoder/VariableEncoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AbsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AcosOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AcoshOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AddOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AllElementsTrueOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AndOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AnyElementTrueOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ArrayElemAtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ArrayFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ArrayToObjectOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AsinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AsinhOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/Atan2Operator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AtanOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AtanhOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/AvgOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BinDataFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BinarySizeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BitAndOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BitNotOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BitOrOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BitXorOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BoolFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/BsonSizeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CaseOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CeilOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CmpOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ConcatArraysOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ConcatOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CondOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ConvertOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CosOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/CoshOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateAddOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateDiffOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateFromPartsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateFromStringOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateSubtractOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateToPartsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateToStringOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DateTruncOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DayOfMonthOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DayOfWeekOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DayOfYearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DecimalFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DegreesToRadiansOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DivideOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/DoubleFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/EqOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ExpOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ExpressionFactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FilterOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FirstNOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FirstOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FloorOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/FunctionOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/GetFieldOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/GtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/GteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/HourOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IfNullOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/InOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IndexOfArrayOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IndexOfBytesOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IndexOfCPOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IntFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IsArrayOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IsNumberOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IsoDayOfWeekOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IsoWeekOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/IsoWeekYearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/JavascriptFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LastNOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LastOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LetOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LiteralOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LnOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/Log10Operator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LogOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LongFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/LtrimOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MapOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MaxNOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MaxOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MedianOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MergeObjectsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MetaOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MillisecondOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MinNOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MinuteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ModOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MonthOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/MultiplyOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/NeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/NotOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/NullFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/NumberFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ObjectFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ObjectIdFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ObjectToArrayOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/OrOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/PercentileOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/PowOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RadiansToDegreesOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RandOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RangeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ReduceOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RegexFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RegexFindAllOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RegexFindOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RegexMatchOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ReplaceAllOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ReplaceOneOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToAny.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToArray.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToBinData.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToBool.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToDate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToDecimal.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToDouble.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToInt.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToJavascript.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToLong.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToNull.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToNumber.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToObject.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToObjectId.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToRegex.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToString.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ResolvesToTimestamp.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ReverseArrayOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RoundOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/RtrimOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SecondOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetDifferenceOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetEqualsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetFieldOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetIntersectionOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetIsSubsetOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SetUnionOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SinhOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SizeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SliceOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SortArrayOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SplitOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SqrtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StdDevPopOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StdDevSampOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StrLenBytesOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StrLenCPOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StrcasecmpOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/StringFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SubstrBytesOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SubstrCPOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SubstrOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SubtractOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SumOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/SwitchOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TanOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TanhOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TimestampFieldPath.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToBoolOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToDateOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToDecimalOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToDoubleOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToHashedIndexKeyOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToIntOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToLongOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToLowerOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToObjectIdOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToStringOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ToUpperOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TrimOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TruncOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TsIncrementOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TsSecondOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/TypeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/UnsetFieldOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/Variable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/WeekOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/YearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Expression/ZipOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Pipeline.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/AllOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/AndOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/BitsAllClearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/BitsAllSetOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/BitsAnyClearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/BitsAnySetOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/BoxOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/CenterOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/CenterSphereOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/CommentOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/ElemMatchOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/EqOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/ExistsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/ExprOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/FactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/GeoIntersectsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/GeoWithinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/GeometryOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/GtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/GteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/InOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/JsonSchemaOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/LtOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/LteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/MaxDistanceOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/MinDistanceOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/ModOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NearSphereOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NorOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/NotOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/OrOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/PolygonOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/RandOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/RegexOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/SampleRateOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/SizeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/TextOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/TypeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Query/WhereOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/AutocompleteOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/CompoundOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/EmbeddedDocumentOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/EqualsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/ExistsOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/FacetOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/FactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/GeoShapeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/GeoWithinOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/InOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/MoreLikeThisOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/NearOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/PhraseOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/QueryStringOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/RangeOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/RegexOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/TextOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Search/WildcardOperator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/AddFieldsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/BucketAutoStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/BucketStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ChangeStreamSplitLargeEventStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ChangeStreamStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/CollStatsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/CountStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/CurrentOpStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/DensifyStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/DocumentsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/FacetStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/FactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/FillStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/FluentFactoryTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/GeoNearStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/GraphLookupStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/GroupStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/IndexStatsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/LimitStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ListLocalSessionsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ListSampledQueriesStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ListSearchIndexesStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ListSessionsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/LookupStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/MatchStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/MergeStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/OutStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/PlanCacheStatsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ProjectStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/RedactStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ReplaceRootStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ReplaceWithStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SampleStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SearchMetaStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SearchStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SetStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SetWindowFieldsStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/ShardedDataDistributionStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SkipStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SortByCountStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/SortStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/UnionWithStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/UnsetStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/UnwindStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Stage/VectorSearchStage.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/AccumulatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/CombinedFieldQuery.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/DictionaryInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/Encode.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/ExpressionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/FieldPathInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/FieldQueryInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/GeometryInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/OperatorExpressionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/OperatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/Optional.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/OutputWindow.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/QueryInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/QueryObject.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/SearchOperatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/Sort.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/StageInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/SwitchBranchInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/TimeUnit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Type/WindowInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Builder/Variable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/BulkWriteResult.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/ChangeStream.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Client.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/Codec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/DecodeIfSupported.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/Decoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/DocumentCodec.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/EncodeIfSupported.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Codec/Encoder.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Collection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Command/ListCollections.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Command/ListDatabases.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Database.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/DeleteResult.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/BadMethodCallException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/CreateEncryptedCollectionException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/Exception.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/InvalidArgumentException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/ResumeTokenException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/RuntimeException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/UnexpectedValueException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/UnsupportedException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Exception/UnsupportedValueException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/Bucket.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/CollectionWrapper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/Exception/CorruptFileException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/Exception/FileNotFoundException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/Exception/LogicException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/Exception/StreamException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/ReadableStream.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/StreamWrapper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/GridFS/WritableStream.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/InsertManyResult.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/InsertOneResult.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/BSONArray.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/BSONDocument.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/BSONIterator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/CachingIterator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/CallbackIterator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/ChangeStreamIterator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/CodecCursor.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/CollectionInfo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/DatabaseInfo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/IndexInfo.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/IndexInput.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Model/SearchIndexInput.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Aggregate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/BulkWrite.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Count.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/CountDocuments.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/CreateCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/CreateEncryptedCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/CreateIndexes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/CreateSearchIndexes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DatabaseCommand.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Delete.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DeleteMany.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DeleteOne.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Distinct.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DropCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DropDatabase.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DropEncryptedCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DropIndexes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/DropSearchIndex.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/EstimatedDocumentCount.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Explain.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Explainable.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Find.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/FindAndModify.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/FindOne.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/FindOneAndDelete.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/FindOneAndReplace.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/FindOneAndUpdate.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/InsertMany.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/InsertOne.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListCollectionNames.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListCollections.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListDatabaseNames.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListDatabases.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListIndexes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ListSearchIndexes.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ModifyCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/RenameCollection.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/ReplaceOne.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Update.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/UpdateMany.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/UpdateOne.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/UpdateSearchIndex.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/Watch.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/Operation/WithTransaction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/PsrLogAdapter.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/UpdateResult.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/mongodb/mongodb/src/functions.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/composer.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/AbstractLogger.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/InvalidArgumentException.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/LogLevel.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/LoggerAwareInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/LoggerAwareTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/LoggerInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/LoggerTrait.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vendor/psr/log/src/NullLogger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dev-wai.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/uploadview.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/uploadview.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/SXigGmg_.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/images/photo.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/SXigGmg__mini.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/index.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="PHP File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/controllers/Upload.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="37TnRSgIFysVN7gZaOVEUS3iXrp" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/studia/waiprojekt/dev-wai&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.PHP&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-9b0f141eb926-JavaScript-PS-253.29346.151" />
+        <option value="bundled-php-predefined-a98d8de5180a-0e0d91225499-com.jetbrains.php.sharedIndexes-PS-253.29346.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a4e224d4-7d40-4452-8d24-4a5b38cd433e" name="Changes" comment="" />
+      <created>1766935919609</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1766935919609</updated>
+      <workItem from="1766935920710" duration="2316000" />
+      <workItem from="1766938253009" duration="20658000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
