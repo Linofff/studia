@@ -8,6 +8,8 @@ class UploadController {
     public function HandleUpload(): void {
         define('allowed_extensions', ['jpg', 'jpeg', 'png']);
         define('max_size', 1024 * 1024);
+        define('width', 200);
+        define('height', 125);
 
         $file = $_FILES['file'];
         $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION);
@@ -34,13 +36,15 @@ class UploadController {
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $target_file)) {
                 echo "<p class='success'>File uploaded successfully.</p>";
+                $target_mini = target_dir.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
+                $this->resizeImage($target_file, $target_mini, width, height);
             } else {
                 echo "<p class='error'>There was an error uploading the file.</p>";
             }
         }
     }
 
-    function resizeImage($sourceImagePath, $targetImagePath, $targetWidth, $targetHeight): void {
+    private function resizeImage($sourceImagePath, $targetImagePath, $targetWidth, $targetHeight): void {
         $ext = strtolower(pathinfo($sourceImagePath, PATHINFO_EXTENSION));
 
         $src = match ($ext) {
@@ -57,5 +61,4 @@ class UploadController {
         imagedestroy($src);
         imagedestroy($resized);
     }
-
 }
