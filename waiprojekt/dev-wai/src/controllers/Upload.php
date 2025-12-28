@@ -38,6 +38,9 @@ class UploadController {
                 echo "<p class='success'>File uploaded successfully.</p>";
                 $target_mini = target_dir.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
                 $this->resizeImage($target_file, $target_mini, width, height);
+                require_once __DIR__."/../models/ImageModel.php";
+                $imageModel = new ImageModel();
+                $imageModel->saveImage(pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION), $_POST["imageauthor"], $_POST["imagetitle"]);
             } else {
                 echo "<p class='error'>There was an error uploading the file.</p>";
             }

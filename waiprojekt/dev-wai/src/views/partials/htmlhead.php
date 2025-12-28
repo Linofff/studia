@@ -8,3 +8,4 @@
     <title><?= $title ?></title>
 </head>
 <body>
+<?php require "htmlnav.php"?>

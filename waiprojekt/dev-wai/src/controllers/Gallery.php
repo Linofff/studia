@@ -31,7 +31,14 @@ class GalleryController {
         $this->currentimages = array();
         for ($i = 0; $i < $this->imagesperpage; $i++) {
             if ($i + $temp < $this->totalimages) {
-                $this->currentimages[] = $this->mini_images[$i + $temp];
+                require_once __DIR__."/../models/ImageModel.php";
+                $imageModel = new ImageModel();
+                $image = $imageModel->getImage($this->mini_images[$i + $temp]);
+                $this->currentimages[] = [
+                    "filename" => $this->mini_images[$i + $temp],
+                    "author" => $image["author"],
+                    "title" => $image["title"],
+                ];
             }
         }
     }
