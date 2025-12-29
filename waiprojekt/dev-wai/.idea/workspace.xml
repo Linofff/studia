@@ -5,23 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4e224d4-7d40-4452-8d24-4a5b38cd433e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/Login.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/controllers/Register.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/User.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/loginview.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/registerview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/savedimagesview.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Gallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Gallery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/Register.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Register.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Upload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/galleryview.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/galleryview.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/partials/htmlhead.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/htmlhead.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/partials/htmlnav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/htmlnav.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (7).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (7)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto22.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto22_mini.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/like.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/like_mini.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/profilePictures/user_6952acc901b1f1.43057050.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/ProfilesFoto/user_6952acc901b1f1.43057050.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/profilePictures/user_6952b325667bb5.88972096.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/ProfilesFoto/user_6952b325667bb5.88972096.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +40,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/controllers/Upload.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/views/galleryview.php" root0="FORCE_HIGHLIGHTING" root1="FORCE_HIGHLIGHTING" />
   </component>
   <component name="McpProjectServerCommands">
     <commands />
@@ -84,7 +81,7 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.keymap",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "to.speed.mode.migration.done": "true",
     "vue.rearranger.settings.migration": "true"
   }
@@ -112,7 +109,7 @@
       <workItem from="1766935920710" duration="2316000" />
       <workItem from="1766938253009" duration="28353000" />
       <workItem from="1766967934473" duration="52000" />
-      <workItem from="1767012134414" duration="15034000" />
+      <workItem from="1767012134414" duration="28924000" />
     </task>
     <servers />
   </component>

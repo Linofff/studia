@@ -43,7 +43,7 @@ class RegisterController {
             return;
         }
 
-        $target_dir = '../web/profilePictures/';
+        $target_dir = '../web/ProfilesFoto/';
 
         $uniqueID = uniqid("user_", true);
         $finalFileName = $uniqueID . ".png";

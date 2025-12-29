@@ -7,10 +7,11 @@
     <title><?= $title ?></title>
     <style>
         * {
-            background-color: black;
+            background-color: #1f1f1f;
             color: white;
         }
     </style>
 </head>
 <body>
 <?php require "htmlnav.php"?>
+<br>

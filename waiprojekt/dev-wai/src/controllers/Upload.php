@@ -36,6 +36,7 @@ class UploadController {
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $target_file)) {
                 echo "<p class='success'>File uploaded successfully.</p>";
+                echo "<a href='/gallery'>Go to the gallery</a>";
                 $target_mini = target_dir.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
                 resizeImage($target_file, $target_mini, width, height);
                 require_once __DIR__."/../models/ImageModel.php";
