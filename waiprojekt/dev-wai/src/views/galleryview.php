@@ -5,7 +5,7 @@ require "partials/htmlhead.php";
     <div class="photos">
         <?php foreach ($currentimages as $image): ?>
         <div>
-            <img src="<?= "images/" . $image["filename"] ?>" alt="<?= $image["author"] ?>" title="<?= $image["title"] ?>">
+            <img src="<?= "images/" . $image["filename"] ?>">
             <p>Author: <?= $image["author"] ?>, Title: <?= $image["title"] ?></p>
         </div>
         <?php endforeach; ?>

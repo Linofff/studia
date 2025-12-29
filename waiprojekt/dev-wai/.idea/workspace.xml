@@ -5,38 +5,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a4e224d4-7d40-4452-8d24-4a5b38cd433e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/models/ImageModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Mongo.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/partials/htmlnav.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/Login.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/controllers/Register.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/models/User.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/loginview.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/registerview.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/Gallery.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Gallery.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/Upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/Upload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/galleryview.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/galleryview.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/partials/htmlhead.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/htmlhead.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/uploadview.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/uploadview.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (10).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (10)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (2).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (2)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (3).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (3)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (4).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (4)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (5).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (5)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (9).png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (9)_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto_mini.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/photo.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/web/images/photo_mini.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/partials/htmlnav.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/htmlnav.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (7).png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto2 - Copy (7)_mini.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto22.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/images/likephoto22_mini.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/web/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="FileTemplateManagerImpl">
@@ -56,6 +49,13 @@
     <commands />
     <urls />
   </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/mongodb/mongodb" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -67,28 +67,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/studia/waiprojekt/dev-wai&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.PHP&quot;,
-    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.MCP Project settings loaded": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
+    "git-widget-placeholder": "main",
+    "junie.onboarding.icon.badge.shown": "true",
+    "last_opened_file_path": "D:/studia/waiprojekt/dev-wai",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "to.speed.mode.migration.done": "true",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\studia\waiprojekt\dev-wai\src\views" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -105,7 +110,9 @@
       <option name="presentableId" value="Default" />
       <updated>1766935919609</updated>
       <workItem from="1766935920710" duration="2316000" />
-      <workItem from="1766938253009" duration="26768000" />
+      <workItem from="1766938253009" duration="28353000" />
+      <workItem from="1766967934473" duration="52000" />
+      <workItem from="1767012134414" duration="15034000" />
     </task>
     <servers />
   </component>
