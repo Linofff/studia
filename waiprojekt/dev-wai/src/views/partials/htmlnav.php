@@ -10,7 +10,6 @@
         <?php echo isset($_SESSION['selected_images']) ? array_sum($_SESSION['selected_images']) : 0 ?>
         <?php if (isset($_SESSION['user_id'])): ?>
 
-
             <span style="color: green;">
                 Logged in as: <strong><?= htmlspecialchars($_SESSION['user_login']) ?></strong>
             </span>

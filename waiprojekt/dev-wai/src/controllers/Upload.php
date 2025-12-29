@@ -35,13 +35,31 @@ class UploadController {
             $target_file = target_dir . basename($_FILES['file']['name']);
 
             if (move_uploaded_file($_FILES['file']['tmp_name'], $target_file)) {
+
+                if (isset($_SESSION['user_id'])) {
+                    $author = $_SESSION['user_login'];
+                    $privacy = isset($_POST['privacy']) && $_POST['privacy'] === 'private' ? 'private' : 'public';
+                } else {
+                    $author = $_POST["imageauthor"];
+                    $privacy = 'public';
+                }
+
                 echo "<p class='success'>File uploaded successfully.</p>";
                 echo "<a href='/gallery'>Go to the gallery</a>";
+
                 $target_mini = target_dir.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
                 resizeImage($target_file, $target_mini, width, height);
+
                 require_once __DIR__."/../models/ImageModel.php";
                 $imageModel = new ImageModel();
-                $imageModel->saveImage(pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION), $_POST["imageauthor"], $_POST["imagetitle"]);
+
+                $imageModel->saveImage(
+                    pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION),
+                    $author,
+                    $_POST['imagetitle'],
+                    $privacy
+                );
+
             } else {
                 echo "<p class='error'>There was an error uploading the file.</p>";
             }

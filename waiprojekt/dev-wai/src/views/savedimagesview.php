@@ -2,22 +2,22 @@
 $title = "Saved Images";
 require "partials/htmlhead.php";
 ?>
-    <h2>Twoje wybrane zdjęcia</h2>
+    <h2>Your selected photos</h2>
 
 <?php if (empty($favoriteImages)): ?>
-    <p>Brak zapamiętanych zdjęć.</p>
-    <a href="/gallery">Wróć do galerii</a>
+    <p>No photos selected.</p>
+    <a href="/gallery">Go back to gallery</a>
 <?php else: ?>
 
     <form method="POST">
         <div class="photos">
             <?php foreach ($favoriteImages as $image): ?>
-                <div class="photo-card" style="border: 1px solid white; margin: 10px; padding: 10px;">
+                <div style="border: 1px solid white; margin: 10px; padding: 10px;">
                     <img src="<?= "images/" . $image["filename"] ?>" alt="image">
-                    <p>Tytuł: <?= $image["title"] ?> Autor: <?= $image["author"] ?></p>
+                    <p>Title: <?= $image["title"] ?> Author: <?= $image["author"] ?></p>
 
                     <label style="display:block; margin: 10px 0;">
-                        Ilość odbitek:
+                        Copies:
                         <input type="number"
                                name="quantities[<?= $image['filename'] ?>]"
                                value="<?= $image['quantity'] ?>"
@@ -27,7 +27,7 @@ require "partials/htmlhead.php";
 
                     <label style="color:red; cursor: pointer;">
                         <input type="checkbox" name="remove_checks[]" value="<?= $image['filename'] ?>">
-                        Zaznacz, aby usunąć
+                        Check to delete
                     </label>
                 </div>
             <?php endforeach; ?>
@@ -37,13 +37,13 @@ require "partials/htmlhead.php";
             <button type="submit"
                     formaction="/saved/update"
                     style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer;">
-                Zapisz zmienione ilości
+                Remember changed values
             </button>
 
             <button type="submit"
                     formaction="/saved/remove"
                     style="background-color: #f44336; color: white; padding: 10px 20px; border: none; margin-left: 10px; cursor: pointer;">
-                Usuń zaznaczone
+                Remove selected
             </button>
         </div>
     </form>

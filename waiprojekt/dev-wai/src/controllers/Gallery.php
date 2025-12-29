@@ -103,35 +103,36 @@ class GalleryController {
     private function GetImagesForPage($page): void {
         $temp = $this->currentpage * $this->imagesperpage;
         $this->currentimages = array();
+
+        require_once __DIR__."/../models/ImageModel.php";
+        $imageModel = new ImageModel();
+
         for ($i = 0; $i < $this->imagesperpage; $i++) {
             if ($i + $temp < $this->totalimages) {
-                require_once __DIR__ . "/../models/ImageModel.php";
-                $imageModel = new ImageModel();
-                // Check if index exists to avoid errors
                 if (isset($this->mini_images[$i + $temp])) {
-                    $image = $imageModel->getImage($this->mini_images[$i + $temp]);
-                    $this->currentimages[] = [
-                        "filename" => $this->mini_images[$i + $temp],
-                        "author" => $image["author"],
-                        "title" => $image["title"],
-                    ];
+                    $filename = $this->mini_images[$i + $temp];
+                    $image = $imageModel->getImage($filename);
+                    if ($image) {
+                        $this->currentimages[] = [
+                            "filename" => $filename,
+                            "author" => $image["author"],
+                            "title" => $image["title"],
+                            "privacy" => isset($image["privacy"]) ? $image["privacy"] : 'public',
+                        ];
+                    }
                 }
             }
         }
     }
 
     private function FetchImages(): void {
-        $dir = "../web/images";
-        if (is_dir($dir)) {
-            $files = scandir($dir);
-            foreach ($files as $file) {
-                if ($file != "." && $file != "..") {
-                    if (str_contains($file, "_mini")) {
-                        $this->mini_images[] = $file;
-                        $this->totalimages++;
-                    }
-                }
-            }
-        }
+       require_once __DIR__ . "/../models/ImageModel.php";
+       $imageModel = new ImageModel();
+
+       $user = isset($_SESSION['user_login']) ? $_SESSION['user_login'] : null;
+
+       $this->mini_images = $imageModel->getAllowedImagesNames($user);
+
+       $this->totalimages = count($this->mini_images);
     }
 }

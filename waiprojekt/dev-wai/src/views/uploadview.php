@@ -13,12 +13,31 @@ require "partials/htmlhead.php" ?>
             <input type="text" name="imagetitle">
         </label>
         <br>
+        <?php if (isset($_SESSION['user_id'])): ?>
         <label>
             Input image author
-            <input type="text" name="imageauthor">
-        </label>
-        <br>
-        <input type="submit" value="upload">
+            <input type="text" name="imageauthor" value="<?= $_SESSION['user_login'] ?>">
+            <div style="margin: 10px 0;">
+                <span>Photo Visibility</span>
+
+                <label style="margin-right: 15px; cursor: pointer;">
+                    <input type="radio" name="privacy" value="public" checked>
+                    public
+                </label>
+
+                <label style="cursor: pointer;">
+                    <input type="radio" name="privacy" value="private">
+                    private
+                </label>
+            </div>
+            <?php else: ?>
+                <label>
+                    Input image author
+                    <input type="text" name="imageauthor">
+                </label>
+            <?php endif; ?>
+            <br>
+            <input type="submit" value="upload">
     </form>
 <?php
 require "partials/htmlfoot.php" ?>
