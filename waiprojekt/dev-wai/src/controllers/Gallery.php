@@ -43,7 +43,8 @@ class GalleryController {
                 }
             }
         }
-        header("Location: /gallery");
+        $page = isset($_POST['page']) ? intval($_POST['page']) : 0;
+        header("Location: /gallery?page=$page");
         exit;
     }
 

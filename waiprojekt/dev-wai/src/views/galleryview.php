@@ -5,18 +5,15 @@ require "partials/htmlhead.php";
     <h2>Gallery</h2>
 
     <form action="/gallery/save" method="POST">
+        <input type="hidden" name="page" value="<?php echo $currentpage; ?>">
         <div class="photos">
             <?php if (empty($currentimages)): ?>
                 <p>No photos to display.</p>
             <?php else: ?>
                 <?php foreach ($currentimages as $image): ?>
-                    <div style="border: solid 1px white; margin: 10px; padding: 10px;">
+                    <div class="photo-card">
                         <img src="<?= "images/" . $image["filename"] ?>" alt="image">
                         <p>Author: <?= $image["author"] ?>, Title: <?= $image["title"] ?></p>
-
-                        <?php if (isset($image['privacy']) && $image['privacy'] === 'private'): ?>
-                            <p style="color: red; font-weight: bold;">(Private Photo)</p>
-                        <?php endif; ?>
 
                         <label>
                             <?php
@@ -25,21 +22,22 @@ require "partials/htmlhead.php";
                             <input type="checkbox" name="checks[]" value="<?= $image['filename'] ?>" <?= $isChecked ?>>
                             Remember this photo
                         </label>
+
+                        <?php if (isset($image['privacy']) && $image['privacy'] === 'private'): ?>
+                            <p style="color: red; font-weight: bold;">(Private Photo)</p>
+                        <?php endif; ?>
+
                     </div>
                 <?php endforeach; ?>
             <?php endif; ?>
         </div>
 
-        <button type="submit">Remember Selected</button>
+        <button class="submit_button" type="submit">Remember Selected</button>
     </form>
 
-    <div>
-        <?php
-        // Safety check for next button logic
-        $maxPage = ($this->totalimages > 0) ? floor($this->totalimages / $this->imagesperpage) : 0;
-        ?>
+    <div class="page_links">
         <a href="/gallery?page=<?= $currentpage-1 > 0 ? $currentpage - 1 : 0 ?>">prev</a>
-        <a href="/gallery?page=<?= $currentpage+1 < $maxPage ? $currentpage+1 : $maxPage ?>">next</a>
+        <a href="/gallery?page=<?= $currentpage+1 < floor($this->totalimages / $this->imagesperpage) ? $currentpage+1 : floor($this->totalimages / $this->imagesperpage) ?>">next</a>
     </div>
 <?php
 require "partials/htmlfoot.php"; ?>

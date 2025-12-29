@@ -2,7 +2,7 @@
 $title = "UploadPhoto";
 require "partials/htmlhead.php" ?>
     <h2>Upload Photo</h2>
-    <form action="/" method="POST" enctype="multipart/form-data">
+    <form class="form_class" action="/" method="POST" enctype="multipart/form-data">
         <label>
             Choose photo to upload
             <input type="file" name="file">
@@ -36,7 +36,6 @@ require "partials/htmlhead.php" ?>
                     <input type="text" name="imageauthor">
                 </label>
             <?php endif; ?>
-            <br>
             <input type="submit" value="upload">
     </form>
 <?php

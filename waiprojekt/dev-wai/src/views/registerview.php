@@ -3,7 +3,7 @@ $title = "Register";
 require "partials/htmlhead.php" ?>
     <h2>Register</h2>
 
-    <form action="/register" method="POST" enctype="multipart/form-data">
+    <form class="form_class" action="/register" method="POST" enctype="multipart/form-data">
         <label>Email: <input type="email" name="email" required></label><br>
         <label>Login: <input type="text" name="login" required></label><br>
         <label>Password: <input type="password" name="password" required></label><br>
