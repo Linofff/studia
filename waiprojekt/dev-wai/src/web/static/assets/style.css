@@ -1,0 +1,62 @@
+* {
+    background-color: #1f1f1f;
+    color: white;
+}
+
+.nav_gallery_section{
+    display: flex;
+    gap: 15px;
+}
+
+.profile_picture {
+    width: 20px;
+    height: 20px;
+    border: solid 1px
+}
+
+.nav_user_section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.private_photo_text {
+    color: red;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.photo-card {
+    border: 1px solid white;
+    padding: 10px;
+    max-width: 250px;
+}
+.submit_button {
+    margin-top: 5px;
+    padding-top: 3px;
+}
+.page_links a {
+    border: solid 1px white;
+    padding: 3px;
+    text-decoration: none;
+}
+.page_links {
+    margin-top: 10px;
+}
+
+.form_class input {
+    margin-top: 7px;
+}

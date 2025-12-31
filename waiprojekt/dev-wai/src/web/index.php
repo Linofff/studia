@@ -3,7 +3,6 @@ session_start();
 require "../utils.php";
 require "../Router.php";
 
-
 $router = new Router();
 
 $router->AddRoute("/", "Upload", "ShowView", "GET");
