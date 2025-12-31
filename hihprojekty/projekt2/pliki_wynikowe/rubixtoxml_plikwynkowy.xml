@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CubeRoot><CreatorProfile bio_link="https://en.wikipedia.org/wiki/Ern%C5%91_Rubik"><PersonalDetails><Ernő_Rubik>Dane biograficzne twórcy kostki rubika</Ernő_Rubik><Citizenship Węgierskie="tak"/><awards>
+      <award>
+        <name>Wielki Krzyż Orderu Świętego Stefana</name>
+        <year>2014</year>
+      </award>
+    </awards></PersonalDetails></CreatorProfile><MethodRepository><MethodEntry name="LBL" release_date="1975"><TechnicalDescription><description> To najprostsza i najbardziej intuicyjna metoda, od której zaczyna większość
+        początkujących. lookahead oraz intuicja odgrywają kluczową rolę. </description><DifficultyLevel>easy</DifficultyLevel></TechnicalDescription></MethodEntry><MethodEntry name="CFOP" release_date="1981"><TechnicalDescription><description> Najpopularniejsza metoda wśród speedcuberów, znana również jako metoda
+        Fridrich'a. </description><DifficultyLevel>medium high</DifficultyLevel></TechnicalDescription></MethodEntry><MethodEntry name="Roux" release_date="2003"><TechnicalDescription><description> Metoda Roux, stworzona przez francuskiego speedcubera Gilles’a Roux, jest mniej
+        popularna niż CFOP, ale zyskuje coraz więcej zwolenników ze względu na swoją efektywność i
+        logiczne podejście. </description><DifficultyLevel>easy medium</DifficultyLevel></TechnicalDescription></MethodEntry><MethodEntry name="ZZ" release_date="2006"><TechnicalDescription><description> Metoda ZZ pozwala ograniczyć użycie obrotów w osi U i poprawia ergonomię ułożeń. </description><DifficultyLevel>8/10</DifficultyLevel></TechnicalDescription></MethodEntry></MethodRepository></CubeRoot>
