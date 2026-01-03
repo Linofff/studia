@@ -24,7 +24,7 @@ require "partials/htmlhead.php";
                         </label>
 
                         <?php if (isset($image['privacy']) && $image['privacy'] === 'private'): ?>
-                            <p class="private_photo_text"">(Private Photo)</p>
+                            <p class="private_photo_text">(Private Photo)</p>
                         <?php endif; ?>
 
                     </div>

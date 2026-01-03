@@ -15,9 +15,9 @@ require "partials/htmlhead.php" ?>
         <br>
         <?php if (isset($_SESSION['user_id'])): ?>
         <label>
-            Input image author
-            <input type="text" name="imageauthor" value="<?= $_SESSION['user_login'] ?>">
-            <div style="margin: 10px 0;">
+<!--            Input image author
+            <input type="text" name="imageauthor" value="<?php /*= $_SESSION['user_login'] */?>">
+-->            <div style="margin: 10px 0;">
                 <span>Photo Visibility</span>
 
                 <label style="margin-right: 15px; cursor: pointer;">

@@ -24,8 +24,8 @@ class ImageModel {
         return $image;
     }
 
-    public function GetAllowedImagesNames($currentUser): array {
-        if ($currentUser){
+    public function GetAllowedImagesPaged($currentUser, $limit, $skip): array {
+        if ($currentUser) {
             $filter = [
                 '$or' => [
                     ['privacy' => 'public'],
@@ -36,13 +36,23 @@ class ImageModel {
             $filter = ['privacy' => 'public'];
         }
 
-        $cursor = $this->collection->find($filter, ['projection' => ['filename' => 1]]);
+        $options = [
+            'limit' => $limit,
+            'skip' => $skip,
+            'projection' => ['filename' => 1, 'author' => 1, 'title' => 1, 'privacy' => 1],
+        ];
 
-        $resoults = [];
-        foreach ($cursor as $document) {
-            $resoults[] = $document["filename"];
-        }
-        return $resoults;
+        $cursor = $this->collection->find($filter, $options);
+
+        return $cursor->toArray();
+    }
+
+    public function CountAllowedImages($currentUser): int {
+        $filter = ($currentUser)
+            ? ['$or' => [['privacy' => 'public'], ['privacy' => 'private', 'author' => $currentUser]]]
+            : ['privacy' => 'public'];
+
+        return $this->collection->countDocuments($filter);
     }
 
 }

@@ -12,17 +12,17 @@ require "partials/htmlhead.php";
     <form method="POST">
         <div class="photos">
             <?php foreach ($favoriteImages as $image): ?>
-                <div style="border: 1px solid white; margin: 10px; padding: 10px;">
+                <div class="saved_gallery">
                     <img src="<?= "images/" . $image["filename"] ?>" alt="image">
                     <p>Title: <?= $image["title"] ?> Author: <?= $image["author"] ?></p>
 
-                    <label style="display:block; margin: 10px 0;">
+                    <label class="saved_gallery_label">
                         Copies:
                         <input type="number"
                                name="quantities[<?= $image['filename'] ?>]"
                                value="<?= $image['quantity'] ?>"
                                min="1"
-                               style="width: 60px; text-align: center; padding: 5px;">
+                               class="quantity">
                     </label>
 
                     <label style="color:red; cursor: pointer;">
@@ -33,16 +33,16 @@ require "partials/htmlhead.php";
             <?php endforeach; ?>
         </div>
 
-        <div style="margin-top: 20px; padding: 10px; border-top: 1px solid #ccc;">
+        <div class="saved_gallery_buttons_div">
             <button type="submit"
                     formaction="/saved/update"
-                    style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer;">
+                    class="update_values_button">
                 Remember changed values
             </button>
 
             <button type="submit"
                     formaction="/saved/remove"
-                    style="background-color: #f44336; color: white; padding: 10px 20px; border: none; margin-left: 10px; cursor: pointer;">
+                    class="remove_selected_button">
                 Remove selected
             </button>
         </div>
