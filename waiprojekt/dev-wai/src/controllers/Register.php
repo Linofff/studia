@@ -8,10 +8,11 @@ class RegisterController {
         require "../views/registerview.php";
     }
 
-    public function HandleRegister(): void {
-        define('width', 100);
-        define('height', 100);
+    const int WIDTH = 100;
+    const int HEIGHT = 100;
+    const string TARGET_DIR = '../web/ProfilesFoto/';
 
+    public function HandleRegister(): void {
         $email = $_POST['email'];
         $login = $_POST['login'];
         $pass = $_POST['password'];
@@ -33,18 +34,17 @@ class RegisterController {
             return;
         }
 
-        $target_dir = '../web/ProfilesFoto/';
 
         $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $uniqueID = uniqid("user_", true);
         $finalFileName = $uniqueID . ".png";
-        $finalFilePath = $target_dir . $finalFileName;
+        $finalFilePath = self::TARGET_DIR . $finalFileName;
 
-        $tempFilePath = $target_dir . $uniqueID . "_temp." . $file_extension;
+        $tempFilePath = self::TARGET_DIR . $uniqueID . "_temp." . $file_extension;
 
         if (move_uploaded_file($file['tmp_name'], $tempFilePath)) {
             try {
-                ImageUtils::resizeImage($tempFilePath, $finalFilePath, width, height);
+                ImageUtils::resizeImage($tempFilePath, $finalFilePath, self::WIDTH, self::HEIGHT);
                 if (file_exists($tempFilePath)) {
                     unlink($tempFilePath);
                 }
