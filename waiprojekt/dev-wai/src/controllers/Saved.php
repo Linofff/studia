@@ -11,18 +11,17 @@ class SavedController {
         }
     }
 
-
     public function ShowView(): void {
         $selected = $_SESSION['selected_images'];
         $selectedImages = [];
 
-        require_once __DIR__ . "/../models/ImageModel.php";
-        $imageModel = new ImageModel();
+        require_once __DIR__ . "/../models/Image.php";
+        $imageModel = new Image();
 
         foreach ($selected as $filename => $qty) {
             $image = $imageModel->getImage($filename);
             if ($image) {
-                $favoriteImages[] = [
+                $selectedImages[] = [
                     "filename" => $filename,
                     "author" => $image['author'],
                     "title" => $image['title'],

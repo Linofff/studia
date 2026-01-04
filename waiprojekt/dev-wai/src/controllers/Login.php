@@ -16,6 +16,7 @@ class LoginController {
 
         if ($user) {
             if (session_status() === PHP_SESSION_NONE) { session_start(); }
+            session_regenerate_id(true);
 
             $_SESSION["user_id"] = (string)$user["_id"];
             $_SESSION["user_login"] = $user["login"];

@@ -1,9 +1,14 @@
 <?php
 require_once "Mongo.php";
 
-class ImageModel {
+class Image {
     private $mongo;
     private $collection;
+
+    public function __construct() {
+        $this->mongo = new Mongo();
+        $this->collection = $this->mongo->GetDatabase()->images;
+    }
 
     public function saveImage($file, $author, $title, $privacy): void {
         $this->collection->insertOne([
@@ -12,11 +17,6 @@ class ImageModel {
             "filename" => $file,
             "privacy" => $privacy
         ]);
-    }
-
-    public function __construct() {
-        $this->mongo = new Mongo();
-        $this->collection = $this->mongo->GetDatabase()->images;
     }
 
     public function getImage($filename) {

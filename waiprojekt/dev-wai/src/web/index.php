@@ -5,8 +5,10 @@ require "../Router.php";
 
 $router = new Router();
 
-$router->AddRoute("/", "Upload", "ShowView", "GET");
-$router->AddRoute("/", "Upload", "HandleUpload", "POST");
+$router->AddRoute("/", "Home", "ShowView", "GET");
+
+$router->AddRoute("/upload", "Upload", "ShowView", "GET");
+$router->AddRoute("/upload", "Upload", "HandleUpload", "POST");
 
 $router->AddRoute("/gallery", "Gallery", "ShowView", "GET");
 $router->AddRoute("/gallery/save", "Gallery", "SaveSelection", "POST");

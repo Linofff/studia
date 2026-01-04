@@ -9,6 +9,9 @@ class RegisterController {
     }
 
     public function HandleRegister(): void {
+        define('width', 100);
+        define('height', 100);
+
         $email = $_POST['email'];
         $login = $_POST['login'];
         $pass = $_POST['password'];
@@ -18,22 +21,9 @@ class RegisterController {
             echo "Passwords do not match.";
             return;
         }
-        define('allowed_extensions', ['jpg', 'jpeg', 'png']);
-        define('max_size', 1024 * 1024);
-        define('width', 200);
-        define('height', 200);
 
-        $file = $_FILES['profile_picture'];
-        $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        $errors = [];
-
-        if (!in_array($file_extension, allowed_extensions)) {
-            $errors[] = 'File extension is not allowed. Allowed extensions are: ' . implode(', ', allowed_extensions);
-        }
-
-        if ($file['size'] > max_size) {
-            $errors[] = 'File size is too large. Max size is ' . max_size . ' bytes.';
-        }
+        $file = $_FILES['file'];
+        $errors = ImageUtils::checkImageForErrors($file);
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
@@ -45,6 +35,7 @@ class RegisterController {
 
         $target_dir = '../web/ProfilesFoto/';
 
+        $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
         $uniqueID = uniqid("user_", true);
         $finalFileName = $uniqueID . ".png";
         $finalFilePath = $target_dir . $finalFileName;
@@ -52,9 +43,8 @@ class RegisterController {
         $tempFilePath = $target_dir . $uniqueID . "_temp." . $file_extension;
 
         if (move_uploaded_file($file['tmp_name'], $tempFilePath)) {
-
             try {
-                resizeImage($tempFilePath, $finalFilePath, width, height);
+                ImageUtils::resizeImage($tempFilePath, $finalFilePath, width, height);
                 if (file_exists($tempFilePath)) {
                     unlink($tempFilePath);
                 }
@@ -63,6 +53,7 @@ class RegisterController {
                 if ($userModel->Register($email, $login, $pass, $finalFileName)) {
                     header("Location: /login");
                     exit();
+
                 } else {
                     echo "<p style='color:red'>Registration failed. Login or Email already taken.</p>";
                 }
@@ -73,7 +64,5 @@ class RegisterController {
             echo "<p style='color:red'>There was an error uploading the file.</p>";
         }
     }
-
-    // Your exact function from Upload.php
 
 }

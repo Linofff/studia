@@ -1,8 +1,7 @@
 <?php
 
 class GalleryController {
-    private array $mini_images;
-    private $imagesperpage = 5;
+    private $imagesperpage = 4;
     private $totalimages = 0;
     private $currentpage = 0;
     private array $currentimages;
@@ -17,7 +16,6 @@ class GalleryController {
     }
 
     public function ShowView(): void {
-
         $this->FetchImages();
 
         $currentimages = $this->currentimages;
@@ -27,8 +25,8 @@ class GalleryController {
     }
 
     private function FetchImages(): void {
-        require_once __DIR__ . "/../models/ImageModel.php";
-        $imageModel = new ImageModel();
+        require_once __DIR__ . "/../models/Image.php";
+        $imageModel = new Image();
         $user = $_SESSION['user_login'] ?? null;
 
         $this->totalimages = $imageModel->CountAllowedImages($user);
@@ -50,6 +48,5 @@ class GalleryController {
         header("Location: /gallery?page=$page");
         exit;
     }
-
 
 }

@@ -1,42 +1,50 @@
 <?php
 $title = "UploadPhoto";
 require "partials/htmlhead.php" ?>
+
     <h2>Upload Photo</h2>
-    <form class="form_class" action="/" method="POST" enctype="multipart/form-data">
-        <label>
-            Choose photo to upload
-            <input type="file" name="file">
-        </label>
-        <br>
-        <label>
-            Input image title
-            <input type="text" name="imagetitle">
-        </label>
-        <br>
-        <?php if (isset($_SESSION['user_id'])): ?>
-        <label>
-<!--            Input image author
-            <input type="text" name="imageauthor" value="<?php /*= $_SESSION['user_login'] */?>">
--->            <div style="margin: 10px 0;">
-                <span>Photo Visibility</span>
+    <form class="form_class" action="/upload" method="POST" enctype="multipart/form-data">
 
-                <label style="margin-right: 15px; cursor: pointer;">
-                    <input type="radio" name="privacy" value="public" checked>
-                    public
-                </label>
+        <div class="form-group">
+            <label for="file_input">Choose photo to upload</label>
+            <input type="file" name="file" id="file_input">
+        </div>
 
-                <label style="cursor: pointer;">
-                    <input type="radio" name="privacy" value="private">
-                    private
-                </label>
-            </div>
+        <div class="form-group">
+            <label for="imagetitle">Input image title</label>
+            <input type="text" name="imagetitle" id="imagetitle">
+        </div>
+
+        <div class="form-group">
+            <label for="imageauthor">Input image author</label>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <input type="text" name="imageauthor" id="imageauthor"
+                       value="<?= htmlspecialchars($_SESSION['user_login']) ?>">
             <?php else: ?>
-                <label>
-                    Input image author
-                    <input type="text" name="imageauthor">
-                </label>
+                <input type="text" name="imageauthor" id="imageauthor">
             <?php endif; ?>
-            <input type="submit" value="upload">
+        </div>
+
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <div style="margin: 10px 0;">
+                <fieldset style="border: none; padding: 0; margin: 0;">
+                    <legend style="margin-bottom: 5px;">Photo Visibility</legend>
+
+                    <label style="margin-right: 15px; cursor: pointer;">
+                        <input type="radio" name="privacy" value="public" checked>
+                        public
+                    </label>
+
+                    <label style="cursor: pointer;">
+                        <input type="radio" name="privacy" value="private">
+                        private
+                    </label>
+                </fieldset>
+            </div>
+        <?php endif; ?>
+
+        <input type="submit" value="upload">
     </form>
+
 <?php
 require "partials/htmlfoot.php" ?>

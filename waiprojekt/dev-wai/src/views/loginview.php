@@ -5,7 +5,7 @@ require "partials/htmlhead.php" ?>
 
 <form class="form_class" action="/login" method="POST">
     <label>
-        Login:
+        Login or email:
         <input type="text" name="login" required>
     </label>
     <label>

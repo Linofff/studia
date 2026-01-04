@@ -6,25 +6,11 @@ class UploadController {
     }
 
     public function HandleUpload(): void {
-        define('allowed_extensions', ['jpg', 'jpeg', 'png']);
-        define('max_size', 1024 * 1024);
         define('width', 200);
         define('height', 125);
 
         $file = $_FILES['file'];
-        $file_extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-
-        $errors = [];
-
-        if (!in_array($file_extension, allowed_extensions)) {
-            $errors[] = 'File extension is not allowed. Allowed extensions are: ' . implode(', ', allowed_extensions);
-            $errors[] = 'Your file extension: <b> ' . $file_extension . '</b>';
-        }
-
-        if ($file['size'] > max_size) {
-            $errors[] = 'File size is too large. Max size is ' . max_size . ' bytes.';
-            $errors[] = 'File size is ' . $file['size'] . ' bytes.';
-        }
+        $errors = ImageUtils::checkImageForErrors($file);
 
         if (!empty($errors)) {
             foreach ($errors as $error) {
@@ -32,26 +18,29 @@ class UploadController {
             }
         } else {
             define('target_dir', 'images/');
-            $target_file = target_dir . basename($_FILES['file']['name']);
 
-            if (move_uploaded_file($_FILES['file']['tmp_name'], $target_file)) {
+            $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+            $unique_name = uniqid('img_', true);
+            $new_file_name = $unique_name . '.' . $file_extension;
+            $target_file = target_dir . $new_file_name;
+
+            if (move_uploaded_file($file['tmp_name'], $target_file)) {
 
                 if (isset($_SESSION['user_id'])) {
-                    $author = $_SESSION['user_login'];
                     $privacy = isset($_POST['privacy']) && $_POST['privacy'] === 'private' ? 'private' : 'public';
                 } else {
-                    $author = $_POST["imageauthor"];
                     $privacy = 'public';
                 }
+                $author = $_POST["imageauthor"];
 
                 echo "<p class='success'>File uploaded successfully.</p>";
                 echo "<a href='/gallery'>Go to the gallery</a>";
 
                 $target_mini = target_dir.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
-                resizeImage($target_file, $target_mini, width, height);
+                ImageUtils::resizeImage($target_file, $target_mini, width, height);
 
-                require_once __DIR__."/../models/ImageModel.php";
-                $imageModel = new ImageModel();
+                require_once __DIR__ . "/../models/Image.php";
+                $imageModel = new Image();
 
                 $imageModel->saveImage(
                     pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION),

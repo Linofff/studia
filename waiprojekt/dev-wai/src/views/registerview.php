@@ -10,7 +10,7 @@ require "partials/htmlhead.php" ?>
         <label>Repeat Password: <input type="password" name="repeat_password" required></label><br>
 
         <label>Profile Picture:
-            <input type="file" name="profile_picture" accept="image/jpeg, image/png" required>
+            <input type="file" name="file" accept="image/jpeg, image/png" required>
         </label>
         <br>
 
