@@ -1,7 +1,7 @@
 <link href="/static/assets/style.css" rel="stylesheet">
 <nav style="display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid white">
     <div class="nav_gallery_section">
-        <a href="/"><img style="width: 20px; height: 20px" src="/static/assets/hause.svg"></a>
+        <a href="/"><img style="width: 20px; height: 20px" src="/static/assets/hause.svg" alt="Home"></a>
         <a href="/upload">Upload</a>
         <a href="/gallery">Gallery</a>
     </div>

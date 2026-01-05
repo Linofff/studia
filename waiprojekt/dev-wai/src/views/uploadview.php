@@ -19,7 +19,7 @@ require "partials/htmlhead.php" ?>
             <label for="imageauthor">Input image author</label>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <input type="text" name="imageauthor" id="imageauthor"
-                       value="<?= htmlspecialchars($_SESSION['user_login']) ?>">
+                       value="<?= ($_SESSION['user_login']) ?>">
             <?php else: ?>
                 <input type="text" name="imageauthor" id="imageauthor">
             <?php endif; ?>

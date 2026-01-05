@@ -19,7 +19,8 @@ class RegisterController {
         $repeat = $_POST['repeat_password'];
 
         if ($pass !== $repeat) {
-            echo "Passwords do not match.";
+            echo "<p style='color:red'>" . "Passwords do not match." . "</p>";
+            $this->ShowView();
             return;
         }
 
@@ -56,12 +57,15 @@ class RegisterController {
 
                 } else {
                     echo "<p style='color:red'>Registration failed. Login or Email already taken.</p>";
+                    $this->ShowView();
                 }
             } catch (Exception $e) {
                 echo "<p style='color:red'>Error processing image.</p>";
+                $this->ShowView();
             }
         } else {
             echo "<p style='color:red'>There was an error uploading the file.</p>";
+            $this->ShowView();
         }
     }
 

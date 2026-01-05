@@ -25,7 +25,8 @@ class LoginController {
             header("Location: /");
             exit();
         } else {
-            echo "Invalid login or password <a href='/login'>Try again</a>";
+            echo "<p style='color:red'>" . "Invalid login or password. Try Again" . "</p>";
+            $this->ShowView();
         }
     }
 

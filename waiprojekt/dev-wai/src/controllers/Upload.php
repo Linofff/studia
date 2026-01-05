@@ -1,13 +1,13 @@
 <?php
 
 class UploadController {
-    public function ShowView(): void {
-        require "../views/uploadview.php";
-    }
-
     const int WIDTH = 200;
     const int HEIGHT = 125;
     const string TARGET_DIR = 'images/';
+
+    public function ShowView(): void {
+        require "../views/uploadview.php";
+    }
 
     public function HandleUpload(): void {
         $file = $_FILES['file'];
@@ -17,6 +17,7 @@ class UploadController {
             foreach ($errors as $error) {
                 echo "<p class='error'>" . $error . "</p>";
             }
+            $this->ShowView();
         } else {
 
             $file_extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
@@ -34,7 +35,7 @@ class UploadController {
                 $author = $_POST["imageauthor"];
 
                 echo "<p class='success'>File uploaded successfully.</p>";
-                echo "<a href='/gallery'>Go to the gallery</a>";
+                $this->ShowView();
 
                 $target_mini = self::TARGET_DIR.pathinfo($target_file, PATHINFO_FILENAME)."_mini.".pathinfo($target_file, PATHINFO_EXTENSION);
                 ImageUtils::resizeImage($target_file, $target_mini, self::WIDTH, self::HEIGHT);
@@ -51,6 +52,7 @@ class UploadController {
 
             } else {
                 echo "<p class='error'>There was an error uploading the file.</p>";
+                $this->ShowView();
             }
         }
     }
