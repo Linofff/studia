@@ -26,6 +26,7 @@ void SpawnEnemies(EnemyType *enemies) {
       continue;
     enemies[i].alive = 1;
     enemies[i].type = rand() % 2;
+    enemies[i].health = 50;
 
     if (rand() % 2 == 0) {
       enemies[i].X = (rand() % 2) ? 0 : LEVEL_WIDTH;

@@ -30,9 +30,23 @@
 
 #define ATTACK_LIGHT_TIME 0.2
 #define ATTACK_HEAVY_TIME 0.5
-#define ATTACK_LIGHT_TIME_DELAY 0.2
-#define ATTACK_HEAVY_TIME_DELAY 0.5
+#define ATTACK_LIGHT_TIME_DELAY 0.75
+#define ATTACK_HEAVY_TIME_DELAY 1.5
+#define ATTACK_LIGHT_COMBO_DELAY 2.0
+#define ATTACK_MIX_COMBO_DELAY 3.0
+#define ATTACK_DASH_COMBO_DELAY 1.0
+
+#define ATTACK_LIGHT_DAMAGE 10
+#define ATTACK_HEAVY_DAMAGE 30
+#define ATTACK_LIGHT_COMBO_DAMAGE 20
+#define ATTACK_MIX_COMBO_DAMAGE 35
+#define ATTACK_DASH_COMBO_DAMAGE 15
+
 #define HITBOX_H 50
+
+typedef struct {
+  int damage;
+} AttackType;
 
 typedef struct {
   double X;
@@ -41,6 +55,7 @@ typedef struct {
 
 typedef enum {
   IN_NONE,
+  IN_JUMP,
   IN_LEFT,
   IN_RIGHT,
   IN_UP,
@@ -93,7 +108,10 @@ typedef struct {
 
   int state;
   double attackTimer;
-  double cooldownTimer;
+  double basicCooldownTimer;
+  double comboCooldownTimer;
+
+  AttackType attack;
 
   InputBuffer buffer;
   int prev_keys[SDL_NUM_SCANCODES];

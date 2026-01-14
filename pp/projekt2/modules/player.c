@@ -46,7 +46,8 @@ void InitPlayer(PlayerType *player) {
   player->multiplierTimer = 0;
 
   player->attackTimer = 0;
-  player->cooldownTimer = 0;
+  player->basicCooldownTimer = 0;
+  player->comboCooldownTimer = 0;
 
   player->buffer.count = 0;
   memset(player->prev_keys, 0, sizeof(player->prev_keys));
@@ -139,7 +140,9 @@ void ProcessAttack(PlayerType *player, EnemyType *enemies) {
     double eTop = enemies[i].Y - (eH / 2);
 
     if (CheckCollision(hitX, hitY, hitW, HITBOX_H, eLeft, eTop, eW, eH)) {
-      enemies[i].alive = 0;
+      enemies[i].health -= player->attack.damage;
+      if (enemies[i].health <= 0)
+        enemies[i].alive = 0;
       hit = 1;
     }
   }
@@ -158,24 +161,25 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
   // 1. INPUT DETECTION (Edge Detection for Buffer)
   InputType input = IN_NONE;
 
-  // Check J (Light)
   if (keyState[SDL_SCANCODE_J] && !player->prev_keys[SDL_SCANCODE_J])
     input = IN_LIGHT;
-  // Check K (Heavy)
   else if (keyState[SDL_SCANCODE_K] && !player->prev_keys[SDL_SCANCODE_K])
     input = IN_HEAVY;
-  // Check A (Left)
   else if (keyState[SDL_SCANCODE_A] && !player->prev_keys[SDL_SCANCODE_A])
     input = IN_LEFT;
-  // Check D (Right)
   else if (keyState[SDL_SCANCODE_D] && !player->prev_keys[SDL_SCANCODE_D])
     input = IN_RIGHT;
+  else if (keyState[SDL_SCANCODE_W] && !player->prev_keys[SDL_SCANCODE_W])
+    input = IN_UP;
+  else if (keyState[SDL_SCANCODE_S] && !player->prev_keys[SDL_SCANCODE_S])
+    input = IN_DOWN;
 
-  // Update input history
   player->prev_keys[SDL_SCANCODE_J] = keyState[SDL_SCANCODE_J];
   player->prev_keys[SDL_SCANCODE_K] = keyState[SDL_SCANCODE_K];
   player->prev_keys[SDL_SCANCODE_A] = keyState[SDL_SCANCODE_A];
   player->prev_keys[SDL_SCANCODE_D] = keyState[SDL_SCANCODE_D];
+  player->prev_keys[SDL_SCANCODE_W] = keyState[SDL_SCANCODE_W];
+  player->prev_keys[SDL_SCANCODE_S] = keyState[SDL_SCANCODE_S];
 
   // 2. BUFFER & COMBO LOGIC
   if (input != IN_NONE) {
@@ -184,73 +188,75 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
     // Check for specific combos
     int combo = CheckCombos(&player->buffer, worldTime);
 
-    // Only execute if not currently locked in an animation
-    if (player->attackTimer <= 0) {
+    // --- ADVANCED LOGIC START ---
 
-      // --- A. COMBO FOUND ---
-      if (combo != -1) {
-        ClearBuffer(&player->buffer); // Consume inputs
+    // PRIORITY 1: COMBOS (Ignore Cooldowns / Cancel Animations)
+    if (combo != -1 && player->comboCooldownTimer <= 0) {
+      ClearBuffer(&player->buffer); // Consume inputs
 
-        if (combo == COMBO_TRIPLE) {
-          player->state = COMBO_TRIPLE;
-          player->attackTimer = 0.5;
-          player->cooldownTimer = 0.3;
-          SDL_SetSurfaceColorMod(player->surface_right, 0, 255, 255); // Cyan
-          SDL_SetSurfaceColorMod(player->surface_left, 0, 255, 255);
-          ProcessAttack(player, enemies);
-        } else if (combo == COMBO_MIX) {
-          player->state = COMBO_MIX;
-          player->attackTimer = 0.6;
-          player->cooldownTimer = 0.4;
-          SDL_SetSurfaceColorMod(player->surface_right, 255, 0,
-                                 255); // Purple
-          SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 255);
-          ProcessAttack(player, enemies);
-        } else if (combo == DASH) {
-          player->state = DASH;
-          player->attackTimer = 0.25; // Dash Duration
-          ProcessAttack(player, enemies);
-          SDL_SetSurfaceColorMod(player->surface_right, 0, 0, 255); // Blue
-          SDL_SetSurfaceColorMod(player->surface_left, 0, 0, 255);
-          // Direction is determined by the input (Left or Right)
-          player->direction = (input == IN_LEFT) ? 1 : 0;
-        }
+      if (combo == COMBO_TRIPLE) {
+        player->state = COMBO_TRIPLE;
+        player->attackTimer = 0.5;
+        player->attack.damage = ATTACK_LIGHT_COMBO_DAMAGE;
+        player->comboCooldownTimer = ATTACK_LIGHT_COMBO_DELAY;
+        SDL_SetSurfaceColorMod(player->surface_right, 0, 255, 255); // Cyan
+        SDL_SetSurfaceColorMod(player->surface_left, 0, 255, 255);
+        ProcessAttack(player, enemies);
+      } else if (combo == COMBO_MIX) {
+        player->state = COMBO_MIX;
+        player->attackTimer = 0.6;
+        player->attack.damage = ATTACK_MIX_COMBO_DAMAGE;
+        player->comboCooldownTimer = ATTACK_MIX_COMBO_DELAY;
+        SDL_SetSurfaceColorMod(player->surface_right, 255, 0, 255); // Purple
+        SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 255);
+        ProcessAttack(player, enemies);
+      } else if (combo == DASH) {
+        player->state = DASH;
+        player->attack.damage = ATTACK_DASH_COMBO_DAMAGE;
+        player->attackTimer = 0.25;
+        player->comboCooldownTimer = ATTACK_DASH_COMBO_DELAY;
+        ProcessAttack(player, enemies);
+        SDL_SetSurfaceColorMod(player->surface_right, 0, 0, 255); // Blue
+        SDL_SetSurfaceColorMod(player->surface_left, 0, 0, 255);
+        player->direction = (input == IN_LEFT) ? 1 : 0;
       }
+    }
 
-      // --- B. NO COMBO (BASIC ATTACK) ---
-      // Only if we pressed an attack button and state is IDLE
-      else if (player->state == IDLE) {
-        if (input == IN_LIGHT) {
-          player->state = ATTACK_LIGHT;
-          player->attackTimer = ATTACK_LIGHT_TIME;
-          player->cooldownTimer = ATTACK_LIGHT_TIME_DELAY;
-          SDL_SetSurfaceColorMod(player->surface_right, 255, 255,
-                                 0); // Yellow
-          SDL_SetSurfaceColorMod(player->surface_left, 255, 255, 0);
-          ProcessAttack(player, enemies);
-        } else if (input == IN_HEAVY) {
-          player->state = ATTACK_HEAVY;
-          player->attackTimer = ATTACK_HEAVY_TIME;
-          player->cooldownTimer = ATTACK_HEAVY_TIME_DELAY;
-          SDL_SetSurfaceColorMod(player->surface_right, 255, 0, 0); // Red
-          SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 0);
-          ProcessAttack(player, enemies);
-        }
+    // PRIORITY 2: BASIC ATTACKS (Strict Cooldown Check)
+    // Only execute if animation is done AND Cooldown is done
+    else if (player->attackTimer <= 0 && player->basicCooldownTimer <= 0) {
+      if (input == IN_LIGHT) {
+        player->state = ATTACK_LIGHT;
+        player->attackTimer = ATTACK_LIGHT_TIME;
+        player->attack.damage = ATTACK_LIGHT_DAMAGE;
+        player->basicCooldownTimer = ATTACK_LIGHT_TIME_DELAY;
+        SDL_SetSurfaceColorMod(player->surface_right, 255, 255, 0); // Yellow
+        SDL_SetSurfaceColorMod(player->surface_left, 255, 255, 0);
+        ProcessAttack(player, enemies);
+      } else if (input == IN_HEAVY) {
+        player->state = ATTACK_HEAVY;
+        player->attack.damage = ATTACK_HEAVY_DAMAGE;
+        player->attackTimer = ATTACK_HEAVY_TIME;
+        player->basicCooldownTimer = ATTACK_HEAVY_TIME_DELAY;
+        SDL_SetSurfaceColorMod(player->surface_right, 255, 0, 0); // Red
+        SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 0);
+        ProcessAttack(player, enemies);
       }
     }
   }
 
   // 3. MOVEMENT LOGIC
 
-  // DASH MOVEMENT (Special State)
+  // DASH MOVEMENT
   if (player->state == DASH) {
-    double dashSpeed = player->speed * 3.0; // Very fast
+    double dashSpeed = player->speed * 3.0;
     if (player->direction == 1)
       player->X -= dashSpeed * delta;
     else
       player->X += dashSpeed * delta;
   }
-  // STANDARD MOVEMENT (Only if not attacking/dashing)
+  // STANDARD MOVEMENT
+  // Allow movement during Cooldown, but not during Active Attack Frames
   else if (player->attackTimer <= 0) {
     if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_LEFT]) {
       player->X -= player->speed * delta;
@@ -264,7 +270,7 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
 
   // Vertical / Ground Physics
   if (player->onGround) {
-    if (player->attackTimer <= 0) { // Can walk Up/Down if not attacking
+    if (player->attackTimer <= 0) {
       if (keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_UP])
         player->Y -= player->speed * delta;
       if (keyState[SDL_SCANCODE_S] || keyState[SDL_SCANCODE_DOWN])
@@ -291,18 +297,25 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
 
   // 4. TIMERS & CLEANUP
 
-  // Reset State/Colors when timer ends
+  // Reset State/Colors when ATTACK timer ends (ignore cooldown for visual
+  // reset)
   if (player->attackTimer > 0) {
     player->attackTimer -= delta;
     if (player->attackTimer <= 0) {
+      // Don't reset to IDLE if we are transitioning into a combo (handled
+      // above) But generally safe to reset here, next frame picks up new state
       player->state = IDLE;
       SDL_SetSurfaceColorMod(player->surface_right, 255, 255, 255);
       SDL_SetSurfaceColorMod(player->surface_left, 255, 255, 255);
     }
   }
 
-  if (player->cooldownTimer > 0)
-    player->cooldownTimer -= delta;
+  // Cooldown ticks down independently
+  if (player->basicCooldownTimer > 0)
+    player->basicCooldownTimer -= delta;
+
+  if (player->comboCooldownTimer)
+    player->comboCooldownTimer -= delta;
 
   if (player->multiplierTimer > 0) {
     player->multiplierTimer -= delta;

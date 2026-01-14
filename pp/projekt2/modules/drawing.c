@@ -14,6 +14,10 @@ const char *GetInputName(InputType in) {
     return "L";
   case IN_HEAVY:
     return "H";
+  case IN_UP:
+    return "^";
+  case IN_DOWN:
+    return "V";
   case IN_LEFT:
     return "<";
   case IN_RIGHT:
