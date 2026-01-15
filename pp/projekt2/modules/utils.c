@@ -26,20 +26,24 @@ void Cleanup(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen,
              EnemyType *enemies) {
 
   // Check if enemies exist
-  if (enemies) {
-    for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
-      // Simple access now: enemies[i]
-      if (enemies[i].surface_left)
-        SDL_FreeSurface(enemies[i].surface_left);
-      if (enemies[i].surface_right)
-        SDL_FreeSurface(enemies[i].surface_right);
-    }
-    // Free the array itself
-    free(enemies);
-  }
+  // if (enemies) {
+  //   for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
+  //     // Simple access now: enemies[i]
+  //     for (int j = 0; j < MAX_WALK_FRAMES; j++) {
+  //       if (enemies[i].walk_frames_right[j])
+  //         SDL_FreeSurface(enemies[i].walk_frames_right[j]);
+  //       if (enemies[i].walk_frames_left[j])
+  //         SDL_FreeSurface(enemies[i].walk_frames_left[j]);
+  //     }
+  //   }
+  //   // Free the array itself
+  //   free(enemies);
+  // }
 
-  SDL_FreeSurface(player->surface_left);
-  SDL_FreeSurface(player->surface_right);
+  for (int i = 0; i < MAX_WALK_FRAMES; i++) {
+    SDL_FreeSurface(player->walk_frames_left[i]);
+    SDL_FreeSurface(player->walk_frames_right[i]);
+  }
   SDL_FreeSurface(charset);
   SDL_FreeSurface(screen);
   SDL_DestroyTexture(scrtex);

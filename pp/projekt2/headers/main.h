@@ -18,7 +18,12 @@
 #define LEVEL_WIDTH 960
 #define LEVEL_HEIGHT 720
 
+// #define LEVEL_WIDTH 1920
+// #define LEVEL_HEIGHT 1440
+
 #define NUMBER_OF_ENEMIES 4
+
+#define PLAYER_HEALTH 500
 
 #define GRAVITY 2000
 #define JUMP_FORCE 500
@@ -42,6 +47,8 @@
 #define ATTACK_MIX_COMBO_DAMAGE 35
 #define ATTACK_DASH_COMBO_DAMAGE 15
 
+#define ENEMY_STUN 1.0
+
 #define HITBOX_H 50
 
 typedef struct {
@@ -53,6 +60,8 @@ typedef struct {
   double Y;
 } CameraType;
 
+typedef enum { STATE_MENU, STATE_GAME, STATE_GAMEOVER } GameStateEnum;
+
 typedef enum {
   IN_NONE,
   IN_JUMP,
@@ -63,6 +72,11 @@ typedef enum {
   IN_LIGHT,
   IN_HEAVY
 } InputType;
+
+#define RIGHT 0
+#define LEFT 1
+#define UP 2
+#define DOWN 3
 
 enum PlayerState {
   IDLE,
@@ -90,12 +104,19 @@ typedef struct {
 typedef struct {
   double worldTime;
   int debugMode; // (Point D) Developer Mode Toggle
+  GameStateEnum currentState;
 } GameState;
+
+#define MAX_WALK_FRAMES 8
+#define MAX_ATTACK_FRAMES 19
+#define MAX_DASH_FRAMES 6
+#define MAX_AIR_FRAMES 6
 
 typedef struct {
   double speed;
   int health;
-  int direction; // 0 Right, 1 Left
+  int direction;
+  int facingLeft;
 
   double dy;
   double X, Y;
@@ -111,12 +132,26 @@ typedef struct {
   double basicCooldownTimer;
   double comboCooldownTimer;
 
+  double animSpeed;
+  int maxFrames;
+  int multiplierScale;
+
   AttackType attack;
 
   InputBuffer buffer;
   int prev_keys[SDL_NUM_SCANCODES];
 
-  SDL_Surface *surface_right, *surface_left;
+  SDL_Surface *walk_frames_right[MAX_WALK_FRAMES];
+  SDL_Surface *walk_frames_left[MAX_WALK_FRAMES];
+  SDL_Surface *attack_frames_rigth[MAX_ATTACK_FRAMES];
+  SDL_Surface *attack_frames_left[MAX_ATTACK_FRAMES];
+  SDL_Surface *dash_frames_rigth[MAX_DASH_FRAMES];
+  SDL_Surface *dash_frames_left[MAX_DASH_FRAMES];
+  SDL_Surface *air_frames_rigth[MAX_DASH_FRAMES];
+  SDL_Surface *air_frames_left[MAX_DASH_FRAMES];
+
+  int currentFrame;
+  double animTimer;
 } PlayerType;
 
 typedef struct {
@@ -126,14 +161,24 @@ typedef struct {
   double X;
   double Y;
   int direction; // 0 Right, 1 Left
-  SDL_Surface *surface_right, *surface_left;
+
+  // CHANGED: Replaced single surface with array
+  SDL_Surface *walk_frames_right[MAX_WALK_FRAMES];
+  SDL_Surface *walk_frames_left[MAX_WALK_FRAMES];
+
+  // Animation State
+  int currentFrame;
+  double animTimer;
+
+  int damage;
+  double attack_timer;
 
   int type;
   int ai_state;
   double ai_timer;
   double chargeDirX;
   double chargeDirY;
-  double strun_timer;
+  double stun_timer;
 } EnemyType;
 
 #endif

@@ -1,18 +1,33 @@
 #include "../headers/player.h"
 #include "../headers/drawing.h"
+#include <stdio.h>
 
-// Triple Tap (Light, Light, Light)
+// --- COMBO DEFINITIONS ---
 InputType COMBO_SEQ_TRIPLE[] = {IN_LIGHT, IN_LIGHT, IN_LIGHT};
-// Mix Sequence (Light, Heavy, Light)
 InputType COMBO_SEQ_MIX[] = {IN_LIGHT, IN_HEAVY, IN_LIGHT};
-// Dash Right (Right, Right)
 InputType COMBO_SEQ_DASH_R[] = {IN_RIGHT, IN_RIGHT};
-// Dash Left (Left, Left)
 InputType COMBO_SEQ_DASH_L[] = {IN_LEFT, IN_LEFT};
+InputType COMBO_SEQ_DASH_U[] = {IN_UP, IN_UP};
+InputType COMBO_SEQ_DASH_D[] = {IN_DOWN, IN_DOWN};
+
+// --- HELPER FUNCTIONS ---
+
+// Helper to cycle animation frames based on time
+void UpdateAnimation(int *frame, double *timer, int maxFrames, double speed,
+                     double delta) {
+  *timer += delta;
+  if (*timer >= speed) {
+    *timer -= speed;
+    *frame = (*frame + 1);
+    if (*frame >= maxFrames) {
+      *frame = 0;
+    }
+  }
+}
 
 int CheckCollision(double x1, double y1, int w1, int h1, double x2, double y2,
                    int w2, int h2) {
-  return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h2 > y2);
+  return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2);
 }
 
 void PushInput(InputBuffer *buf, InputType input, double time) {
@@ -30,20 +45,27 @@ void PushInput(InputBuffer *buf, InputType input, double time) {
 
 void ClearBuffer(InputBuffer *buf) { buf->count = 0; }
 
+// --- INITIALIZATION ---
+
 void InitPlayer(PlayerType *player) {
+  // 1. Physics & Stats
   player->speed = PLAYER_MOVE_SPEED;
-  player->direction = 0;
+  player->direction = RIGHT; // Default to facing right
   player->dy = 0;
   player->onGround = 1;
+  player->health = PLAYER_HEALTH;
+  player->facingLeft = 0;
 
   player->Y = LEVEL_HEIGHT / 2;
   player->X = LEVEL_WIDTH / 2;
   player->landingY = player->Y;
 
+  // 2. State & Timers
   player->state = IDLE;
   player->score = 0;
   player->multiplier = 1;
   player->multiplierTimer = 0;
+  player->multiplierScale = 1.0; // Reset visual scale
 
   player->attackTimer = 0;
   player->basicCooldownTimer = 0;
@@ -52,30 +74,69 @@ void InitPlayer(PlayerType *player) {
   player->buffer.count = 0;
   memset(player->prev_keys, 0, sizeof(player->prev_keys));
 
-  player->surface_right = SDL_LoadBMP("textures/player.bmp");
-  if (player->surface_right == NULL) {
-    printf("Error loading player bmp: %s\n", SDL_GetError());
-    exit(1);
+  // 3. Load Animation Frames
+  char filename[64];
+
+  // Load Walk Frames (0 to MAX_WALK_FRAMES-1)
+  for (int i = 0; i < MAX_WALK_FRAMES; i++) {
+    sprintf(filename, "textures/fighter_run_%d.bmp", i + 1);
+    player->walk_frames_right[i] = SDL_LoadBMP(filename);
+    if (!player->walk_frames_right[i]) {
+      printf("Failed to load %s\n", filename);
+      // Fallback: Use a default if specific frame missing, or exit
+    }
+    player->walk_frames_left[i] =
+        FlipSurfaceHorizontal(player->walk_frames_right[i]);
   }
-  player->surface_left = FlipSurfaceHorizontal(player->surface_right);
-  if (player->surface_left == NULL) {
-    printf("Error creating flipped surface: %s\n", SDL_GetError());
+
+  // Load Attack Frames (0 to MAX_ATTACK_FRAMES-1)
+  for (int i = 0; i < MAX_ATTACK_FRAMES; i++) {
+    sprintf(filename, "textures/fighter_combo_%d.bmp", i + 1);
+    player->attack_frames_rigth[i] = SDL_LoadBMP(filename);
+    if (!player->attack_frames_rigth[i]) {
+      printf("Failed to load %s\n", filename);
+    }
+    player->attack_frames_left[i] =
+        FlipSurfaceHorizontal(player->attack_frames_rigth[i]);
   }
+
+  for (int i = 0; i < MAX_DASH_FRAMES; i++) {
+    sprintf(filename, "textures/fighter_dash_%d.bmp", i + 1);
+    player->dash_frames_rigth[i] = SDL_LoadBMP(filename);
+    if (!player->dash_frames_rigth[i]) {
+      printf("Failed to load %s\n", filename);
+    }
+    player->dash_frames_left[i] =
+        FlipSurfaceHorizontal(player->dash_frames_rigth[i]);
+  }
+
+  for (int i = 0; i < MAX_AIR_FRAMES; i++) {
+    sprintf(filename, "textures/fighter_air_%d.bmp", i + 1);
+    player->air_frames_rigth[i] = SDL_LoadBMP(filename);
+    if (!player->air_frames_rigth[i]) {
+      printf("Failed to load %s\n", filename);
+    }
+    player->air_frames_left[i] =
+        FlipSurfaceHorizontal(player->air_frames_rigth[i]);
+  }
+
+  // Animation Defaults
+  player->currentFrame = 0;
+  player->animTimer = 0;
+  player->animSpeed = 0.15; // Default speed
+  player->maxFrames = MAX_WALK_FRAMES;
 }
+
+// --- INPUT & COMBOS ---
 
 int check(InputBuffer *buf, InputType *seq, int len, double currentTime) {
   if (buf->count < len)
     return 0;
   for (int i = 0; i < len; i++) {
-    // Compare buffer end vs sequence end
     int bufIdx = buf->count - 1 - i;
     int seqIdx = len - 1 - i;
-
-    // 1. Check Input Type
     if (buf->events[bufIdx].input != seq[seqIdx])
       return 0;
-
-    // 2. Check Timing (Must be recent)
     if (currentTime - buf->events[bufIdx].timestamp > BUFFER_WINDOW)
       return 0;
   }
@@ -86,13 +147,14 @@ int CheckCombos(InputBuffer *buf, double currentTime) {
   if (buf->count == 0)
     return -1;
 
-  // PRIORITY 1: Complex Combos (Longer first)
   if (check(buf, COMBO_SEQ_TRIPLE, 3, currentTime))
     return COMBO_TRIPLE;
   if (check(buf, COMBO_SEQ_MIX, 3, currentTime))
     return COMBO_MIX;
-
-  // PRIORITY 2: Movement Combos (Dash)
+  if (check(buf, COMBO_SEQ_DASH_D, 2, currentTime))
+    return DASH;
+  if (check(buf, COMBO_SEQ_DASH_U, 2, currentTime))
+    return DASH;
   if (check(buf, COMBO_SEQ_DASH_R, 2, currentTime))
     return DASH;
   if (check(buf, COMBO_SEQ_DASH_L, 2, currentTime))
@@ -101,66 +163,87 @@ int CheckCombos(InputBuffer *buf, double currentTime) {
   return -1;
 }
 
+// --- ATTACK LOGIC ---
+
 void ProcessAttack(PlayerType *player, EnemyType *enemies) {
-  if (!player->surface_right)
+  // Safety check: ensure we have at least one frame loaded
+  if (!player->attack_frames_rigth[0])
     return;
 
   double hitX, hitY;
-  int hitW;
+  int hitW, hitH;
 
-  int pHalfW = player->surface_right->w / 2;
-  hitY = player->Y - (HITBOX_H / 2);
+  int pHalfW = player->attack_frames_rigth[0]->w / 2;
+  int pHalfH = player->attack_frames_rigth[0]->h / 2;
 
-  // Different hitboxes for different attacks
-  if (player->state == ATTACK_LIGHT) {
-    hitW = 60;
-  } else if (player->state == COMBO_TRIPLE) {
-    hitW = 120; // Massive range
-  } else if (player->state == DASH) {
-    hitW = 200; // Heavy / Mix
-  } else {
-    hitW = 100;
-  }
+  // 1. Determine Range
+  int range;
+  if (player->state == ATTACK_LIGHT)
+    range = 60;
+  else if (player->state == COMBO_TRIPLE)
+    range = 120;
+  else if (player->state == DASH)
+    range = 200;
+  else
+    range = 100;
 
-  if (player->direction == 0) {
-    hitX = player->X + pHalfW;
-  } else {
+  // 2. Calculate Hitbox (Vertical vs Horizontal)
+  if (player->direction == UP) {
+    hitW = HITBOX_H;
+    hitH = range;
+    hitX = player->X - (hitW / 2);
+    hitY = player->Y - pHalfH - hitH;
+  } else if (player->direction == DOWN) {
+    hitW = HITBOX_H;
+    hitH = range;
+    hitX = player->X - (hitW / 2);
+    hitY = player->Y + pHalfH;
+  } else if (player->direction == LEFT) {
+    hitW = range;
+    hitH = HITBOX_H;
     hitX = player->X - pHalfW - hitW;
+    hitY = player->Y - (hitH / 2);
+  } else { // RIGHT
+    hitW = range;
+    hitH = HITBOX_H;
+    hitX = player->X + pHalfW;
+    hitY = player->Y - (hitH / 2);
   }
 
-  int hit = 0;
+  // 3. Collision with Enemies
   for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
-    if (!enemies[i].alive || !enemies[i].surface_right)
+    if (!enemies[i].alive || !enemies[i].walk_frames_right[0])
       continue;
 
-    int eW = enemies[i].surface_right->w;
-    int eH = enemies[i].surface_right->h;
-
+    int eW = enemies[i].walk_frames_right[0]->w;
+    int eH = enemies[i].walk_frames_right[0]->h;
     double eLeft = enemies[i].X - (eW / 2);
     double eTop = enemies[i].Y - (eH / 2);
 
-    if (CheckCollision(hitX, hitY, hitW, HITBOX_H, eLeft, eTop, eW, eH)) {
+    if (CheckCollision(hitX, hitY, hitW, hitH, eLeft, eTop, eW, eH)) {
       enemies[i].health -= player->attack.damage;
       if (enemies[i].health <= 0)
         enemies[i].alive = 0;
-      hit = 1;
+
+      enemies[i].stun_timer = ENEMY_STUN;
+
+      // Flashy Multiplier Logic
+      player->score += 100 * player->multiplier;
+      player->multiplier++;
+      player->multiplierTimer = 2.0;
+      player->multiplierScale = 2.0; // Trigger "Pulse" effect
     }
   }
-
-  if (hit) {
-    player->score += 100 * player->multiplier;
-    player->multiplier++;
-    player->multiplierTimer = 2.0;
-  }
 }
+
+// --- MAIN UPDATE LOOP ---
 
 void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
                   double worldTime) {
   const Uint8 *keyState = SDL_GetKeyboardState(NULL);
 
-  // 1. INPUT DETECTION (Edge Detection for Buffer)
+  // 1. INPUT
   InputType input = IN_NONE;
-
   if (keyState[SDL_SCANCODE_J] && !player->prev_keys[SDL_SCANCODE_J])
     input = IN_LIGHT;
   else if (keyState[SDL_SCANCODE_K] && !player->prev_keys[SDL_SCANCODE_K])
@@ -181,34 +264,27 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
   player->prev_keys[SDL_SCANCODE_W] = keyState[SDL_SCANCODE_W];
   player->prev_keys[SDL_SCANCODE_S] = keyState[SDL_SCANCODE_S];
 
-  // 2. BUFFER & COMBO LOGIC
+  // 2. COMBO & ATTACK STATE
   if (input != IN_NONE) {
     PushInput(&player->buffer, input, worldTime);
-
-    // Check for specific combos
     int combo = CheckCombos(&player->buffer, worldTime);
 
-    // --- ADVANCED LOGIC START ---
-
-    // PRIORITY 1: COMBOS (Ignore Cooldowns / Cancel Animations)
+    // Priority 1: Combos
     if (combo != -1 && player->comboCooldownTimer <= 0) {
-      ClearBuffer(&player->buffer); // Consume inputs
+      ClearBuffer(&player->buffer);
 
+      // Setup specific combo stats
       if (combo == COMBO_TRIPLE) {
         player->state = COMBO_TRIPLE;
         player->attackTimer = 0.5;
         player->attack.damage = ATTACK_LIGHT_COMBO_DAMAGE;
         player->comboCooldownTimer = ATTACK_LIGHT_COMBO_DELAY;
-        SDL_SetSurfaceColorMod(player->surface_right, 0, 255, 255); // Cyan
-        SDL_SetSurfaceColorMod(player->surface_left, 0, 255, 255);
         ProcessAttack(player, enemies);
       } else if (combo == COMBO_MIX) {
         player->state = COMBO_MIX;
         player->attackTimer = 0.6;
         player->attack.damage = ATTACK_MIX_COMBO_DAMAGE;
         player->comboCooldownTimer = ATTACK_MIX_COMBO_DELAY;
-        SDL_SetSurfaceColorMod(player->surface_right, 255, 0, 255); // Purple
-        SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 255);
         ProcessAttack(player, enemies);
       } else if (combo == DASH) {
         player->state = DASH;
@@ -216,67 +292,91 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
         player->attackTimer = 0.25;
         player->comboCooldownTimer = ATTACK_DASH_COMBO_DELAY;
         ProcessAttack(player, enemies);
-        SDL_SetSurfaceColorMod(player->surface_right, 0, 0, 255); // Blue
-        SDL_SetSurfaceColorMod(player->surface_left, 0, 0, 255);
-        player->direction = (input == IN_LEFT) ? 1 : 0;
       }
     }
-
-    // PRIORITY 2: BASIC ATTACKS (Strict Cooldown Check)
-    // Only execute if animation is done AND Cooldown is done
+    // Priority 2: Basic Attacks
     else if (player->attackTimer <= 0 && player->basicCooldownTimer <= 0) {
       if (input == IN_LIGHT) {
         player->state = ATTACK_LIGHT;
         player->attackTimer = ATTACK_LIGHT_TIME;
         player->attack.damage = ATTACK_LIGHT_DAMAGE;
         player->basicCooldownTimer = ATTACK_LIGHT_TIME_DELAY;
-        SDL_SetSurfaceColorMod(player->surface_right, 255, 255, 0); // Yellow
-        SDL_SetSurfaceColorMod(player->surface_left, 255, 255, 0);
         ProcessAttack(player, enemies);
       } else if (input == IN_HEAVY) {
+        player->state = ATTACK_HEAVY;
         player->state = ATTACK_HEAVY;
         player->attack.damage = ATTACK_HEAVY_DAMAGE;
         player->attackTimer = ATTACK_HEAVY_TIME;
         player->basicCooldownTimer = ATTACK_HEAVY_TIME_DELAY;
-        SDL_SetSurfaceColorMod(player->surface_right, 255, 0, 0); // Red
-        SDL_SetSurfaceColorMod(player->surface_left, 255, 0, 0);
         ProcessAttack(player, enemies);
       }
     }
   }
 
-  // 3. MOVEMENT LOGIC
+  // 3. ANIMATION STATE LOGIC
+  // Determine which animation to play
+  if (player->attackTimer > 0) {
+    // We are attacking
+    player->maxFrames = MAX_ATTACK_FRAMES;
+    player->animSpeed = 0.1;
+  }
+  // FIX: Check if ANY movement key is pressed. Don't check direction here.
+  else if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D] ||
+           keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT]) {
+    // We are walking
+    player->maxFrames = MAX_WALK_FRAMES;
+    player->animSpeed = 0.15;
+  } else {
+    // Idle - Only happens if NOT attacking and NOT moving
+    player->currentFrame = 0;
+  }
 
-  // DASH MOVEMENT
+  // Update the frame counter (unless idle)
+  // FIX: Only update animation if NOT idle
+  if (player->currentFrame != 0 || player->state != IDLE ||
+      keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D] ||
+      keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT]) {
+
+    UpdateAnimation(&player->currentFrame, &player->animTimer,
+                    player->maxFrames, player->animSpeed, delta);
+  }
+
+  // 4. MOVEMENT LOGIC
   if (player->state == DASH) {
     double dashSpeed = player->speed * 3.0;
-    if (player->direction == 1)
-      player->X -= dashSpeed * delta;
-    else
+    if (player->direction == RIGHT)
       player->X += dashSpeed * delta;
-  }
-  // STANDARD MOVEMENT
-  // Allow movement during Cooldown, but not during Active Attack Frames
-  else if (player->attackTimer <= 0) {
+    else if (player->direction == LEFT)
+      player->X -= dashSpeed * delta;
+    else if (player->direction == UP)
+      player->Y -= dashSpeed * delta;
+    else if (player->direction == DOWN)
+      player->Y += dashSpeed * delta;
+  } else if (player->attackTimer <= 0) {
     if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_LEFT]) {
       player->X -= player->speed * delta;
-      player->direction = 1;
+      player->direction = LEFT;
+      player->facingLeft = 1;
     }
     if (keyState[SDL_SCANCODE_D] || keyState[SDL_SCANCODE_RIGHT]) {
       player->X += player->speed * delta;
-      player->direction = 0;
+      player->direction = RIGHT;
+      player->facingLeft = 0;
     }
   }
 
-  // Vertical / Ground Physics
+  // 5. VERTICAL PHYSICS
   if (player->onGround) {
     if (player->attackTimer <= 0) {
-      if (keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_UP])
+      if (keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_UP]) {
         player->Y -= player->speed * delta;
-      if (keyState[SDL_SCANCODE_S] || keyState[SDL_SCANCODE_DOWN])
+        player->direction = UP;
+      }
+      if (keyState[SDL_SCANCODE_S] || keyState[SDL_SCANCODE_DOWN]) {
         player->Y += player->speed * delta;
+        player->direction = DOWN;
+      }
     }
-
     player->landingY = player->Y;
     player->dy = 0;
 
@@ -295,27 +395,25 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
     }
   }
 
-  // 4. TIMERS & CLEANUP
-
-  // Reset State/Colors when ATTACK timer ends (ignore cooldown for visual
-  // reset)
+  // 6. TIMERS & CLEANUP
   if (player->attackTimer > 0) {
     player->attackTimer -= delta;
     if (player->attackTimer <= 0) {
-      // Don't reset to IDLE if we are transitioning into a combo (handled
-      // above) But generally safe to reset here, next frame picks up new state
       player->state = IDLE;
-      SDL_SetSurfaceColorMod(player->surface_right, 255, 255, 255);
-      SDL_SetSurfaceColorMod(player->surface_left, 255, 255, 255);
     }
   }
 
-  // Cooldown ticks down independently
   if (player->basicCooldownTimer > 0)
     player->basicCooldownTimer -= delta;
-
-  if (player->comboCooldownTimer)
+  if (player->comboCooldownTimer > 0)
     player->comboCooldownTimer -= delta;
+
+  // Pulse Decay
+  if (player->multiplierScale > 1.0) {
+    player->multiplierScale -= delta * 2.0;
+    if (player->multiplierScale < 1.0)
+      player->multiplierScale = 1.0;
+  }
 
   if (player->multiplierTimer > 0) {
     player->multiplierTimer -= delta;
@@ -323,12 +421,11 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
     player->multiplier = 1;
   }
 
-  // Bounds Checking
+  // Bounds
   if (player->X < 0)
     player->X = 0;
   if (player->X > LEVEL_WIDTH)
     player->X = LEVEL_WIDTH;
-
   if (player->onGround) {
     if (player->Y < LEVEL_HEIGHT / 4 - 20)
       player->Y = LEVEL_HEIGHT / 4 - 20;

@@ -9,7 +9,8 @@ void DrawLine(SDL_Surface *screen, int x, int y, int l, int dx, int dy,
 void DrawRectangle(SDL_Surface *screen, int x, int y, int l, int k,
                    Uint32 outlineColor, Uint32 fillColor);
 SDL_Surface *FlipSurfaceHorizontal(SDL_Surface *source);
-void DrawGame(SDL_Renderer *renderer, SDL_Window *window, SDL_Surface *screen,
-              SDL_Texture *scrtex, SDL_Surface *charset, PlayerType *player,
-              EnemyType *enemies, CameraType *camera, GameState *state,
-              double fps);
+void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
+              SDL_Surface *charset, PlayerType *player, EnemyType *enemies,
+              CameraType *camera, GameState *state, double fps);
+void DrawMenu(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
+              SDL_Surface *charset, const char *title, const char *subtitle);

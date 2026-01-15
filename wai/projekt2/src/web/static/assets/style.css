@@ -1,0 +1,89 @@
+* {
+    background-color: #1f1f1f;
+    color: white;
+}
+
+.nav_gallery_section{
+    display: flex;
+    gap: 15px;
+}
+
+.remove_selected_button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.saved_gallery_buttons_div {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.saved_gallery {
+    border: 1px solid white;
+    margin: 10px;
+    padding: 10px;
+}
+
+.quantity {
+    width: 60px;
+    text-align: center;
+    padding: 5px;
+    margin: 0 0 0 10px;
+}
+
+.saved_gallery_label {
+    display:block;
+    margin: 10px 0;
+}
+
+.update_values_button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.nav_user_section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.private_photo_text {
+    color: red;
+    font-weight: bold;
+}
+
+.photo-card {
+    border: 1px solid white;
+    padding: 10px;
+    max-width: 250px;
+}
+.submit_button {
+    margin-top: 5px;
+    padding-top: 3px;
+}
+.page_links a {
+    border: solid 1px white;
+    padding: 3px;
+    text-decoration: none;
+}
+.page_links {
+    margin-top: 10px;
+}
+
+.form_class input {
+    margin-top: 7px;
+}
