@@ -21,9 +21,9 @@
 // #define LEVEL_WIDTH 1920
 // #define LEVEL_HEIGHT 1440
 
-#define NUMBER_OF_ENEMIES 4
+#define NUMBER_OF_ENEMIES 1
 
-#define PLAYER_HEALTH 500
+#define PLAYER_HEALTH 100
 
 #define GRAVITY 2000
 #define JUMP_FORCE 500
@@ -50,6 +50,19 @@
 #define ENEMY_STUN 1.0
 
 #define HITBOX_H 50
+
+#define MAX_WALK_FRAMES 8
+#define MAX_ATTACK_FRAMES 19
+#define MAX_DASH_FRAMES 6
+#define MAX_AIR_FRAMES 5
+#define MAX_IDLE_FRAMES 8
+#define MAX_HIT_FRAMES 4
+#define MAX_DEATH_FRAMES 10
+
+#define DEATH_ANIM 100 // Arbitrary unique number
+
+#define ATTACK_RANGE 120.0
+#define ATTACK_COOLDOWN 1.0
 
 typedef struct {
   int damage;
@@ -107,11 +120,6 @@ typedef struct {
   GameStateEnum currentState;
 } GameState;
 
-#define MAX_WALK_FRAMES 8
-#define MAX_ATTACK_FRAMES 19
-#define MAX_DASH_FRAMES 6
-#define MAX_AIR_FRAMES 6
-
 typedef struct {
   double speed;
   int health;
@@ -143,16 +151,44 @@ typedef struct {
 
   SDL_Surface *walk_frames_right[MAX_WALK_FRAMES];
   SDL_Surface *walk_frames_left[MAX_WALK_FRAMES];
-  SDL_Surface *attack_frames_rigth[MAX_ATTACK_FRAMES];
+  SDL_Surface *attack_frames_right[MAX_ATTACK_FRAMES];
   SDL_Surface *attack_frames_left[MAX_ATTACK_FRAMES];
-  SDL_Surface *dash_frames_rigth[MAX_DASH_FRAMES];
+  SDL_Surface *dash_frames_right[MAX_DASH_FRAMES];
   SDL_Surface *dash_frames_left[MAX_DASH_FRAMES];
-  SDL_Surface *air_frames_rigth[MAX_DASH_FRAMES];
+  SDL_Surface *air_frames_right[MAX_DASH_FRAMES];
   SDL_Surface *air_frames_left[MAX_DASH_FRAMES];
+  SDL_Surface *idle_frames_right[MAX_IDLE_FRAMES];
+  SDL_Surface *idle_frames_left[MAX_IDLE_FRAMES];
+  SDL_Surface *hit_frames_right[MAX_HIT_FRAMES];
+  SDL_Surface *hit_frames_left[MAX_HIT_FRAMES];
+  SDL_Surface *death_frames_right[MAX_DEATH_FRAMES];
+  SDL_Surface *death_frames_left[MAX_DEATH_FRAMES];
 
   int currentFrame;
   double animTimer;
 } PlayerType;
+
+typedef struct {
+  // --- TYPE 0 (RED) ASSETS ---
+  SDL_Surface *t0_walk_right[MAX_WALK_FRAMES];
+  SDL_Surface *t0_walk_left[MAX_WALK_FRAMES];
+
+  SDL_Surface *t0_hit_right[MAX_HIT_FRAMES];
+  SDL_Surface *t0_hit_left[MAX_HIT_FRAMES];
+
+  SDL_Surface *t0_attack_right[MAX_ATTACK_FRAMES];
+  SDL_Surface *t0_attack_left[MAX_ATTACK_FRAMES];
+
+  // --- TYPE 1 (GREEN) ASSETS ---
+  SDL_Surface *t1_walk_right[MAX_WALK_FRAMES];
+  SDL_Surface *t1_walk_left[MAX_WALK_FRAMES];
+
+  SDL_Surface *t1_hit_right[MAX_HIT_FRAMES];
+  SDL_Surface *t1_hit_left[MAX_HIT_FRAMES];
+
+  SDL_Surface *t1_attack_right[MAX_ATTACK_FRAMES];
+  SDL_Surface *t1_attack_left[MAX_ATTACK_FRAMES];
+} EnemyAssets;
 
 typedef struct {
   double speed;
@@ -162,9 +198,12 @@ typedef struct {
   double Y;
   int direction; // 0 Right, 1 Left
 
-  // CHANGED: Replaced single surface with array
   SDL_Surface *walk_frames_right[MAX_WALK_FRAMES];
   SDL_Surface *walk_frames_left[MAX_WALK_FRAMES];
+  SDL_Surface *hit_frames_right[MAX_HIT_FRAMES];
+  SDL_Surface *hit_frames_left[MAX_HIT_FRAMES];
+  SDL_Surface *attack_frames_right[MAX_ATTACK_FRAMES];
+  SDL_Surface *attack_frames_left[MAX_ATTACK_FRAMES];
 
   // Animation State
   int currentFrame;

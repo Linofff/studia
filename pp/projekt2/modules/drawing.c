@@ -55,6 +55,8 @@ const char *GetStateName(int state) {
   switch (state) {
   case IDLE:
     return "IDLE";
+  case RUNNING:
+    return "RUNNING";
   case ATTACK_LIGHT:
     return "ATK_L";
   case ATTACK_HEAVY:
@@ -75,35 +77,64 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
   // 3. DRAW PLAYER (ANIMATION LOGIC)
   SDL_Surface *currentSurface = NULL;
 
-  if (player->attackTimer > 0) {
-    int idx = player->currentFrame;
+  int idx = player->currentFrame;
+  if (player->state == DEATH_ANIM) {
+    if (idx >= MAX_DEATH_FRAMES)
+      idx = 0;
+
+    if (player->facingLeft)
+      currentSurface = player->death_frames_left[idx];
+    else
+      currentSurface = player->death_frames_right[idx];
+  }
+
+  else if (player->attackTimer > 0) {
     if (idx >= MAX_ATTACK_FRAMES)
       idx = 0;
     if (player->state == DASH) {
       if (player->facingLeft == 1)
         currentSurface = player->dash_frames_left[idx];
       else
-        currentSurface = player->dash_frames_rigth[idx];
-    } else if (player->state == IDLE) {
-    } else if (player->state == JUMPING) {
-      if (player->facingLeft == 1)
-        currentSurface = player->attack_frames_left[idx];
-      else
-        currentSurface = player->attack_frames_rigth[idx];
-    } else {
-      if (player->facingLeft == 1)
-        currentSurface = player->attack_frames_left[idx];
-      else
-        currentSurface = player->attack_frames_rigth[idx];
+        currentSurface = player->dash_frames_right[idx];
     }
-  } else {
-    int idx = player->currentFrame;
-    if (idx >= MAX_WALK_FRAMES)
-      idx = 0;
-    if (player->facingLeft == 1)
-      currentSurface = player->walk_frames_left[idx];
-    else
-      currentSurface = player->walk_frames_right[idx];
+
+    else {
+      if (idx >= MAX_DASH_FRAMES)
+        idx = 0;
+      if (player->facingLeft == 1)
+        currentSurface = player->attack_frames_left[idx];
+      else
+        currentSurface = player->attack_frames_right[idx];
+    }
+  }
+
+  else {
+    if (!player->onGround) {
+      if (idx >= MAX_AIR_FRAMES)
+        idx = 0;
+      if (player->facingLeft == 1)
+        currentSurface = player->air_frames_left[idx];
+      else
+        currentSurface = player->air_frames_right[idx];
+    }
+
+    else if (player->state == RUNNING) {
+      if (idx >= MAX_WALK_FRAMES)
+        idx = 0;
+      if (player->facingLeft == 1)
+        currentSurface = player->walk_frames_left[idx];
+      else
+        currentSurface = player->walk_frames_right[idx];
+    }
+
+    else {
+      if (idx >= MAX_IDLE_FRAMES)
+        idx = 0;
+      if (player->facingLeft == 1)
+        currentSurface = player->idle_frames_left[idx];
+      else
+        currentSurface = player->idle_frames_right[idx];
+    }
   }
 
   // Fallback if image failed to load
@@ -114,10 +145,12 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
               player->Y - camera->Y);
 
   // [DEBUG] Draw Player Hitbox
-  int pw = currentSurface->w;
-  int ph = currentSurface->h;
-  DrawOutline(screen, (int)(player->X - (pw / 2) - camera->X),
-              (int)(player->Y - (ph / 2) - camera->Y), pw, ph, green);
+  if (state->debugMode) {
+    int pw = currentSurface->w;
+    int ph = currentSurface->h;
+    DrawOutline(screen, (int)(player->X - (pw / 2) - camera->X),
+                (int)(player->Y - (ph / 2) - camera->Y), pw, ph, green);
+  }
 
   // [DEBUG] Input Buffer & State Text
   if (state->debugMode) {
@@ -135,7 +168,7 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
   }
 
   // [DEBUG] Draw Attack Hitbox (Red)
-  if (player->attackTimer > 0) {
+  if (player->attackTimer > 0 && state->debugMode) {
     int hitW, hitH, range;
 
     if (player->state == ATTACK_LIGHT)
@@ -179,6 +212,91 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
   }
 }
 
+void DrawEnemies(EnemyType *enemies, SDL_Surface *screen, CameraType *camera,
+                 int yellow, GameState *state) {
+  for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
+    if (enemies[i].alive) {
+
+      // --- 1. DETERMINE WHICH ANIMATION SET TO USE ---
+      SDL_Surface **currentAnimSet = NULL;
+      int isFacingLeft = (enemies[i].direction == 1); // 1 is Left
+
+      // PRIORITY 1: STUNNED (Hit Animation)
+      if (enemies[i].stun_timer > 0) {
+        if (isFacingLeft)
+          currentAnimSet = enemies[i].hit_frames_left;
+        else
+          currentAnimSet = enemies[i].hit_frames_right;
+      }
+      // PRIORITY 2: ATTACKING (Visual flair during first part of cooldown)
+      // We show attack animation for 0.5 seconds after they hit
+      else if (enemies[i].attack_timer > (ATTACK_COOLDOWN - 0.5)) {
+        if (isFacingLeft)
+          currentAnimSet = enemies[i].attack_frames_left;
+        else
+          currentAnimSet = enemies[i].attack_frames_right;
+      }
+      // PRIORITY 3: WALKING (Default)
+      else {
+        if (isFacingLeft)
+          currentAnimSet = enemies[i].walk_frames_left;
+        else
+          currentAnimSet = enemies[i].walk_frames_right;
+      }
+
+      // --- 2. PICK FRAME ---
+      // Safety check: Ensure the pointer exists
+      if (currentAnimSet && currentAnimSet[enemies[i].currentFrame]) {
+        SDL_Surface *eSurf = currentAnimSet[enemies[i].currentFrame];
+
+        DrawSurface(screen, eSurf, enemies[i].X - camera->X,
+                    enemies[i].Y - camera->Y);
+
+        // [DEBUG] Enemy Hitbox
+        if (state->debugMode) {
+          int ew = eSurf->w;
+          int eh = eSurf->h;
+          DrawOutline(screen, (int)(enemies[i].X - (ew / 2) - camera->X),
+                      (int)(enemies[i].Y - (eh / 2) - camera->Y), ew, eh,
+                      yellow);
+        }
+      }
+    }
+  }
+}
+
+void DrawStringScaled(SDL_Surface *screen, int x, int y, const char *text,
+                      SDL_Surface *charset, int scale) {
+  int px, py, c;
+  SDL_Rect s, d;
+
+  // Source is still 8x8 per character
+  s.w = 8;
+  s.h = 8;
+
+  // Destination is scaled
+  d.w = 8 * scale;
+  d.h = 8 * scale;
+
+  while (*text) {
+    c = *text & 255;
+    px = (c % 16) * 8;
+    py = (c / 16) * 8;
+
+    s.x = px;
+    s.y = py;
+    d.x = x;
+    d.y = y;
+
+    // Use BlitScaled instead of BlitSurface
+    SDL_BlitScaled(charset, &s, screen, &d);
+
+    // Move x forward by the scaled width
+    x += (8 * scale);
+    text++;
+  }
+}
+
 // --- MAIN DRAWING LOGIC ---
 
 void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
@@ -208,71 +326,60 @@ void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
   DrawPlayer(screen, charset, player, camera, state, red, green);
 
   // 4. Draw Enemies
-  // 4. Draw Enemies
-  for (int i = 0; i < NUMBER_OF_ENEMIES; i++) {
-    if (enemies[i].alive) {
-
-      // 1. Pick the correct frame
-      int frameIdx = enemies[i].currentFrame;
-      SDL_Surface *eSurf = NULL;
-      if (enemies[i].direction == RIGHT)
-        eSurf = enemies[i].walk_frames_right[frameIdx];
-      else
-        eSurf = enemies[i].walk_frames_left[frameIdx];
-
-      // 2. Draw it
-      if (eSurf) {
-        // Handle Direction:
-        // Note: SDL_LoadBMP loads one direction.
-        // If you need them to flip left, you should either pre-generate left
-        // frames or just draw them as is. For now, we draw the raw frame:
-
-        DrawSurface(screen, eSurf, enemies[i].X - camera->X,
-                    enemies[i].Y - camera->Y);
-
-        // [DEBUG] Enemy Hitbox
-        int ew = eSurf->w;
-        int eh = eSurf->h;
-        DrawOutline(screen, (int)(enemies[i].X - (ew / 2) - camera->X),
-                    (int)(enemies[i].Y - (eh / 2) - camera->Y), ew, eh, yellow);
-      }
-    }
-  }
+  DrawEnemies(enemies, screen, camera, yellow, state);
 
   // 5. Draw HUD
   char text[128];
+  // Draw the HUD Box (Ends at y=54)
   DrawRectangle(screen, 4, 4, SCREEN_WIDTH - 8, 50, white, black);
 
-  sprintf(text, "Health: %d | Time: %.2f | FPS: %.0f", player->health,
-          state->worldTime, fps);
+  // --- TOP ROW: STATS ---
+  sprintf(text, "Health: %d | Time: %.2f | FPS: %.0f",
+          player->health > 0 ? player->health : 0, state->worldTime, fps);
   DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset);
 
-  // --- FLASHY MULTIPLIER UI ---
-  // If multiplier scale > 1.2, make it Yellow, otherwise White
-  if (player->multiplierScale > 1.2) {
-    SDL_SetSurfaceColorMod(charset, 255, 255, 0); // Yellow
-  } else {
-    SDL_SetSurfaceColorMod(charset, 255, 255, 255); // White
-  }
+  // --- MIDDLE ROW: SCORE (Small, inside HUD) ---
+  sprintf(text, "SCORE: %d", player->score);
+  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset);
 
-  int uiX = screen->w / 2;
-  int uiY = 26;
-
-  // Shake Effect
-  if (player->multiplierScale > 1.1) {
-    uiX += (rand() % 4) - 2;
-    uiY += (rand() % 4) - 2;
-  }
-
-  sprintf(text, "SCORE: %d (x%d)", player->score, player->multiplier);
-  DrawString(screen, uiX - strlen(text) * 8 / 2, uiY, text, charset);
-
-  // Reset Color
-  SDL_SetSurfaceColorMod(charset, 255, 255, 255);
-  // --- END FLASHY UI ---
-
+  // --- BOTTOM CONTROLS TEXT ---
   sprintf(text, "Esc-Quit | WASD-Move | Space-Jump | J-Light | K-Heavy");
   DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 42, text, charset);
+
+  // ============================================================
+  // --- MULTIPLIER (Drawn UNDER the HUD box) ---
+  // ============================================================
+
+  // Only draw if we actually have a multiplier active
+  if (player->multiplier > 1) {
+
+    // Logic: Yellow if scale is high, White otherwise
+    if (player->multiplierScale > 1.2) {
+      SDL_SetSurfaceColorMod(charset, 255, 255, 0); // Yellow
+    } else {
+      SDL_SetSurfaceColorMod(charset, 255, 255, 255); // White
+    }
+
+    int multX = screen->w / 2;
+    int multY = 70; // Positioned below the HUD (50px + padding)
+
+    // Shake Effect
+    if (player->multiplierScale > 1.1) {
+      multX += (rand() % 4) - 2;
+      multY += (rand() % 4) - 2;
+    }
+
+    sprintf(text, "x%d", player->multiplier);
+
+    // Draw BIG (Scale 2) using the function we made earlier
+    // We calculate center using: (length * 8 * scale) / 2
+    int scale = 2;
+    DrawStringScaled(screen, multX - (strlen(text) * 8 * scale) / 2, multY,
+                     text, charset, scale);
+
+    // Reset Color to white for everything else
+    SDL_SetSurfaceColorMod(charset, 255, 255, 255);
+  }
 
   // 6. Push to GPU
   SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
@@ -281,41 +388,6 @@ void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
 }
 
 // --- BASIC DRAWING PRIMITIVES ---
-
-SDL_Surface *FlipSurfaceHorizontal(SDL_Surface *source) {
-  if (!source)
-    return NULL;
-  SDL_Surface *flipped = SDL_CreateRGBSurfaceWithFormat(
-      0, source->w, source->h, source->format->BitsPerPixel,
-      source->format->format);
-  if (!flipped)
-    return NULL;
-
-  SDL_LockSurface(source);
-  SDL_LockSurface(flipped);
-
-  int pitch = source->pitch;
-  int bpp = source->format->BytesPerPixel;
-
-  for (int y = 0; y < source->h; y++) {
-    for (int x = 0; x < source->w; x++) {
-      Uint8 *srcPixel = (Uint8 *)source->pixels + (y * pitch) + (x * bpp);
-      Uint8 *dstPixel =
-          (Uint8 *)flipped->pixels + (y * pitch) + ((source->w - 1 - x) * bpp);
-      memcpy(dstPixel, srcPixel, bpp);
-    }
-  }
-
-  SDL_UnlockSurface(flipped);
-  SDL_UnlockSurface(source);
-
-  if (SDL_HasColorKey(source)) {
-    Uint32 colorKey;
-    SDL_GetColorKey(source, &colorKey);
-    SDL_SetColorKey(flipped, SDL_TRUE, colorKey);
-  }
-  return flipped;
-}
 
 void DrawString(SDL_Surface *screen, int x, int y, const char *text,
                 SDL_Surface *charset) {

@@ -1,6 +1,6 @@
 #include "../headers/player.h"
 #include "../headers/drawing.h"
-#include <stdio.h>
+#include "../headers/utils.h"
 
 // --- COMBO DEFINITIONS ---
 InputType COMBO_SEQ_TRIPLE[] = {IN_LIGHT, IN_LIGHT, IN_LIGHT};
@@ -11,6 +11,8 @@ InputType COMBO_SEQ_DASH_U[] = {IN_UP, IN_UP};
 InputType COMBO_SEQ_DASH_D[] = {IN_DOWN, IN_DOWN};
 
 // --- HELPER FUNCTIONS ---
+
+// Helper to load a sequence of frames and their flipped counterparts
 
 // Helper to cycle animation frames based on time
 void UpdateAnimation(int *frame, double *timer, int maxFrames, double speed,
@@ -47,84 +49,61 @@ void ClearBuffer(InputBuffer *buf) { buf->count = 0; }
 
 // --- INITIALIZATION ---
 
-void InitPlayer(PlayerType *player) {
-  // 1. Physics & Stats
-  player->speed = PLAYER_MOVE_SPEED;
-  player->direction = RIGHT; // Default to facing right
-  player->dy = 0;
-  player->onGround = 1;
-  player->health = PLAYER_HEALTH;
-  player->facingLeft = 0;
+void LoadPlayerAssets(PlayerType *player) {
+  // Clean, readable, one-line-per-animation loading
+  LoadAnimationSequence("textures/fighter_run", MAX_WALK_FRAMES,
+                        player->walk_frames_right, player->walk_frames_left);
+  LoadAnimationSequence("textures/fighter_combo", MAX_ATTACK_FRAMES,
+                        player->attack_frames_right,
+                        player->attack_frames_left);
+  LoadAnimationSequence("textures/fighter_dash", MAX_DASH_FRAMES,
+                        player->dash_frames_right, player->dash_frames_left);
+  LoadAnimationSequence("textures/fighter_jump", MAX_AIR_FRAMES,
+                        player->air_frames_right, player->air_frames_left);
+  LoadAnimationSequence("textures/fighter_Idle", MAX_IDLE_FRAMES,
+                        player->idle_frames_right, player->idle_frames_left);
+  LoadAnimationSequence("textures/fighter_hit", MAX_HIT_FRAMES,
+                        player->hit_frames_right, player->hit_frames_left);
+  LoadAnimationSequence("textures/fighter_death", MAX_DEATH_FRAMES,
+                        player->death_frames_right, player->death_frames_left);
 
-  player->Y = LEVEL_HEIGHT / 2;
+  // Set Defaults
+  player->animSpeed = 0.15;
+  player->maxFrames = MAX_WALK_FRAMES;
+}
+
+void ResetPlayer(PlayerType *player) {
+  // 1. Physics & Position
   player->X = LEVEL_WIDTH / 2;
+  player->Y = LEVEL_HEIGHT / 2;
   player->landingY = player->Y;
 
-  // 2. State & Timers
+  player->speed = PLAYER_MOVE_SPEED;
+  player->dy = 0;
+  player->direction = RIGHT;
+  player->facingLeft = 0;
+  player->onGround = 1;
+
+  // 2. Gameplay Stats
+  player->health = PLAYER_HEALTH;
   player->state = IDLE;
   player->score = 0;
-  player->multiplier = 1;
-  player->multiplierTimer = 0;
-  player->multiplierScale = 1.0; // Reset visual scale
 
+  // 3. Reset Timers
+  player->animTimer = 0;
+  player->currentFrame = 0;
   player->attackTimer = 0;
   player->basicCooldownTimer = 0;
   player->comboCooldownTimer = 0;
 
+  // 4. Reset Multiplier Visuals
+  player->multiplier = 1;
+  player->multiplierTimer = 0;
+  player->multiplierScale = 1.0;
+
+  // 5. Clear Input Buffer
   player->buffer.count = 0;
   memset(player->prev_keys, 0, sizeof(player->prev_keys));
-
-  // 3. Load Animation Frames
-  char filename[64];
-
-  // Load Walk Frames (0 to MAX_WALK_FRAMES-1)
-  for (int i = 0; i < MAX_WALK_FRAMES; i++) {
-    sprintf(filename, "textures/fighter_run_%d.bmp", i + 1);
-    player->walk_frames_right[i] = SDL_LoadBMP(filename);
-    if (!player->walk_frames_right[i]) {
-      printf("Failed to load %s\n", filename);
-      // Fallback: Use a default if specific frame missing, or exit
-    }
-    player->walk_frames_left[i] =
-        FlipSurfaceHorizontal(player->walk_frames_right[i]);
-  }
-
-  // Load Attack Frames (0 to MAX_ATTACK_FRAMES-1)
-  for (int i = 0; i < MAX_ATTACK_FRAMES; i++) {
-    sprintf(filename, "textures/fighter_combo_%d.bmp", i + 1);
-    player->attack_frames_rigth[i] = SDL_LoadBMP(filename);
-    if (!player->attack_frames_rigth[i]) {
-      printf("Failed to load %s\n", filename);
-    }
-    player->attack_frames_left[i] =
-        FlipSurfaceHorizontal(player->attack_frames_rigth[i]);
-  }
-
-  for (int i = 0; i < MAX_DASH_FRAMES; i++) {
-    sprintf(filename, "textures/fighter_dash_%d.bmp", i + 1);
-    player->dash_frames_rigth[i] = SDL_LoadBMP(filename);
-    if (!player->dash_frames_rigth[i]) {
-      printf("Failed to load %s\n", filename);
-    }
-    player->dash_frames_left[i] =
-        FlipSurfaceHorizontal(player->dash_frames_rigth[i]);
-  }
-
-  for (int i = 0; i < MAX_AIR_FRAMES; i++) {
-    sprintf(filename, "textures/fighter_air_%d.bmp", i + 1);
-    player->air_frames_rigth[i] = SDL_LoadBMP(filename);
-    if (!player->air_frames_rigth[i]) {
-      printf("Failed to load %s\n", filename);
-    }
-    player->air_frames_left[i] =
-        FlipSurfaceHorizontal(player->air_frames_rigth[i]);
-  }
-
-  // Animation Defaults
-  player->currentFrame = 0;
-  player->animTimer = 0;
-  player->animSpeed = 0.15; // Default speed
-  player->maxFrames = MAX_WALK_FRAMES;
 }
 
 // --- INPUT & COMBOS ---
@@ -167,14 +146,14 @@ int CheckCombos(InputBuffer *buf, double currentTime) {
 
 void ProcessAttack(PlayerType *player, EnemyType *enemies) {
   // Safety check: ensure we have at least one frame loaded
-  if (!player->attack_frames_rigth[0])
+  if (!player->attack_frames_right[0])
     return;
 
   double hitX, hitY;
   int hitW, hitH;
 
-  int pHalfW = player->attack_frames_rigth[0]->w / 2;
-  int pHalfH = player->attack_frames_rigth[0]->h / 2;
+  int pHalfW = player->attack_frames_right[0]->w / 2;
+  int pHalfH = player->attack_frames_right[0]->h / 2;
 
   // 1. Determine Range
   int range;
@@ -237,9 +216,38 @@ void ProcessAttack(PlayerType *player, EnemyType *enemies) {
 }
 
 // --- MAIN UPDATE LOOP ---
-
 void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
                   double worldTime) {
+  if (player->health <= 0 && player->state != DEATH_ANIM) {
+    player->health = 0;
+    player->state = DEATH_ANIM;
+    player->currentFrame = 0;
+    player->animTimer = 0;
+    player->attackTimer = 0;
+  }
+
+  // --- 2. HANDLE DEATH STATE ---
+  if (player->state == DEATH_ANIM) {
+    player->animTimer += delta;
+    if (player->animTimer >= 0.2) {
+      player->animTimer = 0;
+      if (player->currentFrame < MAX_DEATH_FRAMES - 1) {
+        player->currentFrame++;
+      }
+    }
+
+    if (!player->onGround) {
+      player->dy += GRAVITY * delta;
+      player->Y += player->dy * delta;
+      if (player->Y >= player->landingY) {
+        player->Y = player->landingY;
+        player->onGround = 1;
+        player->dy = 0;
+      }
+    }
+    return;
+  }
+
   const Uint8 *keyState = SDL_GetKeyboardState(NULL);
 
   // 1. INPUT
@@ -269,11 +277,11 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
     PushInput(&player->buffer, input, worldTime);
     int combo = CheckCombos(&player->buffer, worldTime);
 
-    // Priority 1: Combos
     if (combo != -1 && player->comboCooldownTimer <= 0) {
       ClearBuffer(&player->buffer);
+      player->currentFrame = 0;
+      player->animTimer = 0;
 
-      // Setup specific combo stats
       if (combo == COMBO_TRIPLE) {
         player->state = COMBO_TRIPLE;
         player->attackTimer = 0.5;
@@ -293,17 +301,18 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
         player->comboCooldownTimer = ATTACK_DASH_COMBO_DELAY;
         ProcessAttack(player, enemies);
       }
-    }
-    // Priority 2: Basic Attacks
-    else if (player->attackTimer <= 0 && player->basicCooldownTimer <= 0) {
+    } else if (player->attackTimer <= 0 && player->basicCooldownTimer <= 0) {
       if (input == IN_LIGHT) {
+        player->currentFrame = 0;
+        player->animTimer = 0;
         player->state = ATTACK_LIGHT;
         player->attackTimer = ATTACK_LIGHT_TIME;
         player->attack.damage = ATTACK_LIGHT_DAMAGE;
         player->basicCooldownTimer = ATTACK_LIGHT_TIME_DELAY;
         ProcessAttack(player, enemies);
       } else if (input == IN_HEAVY) {
-        player->state = ATTACK_HEAVY;
+        player->currentFrame = 0;
+        player->animTimer = 0;
         player->state = ATTACK_HEAVY;
         player->attack.damage = ATTACK_HEAVY_DAMAGE;
         player->attackTimer = ATTACK_HEAVY_TIME;
@@ -313,33 +322,44 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
     }
   }
 
-  // 3. ANIMATION STATE LOGIC
-  // Determine which animation to play
+  // --- 3. ANIMATION STATE LOGIC (CORRECTED) ---
+  // Priority 1: Attacks/Dash (Locked by timer)
   if (player->attackTimer > 0) {
-    // We are attacking
-    player->maxFrames = MAX_ATTACK_FRAMES;
-    player->animSpeed = 0.1;
+    if (player->state == DASH) {
+      player->maxFrames = MAX_DASH_FRAMES;
+      player->animSpeed = 0.08;
+    } else {
+      player->maxFrames = MAX_ATTACK_FRAMES;
+      player->animSpeed = 0.1;
+    }
   }
-  // FIX: Check if ANY movement key is pressed. Don't check direction here.
+  // Priority 2: Running (Locked by Input)
+  // Added W/S/UP/DOWN so vertical movement triggers RUNNING too
   else if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D] ||
-           keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT]) {
-    // We are walking
+           keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_S] ||
+           keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT] ||
+           keyState[SDL_SCANCODE_UP] || keyState[SDL_SCANCODE_DOWN]) {
+
+    // Explicitly set the state to RUNNING
+    if (player->state != RUNNING) {
+      player->state = RUNNING;
+      player->currentFrame = 0; // Reset frame to start run cycle cleanly
+    }
     player->maxFrames = MAX_WALK_FRAMES;
     player->animSpeed = 0.15;
-  } else {
-    // Idle - Only happens if NOT attacking and NOT moving
-    player->currentFrame = 0;
+  }
+  // Priority 3: Idle (Fallback)
+  else {
+    if (player->state != IDLE) {
+      player->state = IDLE;
+      player->currentFrame = 0;
+    }
+    player->maxFrames = MAX_IDLE_FRAMES;
+    player->animSpeed = 0.2;
   }
 
-  // Update the frame counter (unless idle)
-  // FIX: Only update animation if NOT idle
-  if (player->currentFrame != 0 || player->state != IDLE ||
-      keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D] ||
-      keyState[SDL_SCANCODE_LEFT] || keyState[SDL_SCANCODE_RIGHT]) {
-
-    UpdateAnimation(&player->currentFrame, &player->animTimer,
-                    player->maxFrames, player->animSpeed, delta);
-  }
+  UpdateAnimation(&player->currentFrame, &player->animTimer, player->maxFrames,
+                  player->animSpeed, delta);
 
   // 4. MOVEMENT LOGIC
   if (player->state == DASH) {
@@ -398,9 +418,9 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
   // 6. TIMERS & CLEANUP
   if (player->attackTimer > 0) {
     player->attackTimer -= delta;
-    if (player->attackTimer <= 0) {
-      player->state = IDLE;
-    }
+    // FIX: Removed the logic that forced player->state = IDLE here.
+    // Section 3 now handles the transition back to IDLE or RUNNING
+    // automatically.
   }
 
   if (player->basicCooldownTimer > 0)
@@ -410,7 +430,8 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
 
   // Pulse Decay
   if (player->multiplierScale > 1.0) {
-    player->multiplierScale -= delta * 2.0;
+    if (player->multiplierTimer <= 0)
+      player->multiplierScale = 1;
     if (player->multiplierScale < 1.0)
       player->multiplierScale = 1.0;
   }
