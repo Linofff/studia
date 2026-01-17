@@ -83,6 +83,7 @@ void ResetPlayer(PlayerType *player) {
   player->direction = RIGHT;
   player->facingLeft = 0;
   player->onGround = 1;
+  player->wasHitTimer = 0;
 
   // 2. Gameplay Stats
   player->health = PLAYER_HEALTH;
@@ -416,12 +417,11 @@ void UpdatePlayer(PlayerType *player, EnemyType *enemies, double delta,
   }
 
   // 6. TIMERS & CLEANUP
-  if (player->attackTimer > 0) {
+  if (player->attackTimer > 0)
     player->attackTimer -= delta;
-    // FIX: Removed the logic that forced player->state = IDLE here.
-    // Section 3 now handles the transition back to IDLE or RUNNING
-    // automatically.
-  }
+
+  if (player->wasHitTimer > 0)
+    player->wasHitTimer -= delta;
 
   if (player->basicCooldownTimer > 0)
     player->basicCooldownTimer -= delta;

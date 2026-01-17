@@ -209,6 +209,7 @@ void MoveEnemy(EnemyType *enemies, PlayerType *player, double delta) {
       }
 
       player->health -= current_damage;
+      player->wasHitTimer = 1;
 
       // Reset cooldown
       enemies[i].attack_timer = ATTACK_COOLDOWN;

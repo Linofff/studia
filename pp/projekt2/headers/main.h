@@ -144,6 +144,8 @@ typedef struct {
   int maxFrames;
   int multiplierScale;
 
+  double wasHitTimer;
+
   AttackType attack;
 
   InputBuffer buffer;

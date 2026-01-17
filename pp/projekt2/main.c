@@ -104,7 +104,7 @@ void GameLoop(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
 
     // --- D. DRAW ---
     if (state->currentState == STATE_MENU) {
-      DrawMenu(renderer, screen, scrtex, charset, "MY COOL GAME",
+      DrawMenu(renderer, screen, scrtex, charset, "BEAT EM UP",
                "PRESS ENTER TO START");
     } else if (state->currentState == STATE_GAMEOVER) {
       DrawMenu(renderer, screen, scrtex, charset, "GAME OVER",

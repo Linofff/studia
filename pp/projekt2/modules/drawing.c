@@ -88,6 +88,15 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
       currentSurface = player->death_frames_right[idx];
   }
 
+  else if (player->wasHitTimer > 0) {
+    if (idx >= MAX_HIT_FRAMES)
+      idx = 0;
+    if (player->facingLeft == 1)
+      currentSurface = player->hit_frames_left[idx];
+    else
+      currentSurface = player->hit_frames_right[idx];
+  }
+
   else if (player->attackTimer > 0) {
     if (idx >= MAX_ATTACK_FRAMES)
       idx = 0;
@@ -109,6 +118,7 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
   }
 
   else {
+
     if (!player->onGround) {
       if (idx >= MAX_AIR_FRAMES)
         idx = 0;
@@ -334,13 +344,25 @@ void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
   DrawRectangle(screen, 4, 4, SCREEN_WIDTH - 8, 50, white, black);
 
   // --- TOP ROW: STATS ---
-  sprintf(text, "Health: %d | Time: %.2f | FPS: %.0f",
-          player->health > 0 ? player->health : 0, state->worldTime, fps);
-  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset);
+  if (!state->debugMode) {
+    sprintf(text, "Health: %d | Time: %.2f",
+            player->health > 0 ? player->health : 0, state->worldTime);
+    DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset);
+  } else {
+
+    sprintf(text, "Health: %d | Time: %.2f | FPS: %.0f",
+            player->health > 0 ? player->health : 0, state->worldTime, fps);
+    DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset);
+  }
 
   // --- MIDDLE ROW: SCORE (Small, inside HUD) ---
-  sprintf(text, "SCORE: %d", player->score);
-  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset);
+  if (!state->debugMode) {
+    sprintf(text, "SCORE: %d", player->score);
+    DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset);
+  } else {
+    sprintf(text, "SCORE: %d | Implemented: 1,2,3,4,A,B,C,D,E", player->score);
+    DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset);
+  }
 
   // --- BOTTOM CONTROLS TEXT ---
   sprintf(text, "Esc-Quit | WASD-Move | Space-Jump | J-Light | K-Heavy");
