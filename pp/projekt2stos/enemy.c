@@ -1,5 +1,5 @@
 #include "enemy.h"
-#include "drawing.h"
+#include "main.h"
 #include "utils.h"
 
 void TintSequence(SDL_Surface **src, SDL_Surface **dst, int count, Uint8 r,
@@ -97,9 +97,9 @@ EnemyType *InitEnemies() {
 }
 
 void SetupType0(EnemyType *enemy, EnemyAssets *assets) {
-  enemy->speed = 100;
-  enemy->damage = 10;
-  enemy->health = 100;
+  enemy->speed = ENEMY_T0_SPEED;
+  enemy->damage = ENEMY_T0_DAMAGE;
+  enemy->health = ENEMY_T0_HEALTH;
 
   memcpy(enemy->walk_frames_right, assets->t0_walk_right,
          sizeof(assets->t0_walk_right));
@@ -116,10 +116,10 @@ void SetupType0(EnemyType *enemy, EnemyAssets *assets) {
 }
 
 void SetupType1(EnemyType *enemy, EnemyAssets *assets) {
-  enemy->speed = 150;
-  enemy->damage = 20;
+  enemy->speed = ENEMY_T1_SPEED;
+  enemy->damage = ENEMY_T1_DAMAGE;
   enemy->ai_state = 0;
-  enemy->health = 50;
+  enemy->health = ENEMY_T1_HEALTH;
   enemy->ai_timer = 0;
 
   memcpy(enemy->walk_frames_right, assets->t1_walk_right,
@@ -251,8 +251,10 @@ void MoveCharger(EnemyType *enemy, PlayerType *player, double dx, double dy,
     if (enemy->ai_timer > 0)
       enemy->ai_timer -= delta;
 
-  } else if (enemy->ai_state == 1) {
-    double chargeSpeed = enemy->speed * 2.5;
+  }
+
+  else if (enemy->ai_state == 1) {
+    double chargeSpeed = enemy->speed * ENEMY_T1_SPEED_BOOST;
     enemy->X += enemy->chargeDirX * chargeSpeed * delta;
     enemy->Y += enemy->chargeDirY * chargeSpeed * delta;
     enemy->ai_timer -= delta;
@@ -261,7 +263,9 @@ void MoveCharger(EnemyType *enemy, PlayerType *player, double dx, double dy,
       enemy->ai_timer = 1.5;
     }
 
-  } else if (enemy->ai_state == 2) {
+  }
+
+  else if (enemy->ai_state == 2) {
     enemy->ai_timer -= delta;
     if (enemy->ai_timer <= 0)
       enemy->ai_state = 0;

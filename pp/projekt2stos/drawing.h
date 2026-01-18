@@ -6,13 +6,13 @@
 const char *GetInputName(InputType in);
 const char *GetStateName(int state);
 void DrawOutline(SDL_Surface *screen, int x, int y, int w, int h, Uint32 color);
-void DrawStringScaled(SDL_Surface *screen, int x, int y, const char *text,
-                      SDL_Surface *charset, int scale);
+void DrawString(SDL_Surface *screen, int x, int y, const char *text,
+                SDL_Surface *charset, int scale);
 SDL_Surface *GetPlayerSprite(PlayerType *player);
 void DrawPlayerDebugOverlay(SDL_Surface *screen, SDL_Surface *charset,
                             PlayerType *player);
 void DrawPlayerAttackDebug(SDL_Surface *screen, PlayerType *player,
-                           CameraType *camera, SDL_Surface *currSurf, int red);
+                           CameraType *camera, int red);
 void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
                 CameraType *camera, GameStateType *gameState, int red,
                 int green);
@@ -33,8 +33,6 @@ void DrawMenu(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
               SDL_Surface *charset, const char *title, const char *subtitle);
 void DrawGameOver(SDL_Renderer *renderer, SDL_Surface *screen,
                   SDL_Texture *scrtex, SDL_Surface *charset, int score);
-void DrawString(SDL_Surface *screen, int x, int y, const char *text,
-                SDL_Surface *charset);
 void DrawSurface(SDL_Surface *screen, SDL_Surface *sprite, int x, int y);
 void DrawPixel(SDL_Surface *surface, int x, int y, Uint32 color);
 void DrawLine(SDL_Surface *screen, int x, int y, int l, int dx, int dy,

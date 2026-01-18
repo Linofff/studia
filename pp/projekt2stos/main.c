@@ -16,6 +16,7 @@ void InitNewGame(GameStateType *gameState, PlayerType *player,
   camera->X = 0;
   camera->Y = 0;
 }
+
 void GameLoop(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
               SDL_Surface *charset, GameStateType *gameState,
               PlayerType *player, CameraType *camera, EnemyType *enemies,
@@ -41,8 +42,6 @@ void GameLoop(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
 
       if (event.type == SDL_KEYDOWN) {
         if (event.key.keysym.sym == SDLK_ESCAPE)
-          quit = 1;
-        if (event.key.keysym.sym == SDLK_q)
           quit = 1;
 
         // menu inputs

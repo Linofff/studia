@@ -1,4 +1,6 @@
 #include "drawing.h"
+#include "main.h"
+#include "player.h"
 
 const char *GetInputName(InputType in) {
   switch (in) {
@@ -48,8 +50,8 @@ void DrawOutline(SDL_Surface *screen, int x, int y, int w, int h,
   DrawLine(screen, x, y + h - 1, w, 1, 0, color);
 }
 
-void DrawStringScaled(SDL_Surface *screen, int x, int y, const char *text,
-                      SDL_Surface *charset, int scale) {
+void DrawString(SDL_Surface *screen, int x, int y, const char *text,
+                SDL_Surface *charset, int scale) {
   int px, py, c;
   SDL_Rect s, d;
   s.w = 8;
@@ -137,59 +139,21 @@ void DrawPlayerDebugOverlay(SDL_Surface *screen, SDL_Surface *charset,
     sprintf(temp, "%s ", GetInputName(player->buffer.events[i].input));
     strcat(bufferText, temp);
   }
-  DrawString(screen, 10, 60, bufferText, charset);
+  DrawString(screen, 10, 60, bufferText, charset, 1);
 
   char stateText[64];
   sprintf(stateText, "Action: %s", GetStateName(player->state));
-  DrawString(screen, 10, 76, stateText, charset);
+  DrawString(screen, 10, 76, stateText, charset, 1);
 }
 
 void DrawPlayerAttackDebug(SDL_Surface *screen, PlayerType *player,
-                           CameraType *camera, SDL_Surface *currSurf, int red) {
+                           CameraType *camera, int red) {
   if (player->attackTimer <= 0)
     return;
 
-  int range;
-
-  if (player->state == ATTACK_LIGHT)
-    range = 60;
-  else if (player->state == ATTACK_HEAVY)
-    range = 100;
-  else if (player->state == COMBO_MIX)
-    range = 100;
-  else if (player->state == COMBO_TRIPLE)
-    range = 120;
-  else if (player->state == DASH)
-    range = 200;
-  else
-    range = 100;
-
   int hitW, hitH;
-  int pHalfW = (currSurf) ? currSurf->w / 2 : 20;
-  int pHalfH = (currSurf) ? currSurf->h / 2 : 20;
   double hitX, hitY;
-
-  if (player->direction == UP) {
-    hitW = ATTACK_HITBOX_H;
-    hitH = range;
-    hitX = player->X - (hitW / 2);
-    hitY = player->Y - pHalfH - hitH;
-  } else if (player->direction == DOWN) {
-    hitW = ATTACK_HITBOX_H;
-    hitH = range;
-    hitX = player->X - (hitW / 2);
-    hitY = player->Y + pHalfH;
-  } else if (player->direction == LEFT) {
-    hitW = range;
-    hitH = ATTACK_HITBOX_H;
-    hitX = player->X - pHalfW - hitW;
-    hitY = player->Y - (hitH / 2);
-  } else {
-    hitW = range;
-    hitH = ATTACK_HITBOX_H;
-    hitX = player->X + pHalfW;
-    hitY = player->Y - (hitH / 2);
-  }
+  GetAttackHitbox(player, &hitX, &hitY, &hitW, &hitH);
 
   DrawOutline(screen, (int)(hitX - camera->X), (int)(hitY - camera->Y), hitW,
               hitH, red);
@@ -211,11 +175,9 @@ void DrawPlayer(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
                   (int)(player->Y - (ph / 2) - camera->Y), pw, ph, green);
     }
     DrawPlayerDebugOverlay(screen, charset, player);
-    DrawPlayerAttackDebug(screen, player, camera, currentSurface, red);
+    DrawPlayerAttackDebug(screen, player, camera, red);
   }
 }
-
-// --- ENEMY LOGIC ---
 
 SDL_Surface *GetEnemySprite(EnemyType *enemy) {
   int isLeft = (enemy->direction == 1);
@@ -259,8 +221,6 @@ void DrawEnemies(EnemyType *enemies, SDL_Surface *screen, CameraType *camera,
   }
 }
 
-// --- SCENE & HUD LOGIC ---
-
 void DrawBackground(SDL_Surface *screen, CameraType *camera) {
   int skyBlue = SDL_MapRGB(screen->format, 0x87, 0xCE, 0xEB);
   int floorGrey = SDL_MapRGB(screen->format, 0x80, 0x80, 0x80);
@@ -289,17 +249,20 @@ void DrawHUD(SDL_Surface *screen, SDL_Surface *charset, PlayerType *player,
     sprintf(text, "Health: %d | Time: %.2f | FPS: %.0f",
             player->health > 0 ? player->health : 0, gameState->worldTime, fps);
   }
-  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset);
+  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 10, text, charset,
+             1);
 
   if (!gameState->debugMode) {
     sprintf(text, "SCORE: %d", player->score);
   } else {
     sprintf(text, "SCORE: %d | Implemented: 1,2,3,4,A,B,C,D,E", player->score);
   }
-  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset);
+  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 26, text, charset,
+             1);
 
   sprintf(text, "Esc-Quit | WASD-Move | Space-Jump | J-Light | K-Heavy");
-  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 42, text, charset);
+  DrawString(screen, screen->w / 2 - strlen(text) * 8 / 2, 42, text, charset,
+             1);
 }
 
 void DrawMultiplier(SDL_Surface *screen, SDL_Surface *charset,
@@ -319,13 +282,11 @@ void DrawMultiplier(SDL_Surface *screen, SDL_Surface *charset,
   sprintf(text, "x%d", player->multiplier);
 
   int scale = 2;
-  DrawStringScaled(screen, multX - (strlen(text) * 8 * scale) / 2, multY, text,
-                   charset, scale);
+  DrawString(screen, multX - (strlen(text) * 8 * scale) / 2, multY, text,
+             charset, scale);
 
   SDL_SetSurfaceColorMod(charset, 255, 255, 255);
 }
-
-// --- MAIN DRAW FUNCTION ---
 
 void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
               SDL_Surface *charset, PlayerType *player, EnemyType *enemies,
@@ -349,8 +310,6 @@ void DrawGame(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
   SDL_RenderPresent(renderer);
 }
 
-// --- MENUS ---
-
 void DrawMenu(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
               SDL_Surface *charset, const char *title, const char *subtitle) {
   SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0, 0, 0));
@@ -359,9 +318,9 @@ void DrawMenu(SDL_Renderer *renderer, SDL_Surface *screen, SDL_Texture *scrtex,
   int centerY = SCREEN_HEIGHT / 2;
 
   DrawString(screen, centerX - (strlen(title) * 4), centerY - 20, title,
-             charset);
+             charset, 1);
   DrawString(screen, centerX - (strlen(subtitle) * 4), centerY + 10, subtitle,
-             charset);
+             charset, 1);
 
   SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
   SDL_RenderCopy(renderer, scrtex, NULL, NULL);
@@ -378,44 +337,21 @@ void DrawGameOver(SDL_Renderer *renderer, SDL_Surface *screen,
 
   const char *title = "GAME OVER";
   DrawString(screen, centerX - (strlen(title) * 4), centerY - 30, title,
-             charset);
+             charset, 1);
 
   sprintf(textBuffer, "FINAL SCORE: %d", score);
   SDL_SetSurfaceColorMod(charset, 255, 255, 0);
   DrawString(screen, centerX - (strlen(textBuffer) * 4), centerY, textBuffer,
-             charset);
+             charset, 1);
   SDL_SetSurfaceColorMod(charset, 255, 255, 255);
 
   const char *sub = "PRESS ENTER TO RESET";
-  DrawString(screen, centerX - (strlen(sub) * 4), centerY + 30, sub, charset);
+  DrawString(screen, centerX - (strlen(sub) * 4), centerY + 30, sub, charset,
+             1);
 
   SDL_UpdateTexture(scrtex, NULL, screen->pixels, screen->pitch);
   SDL_RenderCopy(renderer, scrtex, NULL, NULL);
   SDL_RenderPresent(renderer);
-}
-
-// --- PRIMITIVES ---
-
-void DrawString(SDL_Surface *screen, int x, int y, const char *text,
-                SDL_Surface *charset) {
-  int px, py, c;
-  SDL_Rect s, d;
-  s.w = 8;
-  s.h = 8;
-  d.w = 8;
-  d.h = 8;
-  while (*text) {
-    c = *text & 255;
-    px = (c % 16) * 8;
-    py = (c / 16) * 8;
-    s.x = px;
-    s.y = py;
-    d.x = x;
-    d.y = y;
-    SDL_BlitSurface(charset, &s, screen, &d);
-    x += 8;
-    text++;
-  }
 }
 
 void DrawSurface(SDL_Surface *screen, SDL_Surface *sprite, int x, int y) {

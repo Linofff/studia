@@ -1,5 +1,5 @@
 #include "player.h"
-#include "drawing.h"
+#include "main.h"
 #include "utils.h"
 
 // combo sequances
@@ -136,7 +136,7 @@ void UpdateAnimation(int *frame, double *timer, int maxFrames, double speed,
   *timer += delta;
   if (*timer >= speed) {
     *timer -= speed;
-    *frame = (*frame + 1);
+    *frame += 1;
     if (*frame >= maxFrames) {
       *frame = 0;
     }
@@ -151,19 +151,15 @@ void HandleAnimationState(PlayerType *player, const Uint8 *keyState,
       player->animSpeed = 0.08;
     } else {
       player->maxFrames = MAX_ATTACK_FRAMES;
-      player->animSpeed = 0.06;
+      player->animSpeed = 0.1;
     }
   } else if (keyState[SDL_SCANCODE_A] || keyState[SDL_SCANCODE_D] ||
              keyState[SDL_SCANCODE_W] || keyState[SDL_SCANCODE_S]) {
-    if (player->state != RUNNING) {
-      player->state = RUNNING;
-    }
+    player->state = RUNNING;
     player->maxFrames = MAX_WALK_FRAMES;
     player->animSpeed = 0.15;
   } else {
-    if (player->state != IDLE) {
-      player->state = IDLE;
-    }
+    player->state = IDLE;
     player->maxFrames = MAX_IDLE_FRAMES;
     player->animSpeed = 0.2;
   }
@@ -184,17 +180,17 @@ void GetAttackHitbox(PlayerType *player, double *hitX, double *hitY, int *hitW,
   int range;
 
   if (player->state == ATTACK_LIGHT)
-    range = 60;
+    range = ATTACK_LIGHT_RANGE;
   else if (player->state == ATTACK_HEAVY)
-    range = 100;
+    range = ATTACK_HEAVY_RANGE;
   else if (player->state == COMBO_MIX)
-    range = 100;
+    range = ATTACK_MIX_COMBO_RANGE;
   else if (player->state == COMBO_TRIPLE)
-    range = 120;
+    range = ATTACK_LIGHT_COMBO_RANGE;
   else if (player->state == DASH)
-    range = 200;
+    range = ATTACK_DASH_COMBO_RANGE;
   else
-    range = 100;
+    range = 100; // default range
 
   if (player->direction == UP) {
     *hitW = ATTACK_HITBOX_H;
@@ -237,7 +233,7 @@ void ApplyAttackDamage(PlayerType *player, EnemyType *enemies, double hX,
 
       enemies[i].stun_timer = ENEMY_STUN;
 
-      player->score += 100 * player->multiplier;
+      player->score += POINTS_PER_HIT * player->multiplier;
       player->multiplier++;
       player->multiplierTimer = 2.0;
     }

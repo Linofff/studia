@@ -38,6 +38,7 @@ void CopyPixelsFlipped(SDL_Surface *src, SDL_Surface *dst) {
   int pitch = src->pitch;
   int bpp = src->format->BytesPerPixel;
 
+  // ensures the CPU has a direct, safe pointer to the pixel data
   SDL_LockSurface(src);
   SDL_LockSurface(dst);
 
@@ -89,9 +90,7 @@ void LoadSingleFrame(const char *prefix, int index, SDL_Surface **destRight,
     return;
   }
 
-  if (destLeft) {
-    destLeft[index] = FlipSurfaceHorizontal(destRight[index]);
-  }
+  destLeft[index] = FlipSurfaceHorizontal(destRight[index]);
 }
 
 void LoadAnimationSequence(const char *prefix, int count,
