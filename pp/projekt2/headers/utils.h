@@ -5,7 +5,7 @@
 
 void Cleanup(SDL_Window *window, SDL_Renderer *renderer, SDL_Surface *screen,
              SDL_Texture *scrtex, SDL_Surface *charset, PlayerType *player,
-             EnemyType *enemies);
+             EnemyType *enemies, EnemyAssets *assets);
 int InitializeSDL(SDL_Window **window, SDL_Renderer **renderer);
 SDL_Surface *FlipSurfaceHorizontal(SDL_Surface *source);
 void LoadAnimationSequence(const char *prefix, int count,
